@@ -1,0 +1,292 @@
+<!--
+title: The OmiCairn platform
+description: The OmiCairn platform: the analysis tree of containerized function blocks, how it evolved, and screens from its first version, code name Stoneflow.
+section: none
+breadcrumb: Platform
+-->
+<link rel="stylesheet" href="/assets/css/pages/platform.css">
+<div class="pf" data-pf-lightbox-label="First version">
+<section class="pf-hero" aria-labelledby="pf-title">
+<div class="container">
+<div class="pf-hero__text">
+<p class="kicker">Platform</p>
+<h1 id="pf-title" class="pf-hero__title">The OmiCairn platform</h1>
+<p class="lede">OmiCairn’s first version, code name <strong>Stoneflow</strong>, was a workflow-based web platform for omics analysis, in the spirit of Galaxy or Nextflow. <strong class="pf-loud">It is now Fully Deprecated and Retired, and no longer in production.</strong> Its node-based, flow-style interface has been replaced by OmiCairn’s chat-based interface, which is in production. Users dragged datasets and function blocks onto a canvas, joined them into an analysis tree, ran every node in its own container, and inspected the results in a visualization panel with an AI assistant at hand. The analysis tree of function blocks is still its core. What later versions added is accountability: pre-registered plans, deterministic cross-checks, a claim-review agent and reviewer agents.</p>
+<p class="pf-hero__jump"><a class="button button--small" href="#lineage">How it evolved</a> <a class="button button--small" href="#gallery">See the first version</a></p>
+</div>
+<figure class="pf-window">
+<div class="pf-window__bar" aria-hidden="true"><span class="pf-window__dots"><i></i><i></i><i></i></span><span class="pf-window__title">Analysis panel</span><span class="pf-window__badge">OmiCairn v1 · Stoneflow</span></div>
+<a class="pf-window__shot" href="/assets/img/v1/hero-analysis-tree-interpretation.webp" data-pf-lightbox data-pf-title="The analysis panel, first version" data-pf-caption="Datasets on the left; an analysis tree of function-block nodes in the middle (green: completed, red: failed); on the right, the assistant’s interpretation of the selected clustering node.">
+<img src="/assets/img/v1/hero-analysis-tree-interpretation.webp" srcset="/assets/img/v1/hero-analysis-tree-interpretation-thumb.webp 880w, /assets/img/v1/hero-analysis-tree-interpretation.webp 2000w" sizes="(min-width: 1264px) 1200px, 100vw" width="2000" height="978" fetchpriority="high" alt="Analysis panel of the first version: a list of public datasets on the left; in the center an analysis tree of function-block nodes, most with green Run Completed headers and one red Runtime Error node; on the right an AI interpretation of a Louvain clustering node.">
+</a>
+<figcaption class="pf-window__caption"><strong>The analysis panel, first version.</strong> Datasets on the left; an analysis tree of function-block nodes in the middle (green: completed, red: failed); on the right, the assistant’s interpretation of the selected clustering node. Select the image to enlarge it.</figcaption>
+</figure>
+</div>
+</section>
+
+<section class="section section--alt pf-lineage" id="lineage" aria-labelledby="lineage-h">
+<div class="container">
+<div class="section__head">
+<p class="kicker">Lineage</p>
+<h2 id="lineage-h">Four stages, one unit of work</h2>
+<p class="lede">Each stage kept the analysis tree of containerized function blocks and changed who drives it: a person at a canvas, then agents on one machine, then agents on a hosted platform, then a pipeline that has to justify every claim it makes.</p>
+</div>
+<ol class="pf-timeline">
+<li class="pf-stage pf-stage--v1">
+<div class="pf-stage__marker" aria-hidden="true"><span>1</span></div>
+<div class="pf-stage__card">
+<p class="pf-stage__kind">First version<span class="pf-stage__note">Retired</span></p>
+<h3 class="pf-stage__name">OmiCairn v1 <span class="pf-stage__alias">(code name Stoneflow)</span></h3>
+<p class="pf-stage__text">An interactive web platform for omics analysis. Users built analysis trees of function blocks on a canvas, ran each node in its own container, explored results in a visualization panel and asked an AI assistant for help.</p>
+<ul class="pf-stage__list"><li>Analysis tree of function blocks</li><li>Visualization panel for single-cell and spatial data</li><li>Assistant for parameters, errors and interpretation</li></ul>
+<p class="pf-stage__text"><strong>Fully Deprecated and Retired.</strong> Its node-based flow interface is replaced by OmiCairn’s chat-based interface, now in production.</p>
+<span class="pf-stage__repo pf-stage__repo--none">Source code released in OmiCairn-engineering (stage 3)</span>
+</div>
+</li>
+<li class="pf-stage pf-stage--early">
+<div class="pf-stage__marker" aria-hidden="true"><span>2</span></div>
+<div class="pf-stage__card">
+<p class="pf-stage__kind">Research prototype</p>
+<h3 class="pf-stage__name">OmiCairn-early</h3>
+<p class="pf-stage__text">A local agent. Language-model agents turn a request in plain English into an analysis tree, write each function block, run it in a Docker container, debug it over several turns and review its output.</p>
+<ul class="pf-stage__list"><li>Orchestrator plans the tree</li><li>Multi-turn bug fixing in the container</li><li>Job review with automatic rework</li></ul>
+<a class="pf-stage__repo" href="https://github.com/dummyindex/OmiCairn-early">github.com/dummyindex/OmiCairn-early</a>
+</div>
+</li>
+<li class="pf-stage pf-stage--engineering">
+<div class="pf-stage__marker" aria-hidden="true"><span>3</span></div>
+<div class="pf-stage__card">
+<p class="pf-stage__kind">Engineered web platform</p>
+<h3 class="pf-stage__name">OmiCairn-engineering</h3>
+<p class="pf-stage__text">The multi-user web platform: an analysis-graph editor, data management, a visual panel and an AI assistant, with a backend, a computation worker that dispatches containerized jobs, and a runner for autonomous per-node agents.</p>
+<ul class="pf-stage__list"><li>Web interface, backend and worker</li><li>Jobs on local Docker or cloud batch</li><li>LLM bug fixer and workflow generation</li></ul>
+<a class="pf-stage__repo" href="https://github.com/dummyindex/OmiCairn-engineering">github.com/dummyindex/OmiCairn-engineering</a>
+</div>
+</li>
+<li class="pf-stage pf-stage--pipeline">
+<div class="pf-stage__marker" aria-hidden="true"><span>4</span></div>
+<div class="pf-stage__card">
+<p class="pf-stage__kind">Accountable research pipeline<span class="pf-stage__note">Used for the campaign</span></p>
+<h3 class="pf-stage__name">OmiCairn</h3>
+<p class="pf-stage__text">A question goes in, not a pipeline. Agents scope the question, pre-register the analysis plan and decision rules, execute it, cross-check every reported number against the code that produced it, and review whether the evidence answers the question.</p>
+<ul class="pf-stage__list"><li>Pre-registration and deterministic cross-check</li><li>Claim-review agent and reviewer agents</li><li>Experience replay across runs; experts can steer</li></ul>
+<a class="pf-stage__repo" href="https://github.com/dummyindex/OmiCairn">github.com/dummyindex/OmiCairn</a>
+</div>
+</li>
+</ol>
+
+<div class="pf-unit" aria-labelledby="unit-h">
+<h3 id="unit-h" class="pf-unit__title">The unit that carried over</h3>
+<ol class="pf-unit__flow">
+<li class="pf-unit__step"><span class="pf-unit__name">Function block</span><span class="pf-unit__desc">Code (Python, R or shell), its dependencies and container image, typed arguments, documentation</span></li>
+<li class="pf-unit__arrow" aria-hidden="true"><span>instantiate</span></li>
+<li class="pf-unit__step"><span class="pf-unit__name">Node</span><span class="pf-unit__desc">The block with parameters and configuration, run in its own container, with results and logs</span></li>
+<li class="pf-unit__arrow" aria-hidden="true"><span>compose</span></li>
+<li class="pf-unit__step"><span class="pf-unit__name">Analysis tree</span><span class="pf-unit__desc">Nodes joined by data dependencies; each node can be inspected, rerun or extended</span></li>
+</ol>
+</div>
+
+<div class="pf-compare">
+<div class="pf-compare__col">
+<h3 class="pf-compare__h"><span class="pf-compare__mark pf-compare__mark--kept" aria-hidden="true"></span>First version</h3>
+<ul class="pf-compare__list">
+<li><strong>Analysis trees of function blocks,</strong> each block instantiated as a node.</li>
+<li><strong>Containerized execution,</strong> with code, parameters, logs and outputs kept per node.</li>
+<li><strong>Interactive visualization</strong> of results in a visual panel.</li>
+<li><strong>A person drives:</strong> builds the tree, sets parameters, decides what runs next.</li>
+<li><strong>Assisted debugging</strong> of failed nodes.</li>
+</ul>
+</div>
+<div class="pf-compare__col">
+<h3 class="pf-compare__h"><span class="pf-compare__mark pf-compare__mark--added" aria-hidden="true"></span>Today</h3>
+<ul class="pf-compare__list">
+<li><strong>A question as input;</strong> agents scope it and plan the tree.</li>
+<li><strong>Pre-registration</strong> of hypotheses and decision rules before any analysis runs.</li>
+<li><strong>Deterministic cross-check:</strong> every reported number resolves to executed outputs.</li>
+<li><strong>A claim-review agent and reviewer agents</strong> check the report against the evidence.</li>
+<li><strong>Experience replay</strong> of validated blocks and fixes; experts can still steer.</li>
+</ul>
+</div>
+</div>
+<p class="pf-lineage__more"><a class="link-arrow" href="/how-it-works/">How OmiCairn works today</a></p>
+</div>
+</section>
+
+<section class="section pf-gallery" id="gallery" aria-labelledby="gallery-h">
+<div class="container">
+<div class="section__head">
+<p class="kicker">Gallery</p>
+<h2 id="gallery-h">The first version, screen by screen</h2>
+<p class="lede">Fifteen screenshots and three short clips from the first version’s user guide, grouped by task.</p>
+</div>
+<div class="pf-retired" role="note" aria-labelledby="pf-retired-h">
+<span class="pf-retired__badge">Retired</span>
+<p class="pf-retired__title" id="pf-retired-h">OmiCairn v1 (Stoneflow) is <strong class="pf-loud">Fully Deprecated and Retired</strong>. Its source code is released in <span style="white-space:nowrap">OmiCairn-engineering</span>.</p>
+<p class="pf-retired__text">The node-based, flow-style interface shown in this gallery is no longer in production. It has been replaced by OmiCairn’s chat-based interface, which is in production. The retired platform’s source code is public for transparency.</p>
+<a class="button button--small pf-retired__link" href="https://github.com/dummyindex/OmiCairn-engineering">Source code: OmiCairn-engineering ↗</a>
+</div>
+<p class="pf-gallery__hint">Select a screenshot to enlarge it; clips play muted while in view, unless reduced motion is on.</p>
+<nav class="pf-jump" aria-label="Gallery sections">
+<a href="#build"><span>01</span> Build the analysis tree</a>
+<a href="#inspect"><span>02</span> Inspect results visually</a>
+<a href="#assistant"><span>03</span> Work with the assistant</a>
+<a href="#data"><span>04</span> Manage data</a>
+</nav>
+<section class="pf-group" id="build" aria-labelledby="build-h">
+<header class="pf-group__head">
+<p class="pf-group__num" aria-hidden="true">01</p>
+<div><h3 id="build-h" class="pf-group__title">Build the analysis tree</h3><p class="pf-group__intro">Datasets and function blocks are dragged onto a canvas and wired together. Each connected block becomes a node that runs on its own, and the whole graph is the analysis tree.</p></div>
+</header>
+<div class="pf-grid">
+<figure class="shot shot--feature">
+<a class="shot__link" href="/assets/img/v1/large-analysis-tree.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/large-analysis-tree-thumb.webp" width="880" height="436" loading="lazy" decoding="async" alt="Zoomed-out analysis canvas with many rows of small green node cards, some with chart thumbnails, and a toolbar reading Manual Analysis 214, Failed 9, Success 195."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">A large analysis tree</span><span class="shot__text">One analysis task with 214 nodes, zoomed out to 24%. Green headers are completed nodes; plotting nodes show their charts inline. The toolbar counts running, failed, successful and pending nodes.</span></figcaption>
+</figure>
+<figure class="shot ">
+<a class="shot__link" href="/assets/img/v1/node-anatomy.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/node-anatomy-thumb.webp" width="880" height="468" loading="lazy" decoding="async" alt="Annotated screenshot: a blue data node connected to a row of green analysis nodes, with labels for Data Node, Analysis Node, Pipeline, Run Tree, Run Node and Modify Parameter, and a histogram opened from one node."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">Anatomy of the canvas</span><span class="shot__text">A data node feeds analysis nodes, each an instance of a function block. The user guide marks the controls: run the whole tree, run one node, modify parameters, and open a node’s chart in the visualization panel.</span></figcaption>
+</figure>
+<figure class="shot ">
+<a class="shot__link" href="/assets/img/v1/function-block-code.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/function-block-code-thumb.webp" width="880" height="458" loading="lazy" decoding="async" alt="Node Code dialog with a dark code editor showing a Python class with compute and prehandle methods, a JSON parameter configuration below, and an empty requirements panel."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">Inside a function block</span><span class="shot__text">Every node exposes its code: a Python implementation, a static configuration that declares typed, documented parameters, and its requirements. This block contract carried over into OmiCairn.</span></figcaption>
+</figure>
+<figure class="shot ">
+<a class="shot__link" href="/assets/img/v1/branching-closeup.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/branching-closeup-thumb.webp" width="880" height="640" loading="lazy" decoding="async" alt="Close-up of the canvas at 105% zoom: a blue zebrafish data node connected by dashed lines to green Run Completed nodes (sc_filter_genes) and red Runtime Error nodes (dotplot, pathways)."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">Branches and failures, up close</span><span class="shot__text">One dataset feeds several branches. Completed nodes stay green; failed ones turn red and wait for a fix, while the rest of the tree keeps its results.</span></figcaption>
+</figure>
+<figure class="shot shot--strip">
+<a class="shot__link" href="/assets/img/v1/node-states.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/node-states-thumb.webp" width="880" height="135" loading="lazy" decoding="async" alt="Four node cards side by side with headers Ready to run (white), Running (grey), Run complete (green) and Runtime error (red)."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">Four node states</span><span class="shot__text">The color of a node’s header is its state: ready to run, running, run complete, or runtime error.</span></figcaption>
+</figure>
+<figure class="shot shot--video">
+<span class="shot__frame"><video class="shot__video" width="1024" height="506" controls muted loop playsinline preload="none" poster="/assets/img/v1/video-assemble-pipeline-poster.webp" aria-label="Screen recording: dragging a dataset and a function block onto the canvas and connecting them" data-pf-autoplay>
+<source src="/assets/img/v1/video-assemble-pipeline.mp4" type="video/mp4">
+<a href="/assets/img/v1/video-assemble-pipeline.mp4">Download the clip (MP4)</a>
+</video><span class="shot__tag" aria-hidden="true">First version</span></span>
+<figcaption><span class="shot__title">Assembling a pipeline<span class="shot__lang shot__lang--clip">Screen recording</span></span><span class="shot__text">A public dataset and a preprocessing block are dragged onto the canvas and connected. 15-second clip.</span></figcaption>
+</figure>
+</div>
+</section>
+<section class="pf-group" id="inspect" aria-labelledby="inspect-h">
+<header class="pf-group__head">
+<p class="pf-group__num" aria-hidden="true">02</p>
+<div><h3 id="inspect-h" class="pf-group__title">Inspect results visually</h3><p class="pf-group__intro">Any completed node opens in a visualization panel built for single-cell and spatial data: embeddings, cell metadata, gene lists, cell sets and annotations.</p></div>
+</header>
+<div class="pf-grid">
+<figure class="shot shot--feature">
+<a class="shot__link" href="/assets/img/v1/viz-panel-overview.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/viz-panel-overview-thumb.webp" width="880" height="426" loading="lazy" decoding="async" alt="Visualization panel with a list of observations on the left, a UMAP scatter plot colored by six samples in the center, and cell-set controls on the right."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">The visualization panel</span><span class="shot__text">Cell metadata on the left, the embedding in the middle, cell sets and annotations on the right. Here a UMAP is colored by sample.</span></figcaption>
+</figure>
+<figure class="shot ">
+<a class="shot__link" href="/assets/img/v1/viz-umap-endocrinogenesis.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/viz-umap-endocrinogenesis-thumb.webp" width="880" height="425" loading="lazy" decoding="async" alt="UMAP scatter plot with a curved trajectory of cells colored by eight pancreatic cell types, with the panel controls around it."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">Cell types on a UMAP</span><span class="shot__text">Pancreatic endocrinogenesis data colored by cell type: ductal, Ngn3-low and Ngn3-high endocrine progenitors, pre-endocrine, alpha, beta, delta and epsilon cells.</span></figcaption>
+</figure>
+<figure class="shot ">
+<a class="shot__link" href="/assets/img/v1/viz-velocity-preview.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/viz-velocity-preview-thumb.webp" width="880" height="714" loading="lazy" decoding="async" alt="Analysis canvas with two completed nodes on the left and, on the right, a visualization preview of an embedding overlaid with velocity streamlines."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">Preview beside the tree</span><span class="shot__text">Selecting a completed node previews its chart next to the canvas; here a streamline plot from an RNA-velocity block.</span></figcaption>
+</figure>
+<figure class="shot ">
+<a class="shot__link" href="/assets/img/v1/viz-3d-embedding.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/viz-3d-embedding-thumb.webp" width="880" height="450" loading="lazy" decoding="async" alt="Three-dimensional scatter plot of cells in purple, teal and orange with a dimension menu offering pca and umap."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">Three dimensions</span><span class="shot__text">The same data in three dimensions, with the basis (PCA or UMAP) chosen from a menu.</span></figcaption>
+</figure>
+<figure class="shot ">
+<a class="shot__link" href="/assets/img/v1/viz-manual-annotation.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/viz-manual-annotation-thumb.webp" width="880" height="385" loading="lazy" decoding="async" alt="UMAP colored by many clusters, with a Save button highlighted in the cell-set panel on the right."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">Manual annotation</span><span class="shot__text">Cells are lasso-selected on the embedding and saved as a cell set or a new cell-type annotation.</span></figcaption>
+</figure>
+<figure class="shot shot--video">
+<span class="shot__frame"><video class="shot__video" width="1024" height="506" controls muted loop playsinline preload="none" poster="/assets/img/v1/video-viz-coloring-poster.webp" aria-label="Screen recording: coloring cells by cell type and condition on a PCA plot" data-pf-autoplay>
+<source src="/assets/img/v1/video-viz-coloring.mp4" type="video/mp4">
+<a href="/assets/img/v1/video-viz-coloring.mp4">Download the clip (MP4)</a>
+</video><span class="shot__tag" aria-hidden="true">First version</span></span>
+<figcaption><span class="shot__title">Coloring and highlighting cells<span class="shot__lang shot__lang--clip">Screen recording</span></span><span class="shot__text">Cells are colored by cell type, the palette is changed, and single cell types are highlighted on a PCA embedding. 25-second clip.</span></figcaption>
+</figure>
+</div>
+</section>
+<section class="pf-group" id="assistant" aria-labelledby="assistant-h">
+<header class="pf-group__head">
+<p class="pf-group__num" aria-hidden="true">03</p>
+<div><h3 id="assistant-h" class="pf-group__title">Work with the assistant</h3><p class="pf-group__intro">A language-model assistant sat beside the canvas. It explained results, diagnosed failed nodes, and filled in parameters. The user decided what to run.</p></div>
+</header>
+<div class="pf-grid">
+<figure class="shot shot--video">
+<span class="shot__frame"><video class="shot__video" width="1024" height="506" controls muted loop playsinline preload="none" poster="/assets/img/v1/video-assistant-interpretation-poster.webp" aria-label="Screen recording: generating an AI interpretation for a completed PCA node" data-pf-autoplay>
+<source src="/assets/img/v1/video-assistant-interpretation.mp4" type="video/mp4">
+<a href="/assets/img/v1/video-assistant-interpretation.mp4">Download the clip (MP4)</a>
+</video><span class="shot__tag" aria-hidden="true">First version</span></span>
+<figcaption><span class="shot__title">Interpreting a node<span class="shot__lang shot__lang--clip">Screen recording</span></span><span class="shot__text">After a PCA node completes, the assistant explains what the block did, what its output contains and what could come next, using the pipeline as context. 26-second clip.</span></figcaption>
+</figure>
+<figure class="shot ">
+<a class="shot__link" href="/assets/img/v1/assistant-error-diagnosis.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/assistant-error-diagnosis-thumb.webp" width="880" height="430" loading="lazy" decoding="async" alt="Analysis canvas with a red Runtime Error node, and a right-hand panel with an error message explaining a missing cell_type column followed by numbered solution steps."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">Diagnosing a failed node</span><span class="shot__text">A failed node (red) opens an explanation and step-by-step fixes above the raw traceback. Here a marker-gene step failed because the grouping column it asked for did not exist.</span></figcaption>
+</figure>
+<figure class="shot ">
+<a class="shot__link" href="/assets/img/v1/assistant-ai-parameter-fill.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/assistant-ai-parameter-fill-thumb.webp" width="880" height="436" loading="lazy" decoding="async" alt="Update Parameter dialog next to a panel titled Replaced parameters by AI listing previous and new values, with a chat window below."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">AI-filled parameters</span><span class="shot__text">The AI Parameter function fills a node’s parameters from the data, the pipeline and the node, and lists every value it replaced so the user can check it.</span></figcaption>
+</figure>
+</div>
+</section>
+<section class="pf-group" id="data" aria-labelledby="data-h">
+<header class="pf-group__head">
+<p class="pf-group__num" aria-hidden="true">04</p>
+<div><h3 id="data-h" class="pf-group__title">Manage data</h3><p class="pf-group__intro">Public datasets could be imported in a click; users’ own data came in as AnnData, 10x outputs, component matrices or Space Ranger folders.</p></div>
+</header>
+<div class="pf-grid">
+<figure class="shot ">
+<a class="shot__link" href="/assets/img/v1/data-import-public.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/data-import-public-thumb.webp" width="880" height="565" loading="lazy" decoding="async" alt="Import from Third Party table listing datasets such as Visium spatial and brain non-myeloid cells, with cell counts, cell-type tags, disease, organism and Import buttons."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">Import public datasets</span><span class="shot__text">Third-party public single-cell and spatial datasets, listed with cell count, cell types, disease and organism, imported into the user’s data list with one button.</span></figcaption>
+</figure>
+<figure class="shot ">
+<a class="shot__link" href="/assets/img/v1/data-upload-formats.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/data-upload-formats-thumb.webp" width="880" height="611" loading="lazy" decoding="async" alt="Upload Data dialog with a list of data types (anndata, assemble, fastq, 10x outs) and a form for species and description."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">Upload your own data</span><span class="shot__text">The upload dialog offers AnnData, AnnData assembled from its component matrices, FASTQ and 10x outputs; Space Ranger counts are a further option.</span></figcaption>
+</figure>
+<figure class="shot ">
+<a class="shot__link" href="/assets/img/v1/data-upload-spaceranger.webp" data-pf-lightbox>
+<span class="shot__frame"><img src="/assets/img/v1/data-upload-spaceranger-thumb.webp" width="880" height="516" loading="lazy" decoding="async" alt="Upload dialog for spaceranger_count with a drop area and a file tree listing required Space Ranger files such as filtered_feature_bc_matrix and spatial images."><span class="shot__tag" aria-hidden="true">First version</span></span>
+</a>
+<figcaption><span class="shot__title">Spatial data upload</span><span class="shot__text">A Space Ranger output folder is uploaded against a checklist of required files, including the tissue images and scale factors.</span></figcaption>
+</figure>
+</div>
+</section>
+</div>
+</section>
+
+<section class="section section--alt pf-next" aria-labelledby="next-h">
+<div class="container">
+<h2 id="next-h" class="pf-next__title">Where this led</h2>
+<div class="pf-next__grid">
+<a class="pf-next__card" href="/campaign/"><span class="pf-next__k">Campaign</span><span class="pf-next__t">57 runs, 136 hypotheses evaluated, every result published</span></a>
+<a class="pf-next__card" href="/how-it-works/"><span class="pf-next__k">How it works</span><span class="pf-next__t">The analysis tree inside OmiCairn’s checked, multi-agent pipeline</span></a>
+<a class="pf-next__card" href="/about/"><span class="pf-next__k">About</span><span class="pf-next__t">Code repositories, licenses and citation</span></a>
+</div>
+</div>
+</section>
+</div>
+<script src="/assets/js/pages/platform.js" defer></script>

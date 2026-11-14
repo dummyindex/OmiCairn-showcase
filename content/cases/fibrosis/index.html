@@ -1,0 +1,451 @@
+<!--
+title: Case 2 · Cross-organ fibrosis: a fuzzy and a comprehensive prompt
+description: The same fibrosis question asked twice, once as one sentence and once as a detailed expert prompt. Both found conserved fibroblast matrix programs; they disagreed on the macrophage program and the three-cell niche. 8 of 32 distinct findings were shared.
+section: cases
+breadcrumb: Cases=/cases/ > Case 2 · Fibrosis
+layout: wide
+stylesheet: /assets/css/pages/cases.css, /assets/css/pages/cases-fibrosis.css
+-->
+<!--
+Sources for every number and claim on this page:
+  [MS]   OmiCairn manuscript, Results "Case 2" (sections/body.tex, Case 2 subsection) and Figure 6 (fig6.pdf) with its caption.
+  [FIG6A..D] Figure 6 panels A-D of the OmiCairn manuscript.
+  [PROMPT] OmiCairn manuscript supplementary materials, case 2: "Case 2 prompt" (fuzzy and comprehensive prompt text, verbatim).
+  [CMP]  OmiCairn manuscript supplementary materials, case 2: side-by-side comparison of the two final reports
+         (sections 2.x shared findings, 3.x comprehensive-only, 4.x fuzzy-only, 5.x contradictions, 6.1 counts).
+  Editorial rule (showcase brief): the prompts DISAGREED on the SPP1+/TREM2+ macrophage program and on the three-cell niche;
+  never "converged on" or "preserved". Figure 6 panel D is restated in HTML, not embedded (its skin row has a label typo,
+  "macrophage and macrophage"; [CMP] 3.8 and 5.2 give the pair as fibroblast and macrophage).
+-->
+<div class="container fib">
+
+<header class="page-head fib-hero">
+  <p class="kicker">Case 2 · Cross-organ fibrosis</p>
+  <h1>One question, two prompts: where the answers agreed, and where they did not</h1>
+  <p class="lede">We asked OmiCairn the same fibrosis question twice: once as a single sentence, once as a detailed expert prompt. Both runs found conserved fibroblast matrix programs. They disagreed on the macrophage program and on the three-cell niche. The stricter, expert-specified criteria overturned the looser claim.</p>
+
+  <!-- [FIG6C] fuzzy 17, comprehensive 23, 8 shared = 25% of 32 distinct; [FIG6A]/[MS] scale -->
+  <div class="fib-verdict" role="group" aria-label="Summary of the comparison">
+    <div class="fib-verdict__col fib-verdict__col--agree">
+      <p class="fib-verdict__h"><span class="fib-mark fib-mark--agree" aria-hidden="true">=</span> Agreed</p>
+      <ul>
+        <li>Fibroblast ECM and matrix programs rise in fibrosis across organs.</li>
+        <li>An <i>SPP1</i>+/<i>TREM2</i>+ macrophage state is present in several organs.</li>
+      </ul>
+    </div>
+    <div class="fib-verdict__col fib-verdict__col--disagree">
+      <p class="fib-verdict__h"><span class="fib-mark fib-mark--disagree" aria-hidden="true">&ne;</span> Disagreed</p>
+      <ul>
+        <li>Whether that macrophage program is conserved across organs.</li>
+        <li>Whether a conserved three-cell niche co-localizes across organs.</li>
+        <li>Whether there is one universal fibrosis program.</li>
+      </ul>
+    </div>
+    <div class="fib-verdict__stat">
+      <p class="fib-verdict__value"><span class="tabular">8</span> <span class="fib-verdict__of">of 32</span></p>
+      <p class="fib-verdict__label">distinct findings shared (25%)</p>
+    </div>
+  </div>
+
+  <nav class="fib-jump" aria-label="On this page">
+    <ul class="jump">
+      <li><a href="#prompts">The two prompts</a></li>
+      <li><a href="#runs">What each run did</a></li>
+      <li><a href="#agreement">Agreed and disagreed</a></li>
+      <li><a href="#overlap">Overlap</a></li>
+      <li><a href="#lesson">The lesson</a></li>
+      <li><a href="#limits">Limits</a></li>
+      <li><a href="#figure">Figure 6</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ============================================================ PROMPTS -->
+<section class="section--tight fib-section" id="prompts" aria-labelledby="prompts-h">
+  <div class="section__head">
+    <p class="case-head__num"><span>1</span> Input</p>
+    <h2 id="prompts-h">The two prompts</h2>
+    <p>The research direction was the same. What changed was how much the user specified up front.</p>
+  </div>
+  <div class="fib-pair">
+    <article class="fib-prompt fib-prompt--fz" aria-labelledby="pf-h">
+      <p class="fib-prompt__tag">Fuzzy prompt</p>
+      <h3 id="pf-h" class="visually-hidden">Fuzzy prompt</h3>
+      <!-- [PROMPT] verbatim -->
+      <blockquote class="fib-prompt__quote">
+        <p>“What are the conserved cellular programs or universal fibrotic niche underlying fibrosis across human organs?”</p>
+      </blockquote>
+      <!-- [FIG6A] input specificity, fuzzy -->
+      <ul class="fib-prompt__list">
+        <li>One broad question</li>
+        <li>No predefined hypotheses</li>
+        <li>Open dataset selection</li>
+      </ul>
+      <p class="fib-prompt__who">The kind of question an exploratory or wet-lab user might start with.</p>
+    </article>
+
+    <article class="fib-prompt fib-prompt--cp" aria-labelledby="pc-h">
+      <p class="fib-prompt__tag">Comprehensive prompt</p>
+      <h3 id="pc-h" class="visually-hidden">Comprehensive prompt</h3>
+      <!-- [PROMPT] research goal, verbatim -->
+      <blockquote class="fib-prompt__quote">
+        <p>“Research goal: Identify conserved cellular programs and recurrent multicellular fibrotic niches underlying fibrosis across human organs.”</p>
+      </blockquote>
+      <!-- [PROMPT] summarized; [FIG6A] input specificity, comprehensive; H1-H5 from [CMP] 1 -->
+      <ul class="fib-prompt__list">
+        <li>Competing hypotheses required (the run tested five, H1–H5)</li>
+        <li>Cross-organ design: lung, liver, kidney, heart and skin when available</li>
+        <li>Spatial validation of niches wherever spatial data exist</li>
+        <li>Nine required tasks, a list of expected outputs, and explicit constraints</li>
+      </ul>
+      <p class="fib-prompt__who">The kind of prompt a computational expert might write.</p>
+      <details class="disclosure fib-prompt__full">
+        <summary>Read the full comprehensive prompt</summary>
+        <div class="disclosure__body">
+          <!-- [PROMPT] verbatim -->
+          <p>Research goal: Identify conserved cellular programs and recurrent multicellular fibrotic niches underlying fibrosis across human organs.</p>
+          <p>You are asked to act as an omics co-scientist. Starting from this research goal, generate a hypothesis-driven discovery workflow to determine whether human fibrotic diseases across different organs share conserved cellular states, signaling circuits, and niche architectures.</p>
+          <p><strong>Datasets and scope:</strong> Analyze available human single-cell or single-nucleus RNA-seq datasets from fibrotic and matched non-fibrotic tissues across multiple organs, prioritizing lung, liver, kidney, heart, and skin when available. If spatial transcriptomics data are available for any organ, use them to validate whether the inferred multicellular programs form spatially organized fibrotic niches.</p>
+          <p><strong>Required tasks:</strong></p>
+          <ol>
+            <li>Generate a set of competing biological hypotheses about conserved and organ-specific fibrotic programs.</li>
+            <li>Harmonize cell-type annotations across organs and define comparable major cell classes, including fibroblasts, macrophages, endothelial cells, epithelial or parenchymal cells, T cells, and other immune or stromal populations.</li>
+            <li>Identify disease-enriched fibroblast states and determine whether activated matrix-producing fibroblast programs are conserved across organs.</li>
+            <li>Identify immune and vascular programs that recurrently co-occur with fibrotic fibroblast states, with particular attention to macrophage, endothelial, hypoxia, inflammatory, and extracellular-matrix remodeling programs.</li>
+            <li>Distinguish conserved fibrotic core programs from organ-specific injury programs.</li>
+            <li>Perform pathway/module scoring, differential abundance or differential expression analysis, ligand–receptor analysis, and cross-organ conservation analysis.</li>
+            <li>Where spatial data are available, test whether conserved cell states co-localize into recurrent fibrotic niches.</li>
+            <li>Prioritize candidate pan-fibrotic and organ-specific targets based on cross-organ conservation, cell-type specificity, ligand–receptor evidence, druggability, and translational relevance.</li>
+            <li>Generate a final evidence-linked report with figures, ranked hypotheses, supporting and contradictory evidence, limitations, and proposed experimental validation strategies.</li>
+          </ol>
+          <p><strong>Expected outputs:</strong> a dependency-aware analysis tree showing each analytical step; a ranked list of conserved fibrotic hypotheses; a conserved versus organ-specific program matrix; cell-type and pathway-level figures; ligand–receptor or niche interaction networks; a candidate target prioritization table; a final discovery report written for biomedical researchers; all code, parameters, intermediate files, execution logs, and review results for reproducibility.</p>
+          <p><strong>Important constraints:</strong> Do not assume that a program is universal unless it is supported across multiple organs and datasets. Clearly separate conserved, recurrent, organ-specific, and weakly supported findings. Report uncertainty and recommend follow-up validation experiments.</p>
+        </div>
+      </details>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================ RUNS -->
+<section class="section--tight fib-section" id="runs" aria-labelledby="runs-h">
+  <div class="section__head">
+    <p class="case-head__num"><span>2</span> Execution</p>
+    <h2 id="runs-h">What each run did</h2>
+    <p>From one sentence, OmiCairn still built a full workflow. With the expert prompt, it covered more organs, roughly three and a half times as many cells, and spatial data.</p>
+    <!-- "roughly three and a half times": derived, 2M / ~575k = 3.48 [MS] -->
+  </div>
+
+  <!-- Scale comparison. [MS] + [FIG6A]: fuzzy 3 organs, ~575k cells; comprehensive 5 organs, 2M cells, 44k spatial spots.
+       Fuzzy spatial: "No spatial data analyzed" [FIG6D]. Bar widths: share of the larger value (3/5 = 60%; 575/2000 = 28.75%). -->
+  <div class="fib-scale" role="group" aria-label="Executed data scale of the two runs">
+    <div class="fib-scale__key" aria-hidden="true">
+      <span class="fib-key fib-key--fz">Fuzzy</span>
+      <span class="fib-key fib-key--cp">Comprehensive</span>
+    </div>
+    <dl class="fib-scale__rows">
+      <div class="fib-scale__row">
+        <dt>Organs</dt>
+        <dd>
+          <span class="fib-bar fib-bar--fz" style="--w:60%"><span class="visually-hidden">Fuzzy: </span>3</span>
+          <span class="fib-bar fib-bar--cp" style="--w:100%"><span class="visually-hidden">Comprehensive: </span>5</span>
+        </dd>
+      </div>
+      <div class="fib-scale__row">
+        <dt>Cells</dt>
+        <dd>
+          <span class="fib-bar fib-bar--fz" style="--w:28.75%"><span class="visually-hidden">Fuzzy: </span>~575k</span>
+          <span class="fib-bar fib-bar--cp" style="--w:100%"><span class="visually-hidden">Comprehensive: </span>2M</span>
+        </dd>
+      </div>
+      <div class="fib-scale__row">
+        <dt>Spatial spots</dt>
+        <dd>
+          <span class="fib-bar fib-bar--fz fib-bar--none" style="--w:0%"><span class="visually-hidden">Fuzzy: </span>none analyzed</span>
+          <span class="fib-bar fib-bar--cp" style="--w:100%"><span class="visually-hidden">Comprehensive: </span>44k</span>
+        </dd>
+      </div>
+    </dl>
+  </div>
+
+  <div class="fib-pair">
+    <article class="fib-run fib-run--fz" aria-labelledby="rf-h">
+      <h3 id="rf-h" class="fib-run__h">Fuzzy prompt</h3>
+      <dl class="deflist">
+        <!-- organs named in [CMP] 1; scale [MS]; 33 references [MS]; method details [CMP] 1, 4.2, 4.4 -->
+        <div><dt>Organs</dt><dd>Lung, liver, kidney</dd></div>
+        <div><dt>Data</dt><dd>~575k cells; no spatial data analyzed</dd></div>
+        <div><dt>How</dt><dd>Literature synthesis from 33 references, then frozen, literature-derived gene signatures scored identically in each organ. Iterative self-correction: kidney took three dataset versions to separate an annotation artifact from biology.</dd></div>
+        <div><dt>Key metric</dt><dd>Per-donor coupling: does a donor’s pathogenic-fibroblast fraction rise with their profibrotic-macrophage fraction?</dd></div>
+      </dl>
+      <p class="fib-run__headline"><span class="fib-run__label">Headline claim</span> A single conserved fibroblast–macrophage niche across organs.</p>
+      <!-- [CMP] 5.3 Report 2 verdict; [FIG6A] "Conserved niche inferred; lower mechanistic resolution" -->
+    </article>
+
+    <article class="fib-run fib-run--cp" aria-labelledby="rc-h">
+      <h3 id="rc-h" class="fib-run__h">Comprehensive prompt</h3>
+      <dl class="deflist">
+        <!-- organs [CMP] 1; scale [MS]; methods [CMP] 1, 3.4, 3.5 -->
+        <div><dt>Organs</dt><dd>Lung, liver, kidney, heart, skin</dd></div>
+        <div><dt>Data</dt><dd>2M cells; 44k spatial spots</dd></div>
+        <div><dt>How</dt><dd>Five competing hypotheses. Programs discovered from the data, per-donor pseudobulk differential expression, random-effects meta-analysis across organs, ligand–receptor inference, spatial neighborhood tests.</dd></div>
+        <div><dt>Key criteria</dt><dd>“Conserved” required consistent direction across organs, low heterogeneity (I²) and, for niches, spatial co-localization. Findings were tiered as conserved, recurrent, organ-specific or weak.</dd></div>
+      </dl>
+      <p class="fib-run__headline"><span class="fib-run__label">Headline claim</span> No single universal program: a conserved ECM core overlaid with organ-specific programs.</p>
+      <!-- [CMP] 5.3 Report 1 verdict; [FIG6A] "Evidence-ranked programs; organ-specific context retained" -->
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================ AGREEMENT (heart of the page) -->
+<section class="section fib-section fib-agree" id="agreement" aria-labelledby="agreement-h">
+  <div class="section__head">
+    <p class="case-head__num"><span>3</span> Results</p>
+    <h2 id="agreement-h">What agreed, and what did not</h2>
+    <p>Overlap was defined as the same cell type, the same biological program and the same direction of change. The disagreements below are the two questions in Figure 6D, plus the headline claim each run made.</p>
+    <!-- overlap definition: [MS] -->
+  </div>
+
+  <div class="table-wrap fib-table-wrap" tabindex="0" role="region" aria-label="Agreement and disagreement between the two prompts">
+    <table class="data-table fib-table">
+      <caption>Restated from Figure 6B–D and the supplementary side-by-side comparison of the two final reports. “Strength” is the comprehensive run’s evidence score on a 0–3 scale.</caption>
+      <thead>
+        <tr>
+          <th scope="col">Question</th>
+          <th scope="col"><span class="fib-key fib-key--fz">Fuzzy prompt</span></th>
+          <th scope="col"><span class="fib-key fib-key--cp">Comprehensive prompt</span></th>
+          <th scope="col">Result</th>
+        </tr>
+      </thead>
+      <tbody class="fib-group fib-group--agree">
+        <tr class="fib-group__head"><th scope="rowgroup" colspan="4"><span class="fib-mark fib-mark--agree" aria-hidden="true">=</span> Agreed</th></tr>
+        <tr>
+          <!-- [CMP] 2.1; [FIG6B] rows 1-2: Conservation High, Priority High -->
+          <th scope="row">Do fibroblast ECM and matrix programs rise in fibrosis across organs?</th>
+          <td data-label="Fuzzy prompt">Yes. <i>CTHRC1</i>, <i>POSTN</i>, <i>COL1A1</i>, <i>COL3A1</i>, <i>FN1</i> up in fibrotic fibroblasts in lung, liver and kidney.</td>
+          <td data-label="Comprehensive prompt">Yes. Collagens, <i>POSTN</i> and <i>THBS2</i> up in the same direction across organs. Fibroblast ECM core and a <i>COL3A1</i>/<i>SULF1</i>/<i>THBS2</i>/<i>COL8A1</i> module graded high conservation.</td>
+          <td data-label="Result"><span class="fib-result fib-result--agree">Agreed</span><span class="fib-result__note">The most reproducible finding. Magnitude varied a lot between organs.</span></td>
+        </tr>
+        <tr>
+          <!-- [CMP] 2.2; [FIG6B] row 5: Recurrent / heterogeneous; spatial Weak / contradictory -->
+          <th scope="row">Is an <i>SPP1</i>+/<i>TREM2</i>+ macrophage state present in several organs?</th>
+          <td data-label="Fuzzy prompt">Yes, as distinct populations in lung, liver and kidney.</td>
+          <td data-label="Comprehensive prompt">Yes, in lung, kidney and heart. Graded recurrent / heterogeneous, with weak or contradictory spatial support.</td>
+          <td data-label="Result"><span class="fib-result fib-result--agree">Agreed</span><span class="fib-result__note">On existence only. Not on what it means (next row).</span></td>
+        </tr>
+      </tbody>
+      <tbody class="fib-group fib-group--disagree">
+        <tr class="fib-group__head"><th scope="rowgroup" colspan="4"><span class="fib-mark fib-mark--disagree" aria-hidden="true">&ne;</span> Disagreed</th></tr>
+        <tr>
+          <!-- [FIG6D] question 1, verbatim numbers; [CMP] 5.1 -->
+          <th scope="row">Is the <i>SPP1</i>+/<i>TREM2</i>+ macrophage program conserved across organs?</th>
+          <td data-label="Fuzzy prompt">
+            <p class="fib-verdict-cell">Conserved</p>
+            <p>Per-donor coupling r≈0.49 in lung and kidney.</p>
+            <p class="fib-gap"><span>Missing:</span> liver coupling underpowered (7 donors); kidney case–control difference flat on single-nucleus data.</p>
+          </td>
+          <td data-label="Comprehensive prompt">
+            <p class="fib-verdict-cell">Not conserved</p>
+            <p>H4 not supported (strength 0.7/3).</p>
+            <p class="fib-gap"><span>Against:</span> <i>SPP1</i> down in heart fibrosis (log2 fold change −0.41); cross-organ heterogeneity I² = 84.2%; compositional expansion credible in lung only.</p>
+          </td>
+          <td data-label="Result"><span class="fib-result fib-result--disagree">Disagreed</span><span class="fib-result__note">The fuzzy run had no heart data, where the signal goes the other way.</span></td>
+        </tr>
+        <tr>
+          <!-- [FIG6D] question 2; skin pair named per [CMP] 3.8 / 5.2 (Figure 6D label has a typo) -->
+          <th scope="row">Does a conserved three-cell niche co-localize across organs?</th>
+          <td data-label="Fuzzy prompt">
+            <p class="fib-verdict-cell">Implied</p>
+            <p>Co-localization inferred from coupling data; not tested spatially.</p>
+            <p class="fib-gap"><span>Missing:</span> no spatial data analyzed.</p>
+          </td>
+          <td data-label="Comprehensive prompt">
+            <p class="fib-verdict-cell">Not supported</p>
+            <p>H3 not supported (strength 0.6/3).</p>
+            <p class="fib-gap"><span>Against:</span> in lung, fibroblasts and <i>SPP1</i>+ macrophages are segregated (z = −7.69). In skin, fibroblasts and macrophages co-locate (z = +2.45): the opposite pattern.</p>
+          </td>
+          <td data-label="Result"><span class="fib-result fib-result--disagree">Disagreed</span><span class="fib-result__note">Co-varying cell fractions are not the same as sharing a tissue neighborhood.</span></td>
+        </tr>
+        <tr>
+          <!-- [CMP] 5.3 -->
+          <th scope="row">Is there one universal fibrosis program?</th>
+          <td data-label="Fuzzy prompt">
+            <p class="fib-verdict-cell">Yes</p>
+            <p>A coordinated <i>CTHRC1</i>+/<i>POSTN</i>+ fibroblast and <i>SPP1</i>+/<i>TREM2</i>+ macrophage niche unit.</p>
+          </td>
+          <td data-label="Comprehensive prompt">
+            <p class="fib-verdict-cell">No</p>
+            <p>A conserved ECM core overlaid with organ-specific programs. <i>CTHRC1</i> was lung-specific; <i>ACTA2</i> was not conserved.</p>
+          </td>
+          <td data-label="Result"><span class="fib-result fib-result--disagree">Disagreed</span><span class="fib-result__note">Opposite headline conclusions from overlapping data.</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fib-why">
+    <h3>Why they disagreed</h3>
+    <!-- [CMP] 5.1-5.3 root causes -->
+    <ul>
+      <li><strong>Organ coverage.</strong> Only the comprehensive run had heart and skin data. In heart, <i>SPP1</i> went down, not up.</li>
+      <li><strong>What was measured.</strong> The fuzzy run’s coupling metric shows that two cell fractions rise together across donors. That is real, but it does not show that a program is conserved, or that the cells sit next to each other.</li>
+      <li><strong>What “conserved” meant.</strong> The expert prompt told OmiCairn not to call a program universal unless multiple organs and datasets supported it. The comprehensive run tested that with meta-analysis and spatial data. The fuzzy run compared organs descriptively.</li>
+    </ul>
+  </div>
+
+  <aside class="callout callout--note fib-wording">
+    <p class="callout__title">How we word this</p>
+    <p>We do not say the two prompts “converged on” the macrophage program. They agreed that the state exists in several organs. They disagreed on whether it is a conserved program, and the stricter analysis did not support it.</p>
+  </aside>
+</section>
+
+<!-- ============================================================ OVERLAP -->
+<section class="section--tight fib-section" id="overlap" aria-labelledby="overlap-h">
+  <div class="section__head">
+    <p class="case-head__num"><span>4</span> Overlap</p>
+    <h2 id="overlap-h">Only a quarter of the findings were shared</h2>
+    <p>The fuzzy run reported 17 findings and the comprehensive run 23. Of 32 distinct findings, 8 were shared (25%), 9 came only from the fuzzy prompt (28%) and 15 only from the comprehensive prompt (47%).</p>
+    <!-- [FIG6C]; [CMP] 6.1 gives the same 8 / 15 / 9 -->
+  </div>
+
+  <!-- Linear restatement of Figure 6C (area-proportional Venn). Column widths are counts out of 32: 9, 8, 15. -->
+  <figure class="fib-overlap" aria-labelledby="overlap-cap">
+    <div class="fib-overlap__chart" aria-hidden="true">
+      <div class="fib-overlap__brace fib-overlap__brace--fz"><span>Fuzzy · 17</span></div>
+      <div class="fib-overlap__seg fib-overlap__seg--fz"><strong>9</strong><span>28%</span></div>
+      <div class="fib-overlap__seg fib-overlap__seg--both"><strong>8</strong><span>25%</span></div>
+      <div class="fib-overlap__seg fib-overlap__seg--cp"><strong>15</strong><span>47%</span></div>
+      <div class="fib-overlap__brace fib-overlap__brace--cp"><span>Comprehensive · 23</span></div>
+    </div>
+    <figcaption id="overlap-cap" class="visually-hidden">Of 32 distinct findings: 9 only from the fuzzy prompt, 8 shared, 15 only from the comprehensive prompt.</figcaption>
+
+    <div class="fib-overlap__lists">
+      <div class="fib-list fib-list--fz">
+        <h3>Only the fuzzy prompt <span class="tabular">(9)</span></h3>
+        <!-- [CMP] 4.1-4.9 (selection); r values and donor counts [CMP] 4.1 -->
+        <ul>
+          <li>Per-donor fibroblast–macrophage coupling: r = 0.494 in lung (54 donors), r = 0.485 in kidney (42 donors)</li>
+          <li>Three kidney dataset versions to separate an annotation artifact from biology</li>
+          <li>Single-nucleus data compress matrix-gene differences; the coupling metric is robust to this</li>
+          <li>Literature synthesis of 33 references</li>
+          <li>Scar-associated <i>TREM2</i>+<i>CD9</i>+ macrophages recovered in liver cirrhosis</li>
+        </ul>
+        <p class="fib-list__more">and 4 more</p>
+      </div>
+      <div class="fib-list fib-list--both">
+        <h3>Shared <span class="tabular">(8)</span></h3>
+        <!-- [CMP] 2.1-2.8, full list -->
+        <ul>
+          <li>Fibroblast ECM genes up across organs</li>
+          <li><i>SPP1</i>+/<i>TREM2</i>+ macrophage state exists in several organs</li>
+          <li>Lung carries the strongest signal</li>
+          <li>Liver is underpowered</li>
+          <li>Kidney data pose annotation and platform problems</li>
+          <li>Organs integrated separately, never in one joint embedding</li>
+          <li>TGF-β1 signaling is involved but not simple</li>
+          <li>Myofibroblast expansion is detectable but nuanced</li>
+        </ul>
+      </div>
+      <div class="fib-list fib-list--cp">
+        <h3>Only the comprehensive prompt <span class="tabular">(15)</span></h3>
+        <!-- [CMP] 3.1-3.15 (selection); APP-LRP1 4/4 organs, lung spatial p = 0.004 [CMP] 3.2; [FIG6B] row 3 -->
+        <ul>
+          <li>Heart and skin data</li>
+          <li><i>APP</i>–<i>LRP1</i> endothelial-to-fibroblast signal in 4 of 4 organs tested, with spatial support in lung (permutation p = 0.004)</li>
+          <li><i>ACTA2</i>, the classic myofibroblast marker, is not conserved across organs</li>
+          <li>A conserved core of <i>SULF1</i>, <i>COL3A1</i>, <i>COL8A1</i>, <i>THBS2</i>, <i>NRP2</i> and <i>SKI</i></li>
+          <li>Conservation weakens step by step from genes to programs to circuits to spatial niches</li>
+        </ul>
+        <p class="fib-list__more">and 10 more</p>
+      </div>
+    </div>
+  </figure>
+</section>
+
+<!-- ============================================================ LESSON -->
+<section class="section fib-section section--alt fib-lesson-band" id="lesson" aria-labelledby="lesson-h">
+  <div class="fib-lesson">
+    <p class="case-head__num"><span>5</span> The lesson</p>
+    <h2 id="lesson-h">Stricter, expert-specified criteria overturned a looser exploratory claim</h2>
+    <p class="fib-lesson__lede">OmiCairn did not need a full protocol to start. But a confident headline from an exploratory prompt is a hypothesis, not a result.</p>
+    <ol class="steps fib-steps">
+      <li>
+        <p class="steps__title">Exploratory prompts are useful for breadth</p>
+        <p>From one sentence, OmiCairn chose datasets, built signatures and corrected itself across three kidney datasets. It recovered the main matrix signal and contributed 9 findings the expert prompt did not.</p>
+      </li>
+      <li>
+        <p class="steps__title">Their headline claims need verification</p>
+        <p>The fuzzy run’s “conserved niche” rested on three organs and no spatial data. With heart, skin and spatial tests added, the macrophage and niche claims were not supported.</p>
+      </li>
+      <li>
+        <p class="steps__title">Experts change the answer, not only the depth</p>
+        <p>The expert prompt defined what “conserved” must mean before any analysis ran. That definition is what turned an implied niche into a tested, and failed, hypothesis.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================================================ LIMITS -->
+<section class="section--tight fib-section" id="limits" aria-labelledby="limits-h">
+  <div class="section__head">
+    <p class="case-head__num"><span>6</span> Limits</p>
+    <h2 id="limits-h">What this case does not show</h2>
+  </div>
+  <ul class="fib-limits">
+    <li><strong>One pair of runs.</strong> This is one question asked two ways, not a benchmark of prompting styles.</li>
+    <!-- [FIG6C] counts; matching rule [MS] -->
+    <li><strong>Counting findings is a judgment.</strong> The 17, 23 and 8 depend on how findings were itemized and matched (same cell type, program and direction).</li>
+    <!-- [CMP] 2.5 kidney spatial object lacked usable coordinates; [CMP] 3.8 lung and skin spatial tests -->
+    <li><strong>Spatial evidence is thin.</strong> The niche test rests on lung and skin, which point in opposite directions. A kidney spatial dataset had no usable coordinates.</li>
+    <!-- [CMP] 3.4 many I² > 70%; [CMP] 2.3 lung best-powered -->
+    <li><strong>Lung dominates.</strong> Lung is the best-powered organ and drives much of the cross-organ signal in both runs. Effect sizes for many genes are highly heterogeneous across organs.</li>
+    <!-- [CMP] 4.1 -->
+    <li><strong>The fuzzy run’s coupling signal may still matter.</strong> Fibroblast and macrophage fractions do rise together across donors in lung and kidney. That may reflect a shared injury response; it is not evidence of a conserved, co-localized niche.</li>
+    <!-- [CMP] 3.14 druggability curated and flagged for verification -->
+    <li><strong>Targets are unverified.</strong> Druggability in the comprehensive run’s target ranking was curated and flagged for verification.</li>
+    <li><strong>No experiments.</strong> Everything here is computational and hypothesis-generating. It has not been validated in the lab.</li>
+  </ul>
+</section>
+
+<!-- ============================================================ FIGURE -->
+<section class="section--tight fib-section" id="figure" aria-labelledby="figure-h">
+  <div class="section__head">
+    <p class="case-head__num"><span>7</span> Figure</p>
+    <h2 id="figure-h">Figure 6 from the OmiCairn manuscript</h2>
+    <p>Panels A to C are shown below. Panel D is not shown as an image; its content is restated in the <a href="#agreement">agreement table</a> above.</p>
+  </div>
+  <div class="fib-figs">
+    <figure class="figure figure--wide fib-fig-ab">
+      <a class="figure__zoom" href="/assets/img/paper/fig6-case2-ab.webp"><img src="/assets/img/paper/fig6-case2-ab.webp" width="1600" height="1262" loading="lazy" decoding="async" alt="Figure 6 panels A and B. Panel A: a shared research question about conserved cellular programs or universal fibrotic niches across human organs, split into a fuzzy prompt (broad question, no predefined hypotheses, open dataset selection; 3 organs, about 575k cells, limited spatial validation; conserved niche inferred, lower mechanistic resolution) and a comprehensive prompt (five predefined hypotheses, cross-organ design, spatial validation required; 5 organs, 2M cells, 44k spatial spots; evidence-ranked programs, organ-specific context retained). Panel B: a table grading five programs by conservation, spatial support, cell specificity, druggability and priority. Fibroblast ECM core, the COL3A1/SULF1/THBS2/COL8A1 matrix module and the APP-LRP1 endothelial-fibroblast circuit are high priority; the NRP2/SULF1/SKI regulatory core is medium-high; the SPP1/TREM2 macrophage program is recurrent or heterogeneous with weak or contradictory spatial support and medium priority."></a>
+      <figcaption><strong>(A)</strong> The two prompting regimes: input specificity, executed data scale and headline interpretation. Green marks the fuzzy prompt, purple the comprehensive prompt; red labels mark intermediate stages of the fuzzy workflow. <strong>(B)</strong> Evidence-graded prioritization of fibrotic programs across human organs; shaded cells mark high conservation or priority and strong spatial support.
+        <span class="figure__note">Panel A says “Limited spatial validation” for the fuzzy prompt; Figure 6D records that no spatial data were analyzed. Panel B lists the <i>SPP1</i>/<i>TREM2</i> macrophage program as recurrent and heterogeneous, not conserved.</span>
+        <span class="figure__credit">Figure from the OmiCairn manuscript (in preparation).</span>
+      </figcaption>
+    </figure>
+    <figure class="figure fib-fig-c">
+      <a class="figure__zoom" href="/assets/img/paper/fig6-case2-c.webp"><img src="/assets/img/paper/fig6-case2-c.webp" width="900" height="900" loading="lazy" decoding="async" alt="Figure 6 panel C: area-proportional Venn diagram of findings. Fuzzy prompt 17 findings, comprehensive prompt 23. 9 fuzzy-only (28%), 8 shared (25%), 15 comprehensive-only (47%), as percentages of 32 distinct findings."></a>
+      <figcaption><strong>(C)</strong> Overlap between the findings of the two prompts (area-proportional; percentages are of the 32 distinct findings).
+        <span class="figure__credit">Figure from the OmiCairn manuscript (in preparation).</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================================================ SOURCES -->
+<section class="section--tight fib-section" id="sources" aria-labelledby="sources-h">
+  <div class="section__head">
+    <p class="case-head__num"><span>8</span> Sources</p>
+    <h2 id="sources-h">Data sources</h2>
+  </div>
+  <dl class="deflist fib-sources">
+    <div><dt>This page</dt><dd>The OmiCairn manuscript (in preparation): Results, Case 2, and Figure 6. The prompt text and the finding-level comparison come from the manuscript’s supplementary materials for Case 2 (the two prompts, and a side-by-side comparison of the two final reports).</dd></div>
+    <!-- [CMP] 1: 10 datasets (6 CELLxGENE + 4 GEO); 7 sc/sn + 3 spatial -->
+    <div><dt>Comprehensive run</dt><dd>10 public datasets: 6 from <a class="link-external" href="https://cellxgene.cziscience.com/">CZ CELLxGENE</a> and 4 from <a class="link-external" href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a>; 7 single-cell or single-nucleus and 3 spatial.</dd></div>
+    <!-- [CMP] 1, 4.2, 4.7 -->
+    <div><dt>Fuzzy run</dt><dd>5 dataset versions across lung, liver and kidney, including the liver cirrhosis atlas <a class="link-external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE136103">GSE136103</a>, a CD10-negative sorted kidney single-cell dataset, and kidney single-nucleus data from the Kidney Precision Medicine Project.</dd></div>
+    <div><dt>Status</dt><dd>Hypothesis-generating; not validated experimentally.</dd></div>
+  </dl>
+  <!--oc:include case-nav current=fibrosis-->
+</section>
+
+</div>

@@ -1,0 +1,94 @@
+{
+ "alzheimer-apoe4-microglia-ldam-r1": {
+  "title": "The DAM-GSME Protocol: A Pre-registered Framework for Genotype-Stratified Microglial State Evaluation Reveals LDAM Elevation in APOE4 Carriers Without DAM2 Suppression (SEA-AD MTG, n=84 donors, 39,976 microglia)",
+  "main_conclusion": "Pre-registered H1 (LDAM up / DAM2 down) not supported: composite shift +0.015, 0/7 markers at FDR<0.05, and DAM2 markers trend up rather than down. H2 (LDAM/DAM2 ratio vs Braak, adjusted for Thal) is underpowered and not supported (beta_tau=+0.031, 95% CI -0.007 to 0.069, p=0.143). An exploratory test not adjusted for Braak stage finds a higher LDAM module score in APOE4 carriers (JT=993, p=0.006, Bonferroni p=0.012, r=0.35), which cannot be attributed to genotype."
+ },
+ "alzheimer-gwas-snatac-celltype-r1": {
+  "title": "Microglial enhancers are the dominant chromatin-accessible compartment for AD GWAS lead variants in a prefrontal cortex snATAC-seq atlas, but full locus coverage requires fine-mapped credible sets",
+  "main_conclusion": "Among 33 testable loci (of 75), microglia dominate 13 (39.4%, binomial p=0.048; delta vs other cell types 0.273, p=0.004), but the pre-registered H1 fails under the full 75-locus denominator (13/75, p~0.87). The permutation guard is not significant (p=0.483). H2 (stage-dependent accessibility) is refuted (delta=-0.008, p=0.881)."
+ },
+ "alzheimer-ligrec-braak-breakdown-r1": {
+  "title": "LIGREC-BRAAK-AUDIT: A standardized ligand–receptor disruption protocol reveals ECM–integrin dominance in Alzheimer's prefrontal cortex with null complement and GWAS signals",
+  "main_conclusion": "The global L-R disruption metric is indistinguishable from the donor-label permutation null (top-10 mean |log2FC| 1.915 vs null 1.913, p=0.494; no pair at FDR<0.05). This is an underpowered null at n=21. H1 fails on all pre-registered axes (complement rank 257, SPP1 reduced, CXCL10-CXCR3 not testable) and H2 GWAS enrichment is OR=0 (p=1.0, structural absence from CellChatDB). ECM-integrin pairs rank highest only numerically (delta=0.662 vs named axes, p=0.001)."
+ },
+ "alzheimer-rorb-ec-vulnerability-r1": {
+  "title": "RORB+ entorhinal cortex layer II neurons carry a broad excitability signature of uncertain donor-level precision, independent of CACNA1C/D",
+  "main_conclusion": "Powered negatives: CACNA1C/D are not upregulated in RORB+ vs RORB- EC excitatory neurons (log2FC -0.026 / -0.065, BH-FDR 1.00; H1 not supported), and the ISR score does not rise with Braak stage (slope -0.006, p=0.213; H2 not supported). A broad excitability module points upward (d=+0.269), but its donor-level CI [-0.362, +0.900] spans zero."
+ },
+ "ideate-parkinson-mechanism-r2": {
+  "title": "LYDRA: A Pre-Registered Protocol for Testing Lysosomal Convergence Hypotheses in Parkinson's Disease iPSC Transcriptomics — Pilot Results and Data-Access Audit",
+  "main_conclusion": "H1 is blocked (no dbGaP access to the Kamath 2022 SN atlas) and H3 is blocked (no matched RNA/proteomics data). H2 used a post-hoc V-ATPase surrogate: mean log2FC +0.485 (95% CI -0.454 to +1.471; permutation p=0.333; N=2 donors per group). It points the right way but is underpowered, so H2 is NOT SUPPORTED; the report is mainly a protocol and data-access audit."
+ },
+ "neurodeg-microglia-convergence-r1": {
+  "title": "Lewy body dementias, not Alzheimer's disease, preferentially drive the lipid-droplet microglial program: a pre-registered cross-disease snRNA-seq analysis",
+  "main_conclusion": "LDAM is FDR-significant in DLB (g=1.55) and PDD (g=2.64) but not AD (g=1.20, FDR=0.343), giving a 'partial sharing' call. But DAM2 co-elevates the same way, held-out SEA-AD validation is null (AUC=0.60, CI spans 0.5), APOE4-LDAM does not replicate, and H5 ECM is inconclusive, so the result points to generic Lewy-body microglial activation rather than a lipid-droplet-specific program."
+ },
+ "parkinson-asyn-propagation-r2": {
+  "title": "Connectome topology (rho = 1.00) outperforms SNCA expression for Braak alpha-synuclein staging: a pre-registered human atlas benchmark",
+  "main_conclusion": "The pre-registered SNCA-expression-weighted SIR model failed H1 (rho = 0.711, 95% CI -0.304 to 1.000, permutation p = 0.094, n = 5 regions), and H2, H3 and H4 were also not supported. Connectome-only models did better (rho = 0.918 at shared parameters; rho = 1.000 when optimised post hoc), and Dijkstra graph distance alone gave rho = 0.975 (p = 0.015). The report reads this as the Allen connectivity topology encoding the Braak gradient, a confound for atlas-based propagation analyses."
+ },
+ "parkinson-cellchat-immune-axis-r3": {
+  "title": "Nine concordant peripheral-brain CD8+ T cell ligand-receptor pairs in Parkinson's disease: a blood-as-foreshadow analysis",
+  "main_conclusion": "Nine PD-upregulated CD8+ T to myeloid L-R pairs were shared between PBMC and non-SN brain axes (observed 9 vs null mean 1.39, Delta = 7.607, p < 1/10,000; H1 supported). MR-gene enrichment was not significant (H2: OR = 2.56, p = 0.346, underpowered). Direction-specificity was borderline (H4: reverse p = 0.053). H5 robustness was met, but the methods were not truly independent, and PD specificity remains unestablished."
+ },
+ "parkinson-celloracle-ko-r1": {
+  "title": "In-silico knock-out of ten Parkinson's disease GWAS genes produces sub-threshold but above-null dopaminergic cell-state shifts: a validation protocol for CellOracle-based GRN perturbation",
+  "main_conclusion": "H1 was not supported. The mean GWAS-gene KO cosine with the PD disease vector was 0.025 (95% CI -0.067 to 0.114), below the 0.30 threshold, although it beat the permutation null (Delta = 0.159, p = 0.001). H2 (PIP correlation, rho = 0.042) and H5 (|Delta| = 0.118) were not supported. H3 (LRRK2-KO prodromal enrichment, FE = 4.7x, q = 0.007), H4a (SNCA, +0.235) and H4b (HBB null) were supported. These results come from a stratification approximation (CellOracle ATAC GRN unavailable) run in the DMNX_Neu fallback tissue."
+ },
+ "parkinson-da-vulnerability-r5": {
+  "title": "Pre-registered null replication of AGTR1+ dopaminergic vulnerability in Parkinson's disease across independent SNpc atlases",
+  "main_conclusion": "Pre-registered null: the Kamath AGTR1+ DA subtype was not recoverable in either replication atlas (replication 0/2, Wilson CI 0-65.8%, perm p=1.0; Wang log2FC -0.263 FDR 0.902; Adams +1.000 FDR 0.605), H2 inconclusive, H3 consensus panel failed blind validation (AUC 0.419), H4 0/6 stable resolutions. The authors attribute the failure mainly to low DA-neuron yield (52 and 27 cells vs 22,048)."
+ },
+ "parkinson-foundation-embedding-r4": {
+  "title": "Zero-shot foundation models do not improve donor-level Parkinson's disease classification (ΔAUC = +0.026)",
+  "main_conclusion": "H1 not supported: Geneformer-V2-104M zero-shot LOO AUC 0.775 vs log-CPM-PCA-LR 0.749 (ΔAUC +0.026, 95% CI -0.066 to +0.118, p_dir 0.290, ~19% power, so the authors call it inconclusive rather than a confident null). Embeddings carry real signal (perm p<0.001). On Adams (n=13) the baseline dominates Geneformer (AUC 0.944 vs 0.694). The scGPT arm and H3 were deferred."
+ },
+ "parkinson-gut-brain-axis-r4": {
+  "title": "Gut microbiome and DMNX transcriptomics share 10 of 131 KEGG modules in Parkinson's disease: a pre-registered null study",
+  "main_conclusion": "Pre-registered null: 10 of 131 KEGG modules are shared between the Wallen gut and Fullard DMNX signatures (overlap 0.076, hypergeometric p=0.175, perm p=0.180), below the ≥15 threshold. H2, H3 and H4 were all non-significant (FDR 0.463, 0.514; p=0.373). Only the H5 negative controls passed (all p=1.0)."
+ },
+ "parkinson-lamda-multiregion-r3": {
+  "title": "Multi-region single-nucleus profiling in 97 Parkinson donors reveals cortex-restricted LAMDA gene program activation",
+  "main_conclusion": "Null result: 0 of 22 non-cortical region x cell-type pairs showed positive LAMDA enrichment in PD (permutation p = 1.0; no better than shuffled-label or random-gene-set nulls). 49 of 53 effects were negative. H2 (Braak gradient), H4 (sub-program dissociation) and H5 (deferred) were not supported. The only positive result is EN > IN within cortex (d = 0.87-1.12, FDR < 3e-7)."
+ },
+ "parkinson-lincs-reversal-r4": {
+  "title": "Transcriptomic reversal of 2,429 compounds reveals dopaminergic--microglial divergence (r = 0.13) in Parkinson's disease",
+  "main_conclusion": "The pre-registered primary endpoint (H1) was not met: 0 of 50 top reversers had prior PD evidence (q = 1.0). The report calls this an uninterpretable null because the evidence set was too small (M = 33 vs about 243 needed). H2 could not be assessed (CLUE API 401), H4 was not supported and the H5 positive control failed borderline (ropinirole at the 47.8th percentile). The only supported test was H3: DMNX_Neu vs microglia connectivity scores were weakly correlated (r = 0.133, 95% CI 0.094-0.172), which the report reads as cell-type-dependent drug prioritization."
+ },
+ "parkinson-metabolic-flux-sn-r1": {
+  "title": "Single-nucleus Recon3D Contextualization Reveals Direction-Consistent but Magnitude-Null Glycolytic Flux Changes in Parkinson's Disease Dopaminergic Neurons (83% Sign Concordance with Bulk, p=0.004; Cross-Method rho=0.94)",
+  "main_conclusion": "Null primary result: the iMAT glycolysis flux ratio in DA neurons (PD/control) was 1.000 (95% CI 1.000-1.000; p = 1.0), so H1 was not supported. H1b (15/18 sign concordance, p = 0.0038) and H4 (iMAT vs E-Flux rho = 0.944) were confirmed only with caveats, as likely floating-point or model-topology artefacts. H2 and H3 were not supported and H5 was surrogate only. The report concludes the minimal 54-reaction ATPM model with n = 2 PD donors is structurally insufficient."
+ },
+ "parkinson-multimodal-ppmi-trajectory-r1": {
+  "title": "PPMI supplement tables lack per-visit longitudinal data needed for disease-trajectory inference: a pre-registered audit",
+  "main_conclusion": "Negative/inconclusive: public PPMI supplements do not encode enough information for disease-trajectory reconstruction. H1 is INCONCLUSIVE (n=10 against the pre-registered n>=50; FactorAnalysis rho=0.430, 95% CI [-0.459, 0.953], p_perm=0.118). None of the 6 supplements has per-visit longitudinal means (3 XLSX/TSV, 2 PDF-table, 1 figure-only). Proteomics makes up about 100% of the factor loading, so H4 is violated. H2 and H3 could not be evaluated."
+ },
+ "parkinson-multimodal-spatial-proteomics-r3": {
+  "title": "3MAP: a pre-registered three-modal MOFA+ audit protocol for Parkinson's disease substantia nigra reveals data-access barriers and an 11.7-fold LAMDA-enriched dopaminergic factor",
+  "main_conclusion": "Spatial and proteomics per-donor matrices could not be accessed, so only an snRNA-seq surrogate was run. Factor 1 explains 26.5% of variance but has no PD association (Wilcoxon p=0.948; H1 not supported). It is 11.7-fold enriched for LAMDA∪Hemedan PD genes (q_BH=5.07e-9; H3 supported). H2, H4 and H5 could not be evaluated."
+ },
+ "parkinson-plasma-prodromal-panel-r3": {
+  "title": "Independent replication of a plasma prodromal Parkinson panel: infrastructure barriers and cross-platform concordance",
+  "main_conclusion": "Primary validation of the Hällqvist 8-protein panel was blocked: the PRIDE API returned empty data and DIA-NN 1.9.2 is Linux-only. For H4, 3/6 protein directions were concordant with UKB Olink incident-PD HRs (binomial p=0.656, CI 0.118-0.882), below the >=4/6 threshold, so H4 is not supported."
+ },
+ "parkinson-plasma-prodromal-panel-r4": {
+  "title": "Label contamination, not panel failure, explains AUC 0.55 replication of an 8-protein prodromal Parkinson plasma panel",
+  "main_conclusion": "The pre-registered 8-protein panel failed to replicate on PXD046355 MOESM4 (5-fold CV AUC = 0.554, 95% CI [0.437, 0.678], p = 0.254 vs permuted null; H1 not supported). The report attributes this to label contamination, based on a post-hoc clean-negative analysis (14 never-converters, AUC = 0.925). H2, H4 and H5 were not supported and H3 was blocked."
+ },
+ "parkinson-prs-portability-r3": {
+  "title": "OPENVAL-PD: An Open Benchmarking Protocol for Polygenic Risk Score Portability in Parkinson's Disease Using Public Sumstats and 1000 Genomes Allele Frequencies",
+  "main_conclusion": "A summary-statistics-only LDpred-inf PRS (Kim 2024) gives an analytical EUR AUC of 0.548, 0.073 below the Saffie-Awad benchmark of 0.621 (H1 rejected). H2 is supported only because of a genome-build mismatch artefact. H4 is reversed (Kim beats Nalls, confounded by an N_eff metadata artefact), H3 is deferred and H5 is rejected."
+ },
+ "parkinson-scenic-regulons-r1": {
+  "title": "Pre-registered TF regulon benchmarking across Parkinson's disease SNpc atlases yields a null replication signal",
+  "main_conclusion": "Top-20 TFs from the Adams atlas (4 PD donors) did not replicate in the Wang atlas: 9/20 had the same sign (binomial p = 0.748; Δ vs shuffled regulons = -0.928, permutation p = 0.731). H1 was falsified on the single available atlas, H2 and H3 were inapplicable, and H4 was not supported. H5 was supported: the null is stable across Leiden resolutions."
+ },
+ "parkinson-tcell-foothold-r3": {
+  "title": "Zero pseudobulk replication of a TCR-defined T-cell signature across four Parkinson's disease snRNA-seq atlases",
+  "main_conclusion": "Negative result: the 51-gene Ma 2025 clonal CD8+ T-cell module did not replicate (replication rate 0.0, n=2 testable atlases, delta vs shuffled null -0.555), and H2 region specificity (rho=-0.100, p=0.601), H3 T-cell/DA-loss covariation (all rho<0.3) and the H5 exhaustion negative control were also null; the report concludes TCR-seq ground truth is needed to detect clonal CD8+ programs in PD brain transcriptomes."
+ },
+ "pd-vatpase-lysosomal-compensation-r1": {
+  "title": "Genotype-divergent lysosomal V-ATPase compensation: replicated in LRRK2 G2019S (log2FC +0.48), null in GBA1 neurons",
+  "main_conclusion": "The 9-gene CLEAR V-ATPase module is upregulated in an independent LRRK2 G2019S iPSC-DA cohort (mean log2FC +0.4846, 8/9 up; permutation p=0.167 at the n=2+2 floor, 'REPLICATES' but not statistically confirmable). It is null in the post-hoc GBA+/N370S arm (d=-0.042) and directionally elevated in postmortem PD DA neurons (d=+5.14, degenerate CI). H4 selectivity is inconclusive and no cohort can reach p<0.05."
+ }
+}

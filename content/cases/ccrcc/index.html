@@ -1,0 +1,375 @@
+<!--
+title: Case 1 · ccRCC resistance niches
+description: From one open-ended question, OmiCairn integrated single-cell, spatial and TCGA-KIRC data to nominate spatial resistance niches in clear cell renal cell carcinoma. Hypothesis-generating; the candidate combinations are untested hypotheses, not recommendations.
+section: cases
+breadcrumb: Cases=/cases/ > Case 1 · ccRCC
+layout: wide
+body_class: case-page
+og_image: /assets/img/cases/ccrcc/fig5a-workflow.webp
+stylesheet: /assets/css/pages/cases.css
+-->
+<!--
+  Sources for every number on this page (read-only, not published):
+  [M-C1]  OmiCairn manuscript, Results, "Case 1" (body.tex lines 123-131)
+  [M-F5]  OmiCairn manuscript, Figure 5 and its legend (body.tex lines 133-138)
+  [M-MIF] OmiCairn manuscript, Methods, "Multiplex immunofluorescence staining ..." (body.tex lines 782-786)
+  [M-DA]  OmiCairn manuscript, Data availability (body.tex line 794)
+  [M-D]   OmiCairn manuscript, Discussion (body.tex line 184)
+  [S-F4]  OmiCairn manuscript, Supplementary Figure 4 (supplementary_information.pdf p. 5)
+  [S-F5]  OmiCairn manuscript, Supplementary Figure 5 (supplementary_information.pdf p. 6)
+-->
+
+<header class="case-hero">
+  <div class="container">
+    <div class="case-hero__grid">
+      <div>
+        <p class="kicker">Case 1 · Clear cell renal cell carcinoma</p>
+        <h1>Nominating spatial resistance niches in ccRCC from one open-ended question</h1>
+        <p class="lede">The user asked a broad question about treatment resistance and named no mechanism. OmiCairn planned and ran a multi-step analysis across single-cell, spatial and bulk clinical data, and nominated a set of candidate resistance niches. A separate laboratory check on patient biopsies supported the plausibility of the proposed tissue architecture. It did not show cause or treatment response.</p>
+        <p class="case-hero__status">
+          <span class="case-pill case-pill--caution">Hypothesis-generating</span>
+          <span class="case-pill">Combinations nominated for testing, not recommended</span>
+        </p>
+      </div>
+      <aside class="case-facts" aria-label="Case 1 at a glance">
+        <p class="case-facts__title">Data and scale</p>
+        <dl>
+          <!-- n = 19, 24, 613: [M-C1] "single-cell (n = 19), spatial (n = 24) and TCGA ... KIRC data (n = 613)" -->
+          <div><dt>19</dt><dd><strong>Single-cell RNA-seq</strong>n as reported; GEO GSE207493</dd></div>
+          <div><dt>24</dt><dd><strong>Spatial transcriptomics</strong>n as reported; GEO GSE175540</dd></div>
+          <div><dt>613</dt><dd><strong>TCGA-KIRC bulk + clinical</strong>survival association, GDC via Xena</dd></div>
+          <!-- 30 = 17 + 13, derived from [M-F5] legend panel F: "sensitive (n = 17) and resistant (n = 13) tumors" -->
+          <div><dt>30</dt><dd><strong>Patient biopsies, multiplex immunofluorescence</strong>17 sensitive, 13 resistant (figure legend); done outside OmiCairn</dd></div>
+        </dl>
+        <p class="case-facts__foot">Counts as reported in the OmiCairn manuscript (in preparation).</p>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<nav class="case-jump" aria-label="On this page">
+  <div class="container">
+    <ul class="jump">
+      <li><a href="#prompt">The prompt</a></li>
+      <li><a href="#workflow">What OmiCairn did</a></li>
+      <li><a href="#findings">What it found</a></li>
+      <li><a href="#checks">How it was checked</a></li>
+      <li><a href="#limits">Limits</a></li>
+      <li><a href="#figures">Figures</a></li>
+      <li><a href="#sources">Data sources</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- 1. The prompt ======================================================== -->
+<section class="section case-band" id="prompt" aria-labelledby="prompt-h">
+  <div class="container">
+    <div class="case-head">
+      <p class="case-head__num"><span>1</span> The prompt</p>
+      <h2 id="prompt-h">What the user asked</h2>
+      <p class="lede">An open-ended natural-language request. It named a disease and the kinds of evidence to combine, but no predefined mechanism, gene or pathway.</p>
+    </div>
+    <div class="case-prompts">
+      <figure class="case-prompt case-prompt--user">
+        <p class="case-prompt__who">User prompt</p>
+        <!-- Prompt text transcribed from [M-F5] panel A, "User" box -->
+        <blockquote><p>Identification of spatial metabolic–immune resistance niches and discovery of combination treatment strategies in ccRCC by integrating spatial location, metabolic state, immune cell interactions, and druggability.</p></blockquote>
+        <figcaption>As shown in Figure 5A of the OmiCairn manuscript.</figcaption>
+      </figure>
+      <div class="case-prompts__arrow" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <figure class="case-prompt case-prompt--system">
+        <p class="case-prompt__who">OmiCairn's working hypothesis</p>
+        <!-- Transcribed from [M-F5] panel A, "Hypothesis generation" box -->
+        <blockquote><p>Spatial metabolic–immune resistance niches in ccRCC drive treatment resistance and can be identified by integrating spatial location, metabolic state, immune cell interactions, and druggability to nominate rational combination therapies.</p></blockquote>
+        <figcaption>OmiCairn restated the request as a hypothesis to examine (Figure 5A). The analysis that follows can support or weaken it; it cannot prove that the niches drive resistance.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 2. What OmiCairn did ================================================== -->
+<section class="section section--alt case-band" id="workflow" aria-labelledby="workflow-h">
+  <div class="container">
+    <div class="case-head">
+      <p class="case-head__num"><span>2</span> What OmiCairn did</p>
+      <h2 id="workflow-h">A dependency-aware workflow, built from the prompt</h2>
+      <p class="lede">OmiCairn turned the request into an analysis tree: each step's outputs feed the next, and every step keeps its code, parameters and logs. Supporting agents retrieved literature and domain knowledge, reused earlier code, created new functions, fixed failing steps and reviewed jobs.</p>
+    </div>
+    <div class="case-timeline-wrap">
+      <ol class="case-timeline">
+        <li>
+          <p class="case-timeline__title">Gather literature and data</p>
+          <p class="case-timeline__body">Retrieved a literature corpus and collected the relevant datasets: single-cell RNA-seq, spatial transcriptomics, TCGA-KIRC clinical data and therapy-response data.</p>
+        </li>
+        <li>
+          <p class="case-timeline__title">Annotate cell states</p>
+          <!-- n = 19: [M-C1] -->
+          <p class="case-timeline__body">Defined tumour, myeloid and T-cell states from single-cell data (n = 19), including <span class="case-gene">SPP1</span><sup>+</sup> tumour-associated macrophages and exhausted CD8 T cells.</p>
+        </li>
+        <li>
+          <p class="case-timeline__title">Map spatial niches</p>
+          <!-- n = 24: [M-C1]; score_genes: [M-F5] legend panel B -->
+          <p class="case-timeline__body">Scored gene programmes on spatial transcriptomics sections (n = 24) and tested how they co-localize: HIF targets, macrophage, angiogenesis, collagen barrier and CD8 T-cell programmes.</p>
+          <p class="case-timeline__meta">Scores from <code>scanpy.tl.score_genes</code> (Figure 5B)</p>
+        </li>
+        <li>
+          <p class="case-timeline__title">Infer ligand–receptor signalling</p>
+          <p class="case-timeline__body">Compared ligand–receptor interaction strength across four niche types: vascular remodelling, immunosuppressive border, metabolic barrier and immune-active.</p>
+        </li>
+        <li>
+          <p class="case-timeline__title">Test clinical association</p>
+          <!-- n = 613: [M-C1]; median split: [S-F4] legend -->
+          <p class="case-timeline__body">Compared survival in TCGA-KIRC between patients above and below the median expression of nine niche marker genes (Kaplan–Meier).</p>
+        </li>
+        <li class="case-timeline__step--pre-outside">
+          <p class="case-timeline__title">Nominate follow-up strategies</p>
+          <p class="case-timeline__body">Ranked candidate resistance niches and proposed drug combinations that target them, as hypotheses for later testing (Supplementary Figure 5).</p>
+        </li>
+        <li class="case-timeline__step--outside">
+          <p class="case-timeline__title">Protein-level check on patient tissue</p>
+          <!-- n = 17 / 13: [M-F5] legend panel F; methods: [M-MIF] -->
+          <p class="case-timeline__body">Researchers stained ccRCC biopsies from treatment-sensitive and treatment-resistant tumours for CD44, PAX8, CD8, SPP1 and CD68, and quantified marker-positive cell fractions.</p>
+          <p class="case-timeline__meta">Multiplex immunofluorescence; image analysis in Fiji; Wilcoxon test with Benjamini–Hochberg adjustment</p>
+        </li>
+      </ol>
+      <figure class="figure">
+        <img src="/assets/img/cases/ccrcc/fig5a-workflow.webp" width="2000" height="1109" loading="lazy" decoding="async" alt="Workflow schematic. A user prompt about spatial metabolic-immune resistance niches in ccRCC feeds literature retrieval and data collection (literature corpus, scRNA-seq, spatial transcriptomics, TCGA-KIRC clinical data, therapy response data), supported by bug fixer, domain knowledge, code experience, function creator, web searcher and job reviewer agents. A monitoring panel shows the generated hypothesis and a tree-based workflow with completed, in-progress and failed nodes. Output box lists candidate resistance niches and candidate combinations.">
+        <figcaption><b>Figure 5A.</b> The prompt, the data OmiCairn collected, the supporting agents, and the analysis tree with node status (completed, in progress, under review, failed). The output box lists the candidate niches and three candidate combinations, which are untested hypotheses.<span class="figure__credit">Figure from the OmiCairn manuscript (in preparation).</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 3. What it found ===================================================== -->
+<section class="section case-band" id="findings" aria-labelledby="findings-h">
+  <div class="container">
+    <div class="case-head">
+      <p class="case-head__num"><span>3</span> What it found</p>
+      <h2 id="findings-h">What it found, and how far the evidence goes</h2>
+      <p class="lede">Five findings behind the nominated niches, plus what did not hold up. Each card shows the evidence and its strength. Most of it is correlational.</p>
+    </div>
+    <p class="kicker">Candidate resistance features nominated</p>
+    <!-- List: [M-C1] paragraph 2, first sentence -->
+    <ul class="case-chips">
+      <li><span class="case-gene">SPP1</span><sup>+</sup> tumour-associated macrophages</li>
+      <li>Exhausted CD8 T cells</li>
+      <li>HIF-associated tumour programmes</li>
+      <li>ECM barrier signatures</li>
+      <li>Metabolic niche states</li>
+    </ul>
+
+    <div class="case-findings">
+      <article class="case-finding">
+        <div class="case-finding__top"><span class="case-finding__n">Finding 1</span><span class="case-evidence case-evidence--computational">Spatial correlation</span></div>
+        <h3><span class="case-gene">SPP1</span><sup>+</sup> macrophage areas overlap hypoxic, HIF-high regions</h3>
+        <!-- rho +0.21, P < 1e-300: [M-F5] panel C, row 1 -->
+        <p class="case-finding__evidence"><span class="case-finding__metric"><small>rho</small>+0.21</span><span class="case-finding__metric-note">P &lt; 10<sup>−300</sup> · HIF targets vs <span class="case-gene">SPP1</span><sup>+</sup> TAM score</span></p>
+        <p class="case-finding__text">Spots with higher HIF-target scores also tend to have higher <span class="case-gene">SPP1</span><sup>+</sup> macrophage scores.</p>
+        <p class="case-finding__strength"><b>How strong:</b> a weak positive correlation. The tiny P value reflects many spatial measurements, not a large effect. Association only.</p>
+        <p class="case-finding__src">Figure 5B–C</p>
+      </article>
+
+      <article class="case-finding">
+        <div class="case-finding__top"><span class="case-finding__n">Finding 2</span><span class="case-evidence case-evidence--computational">Spatial correlation</span></div>
+        <h3>Collagen-barrier regions hold fewer CD8 T cells</h3>
+        <!-- rho -0.09, P < 1e-127: [M-F5] panel C, row 3 -->
+        <p class="case-finding__evidence"><span class="case-finding__metric"><small>rho</small>−0.09</span><span class="case-finding__metric-note">P &lt; 10<sup>−127</sup> · collagen barrier vs CD8 T score</span></p>
+        <p class="case-finding__text">Proposed as an ECM barrier that keeps CD8 T cells out of tumour regions.</p>
+        <p class="case-finding__strength"><b>How strong:</b> very weak in the transcriptomic data. The laboratory check (below) found a lower intratumoral CD8<sup>+</sup> fraction in resistant tumours, which fits an immune-excluded pattern.</p>
+        <p class="case-finding__src">Figure 5C, 5E–F</p>
+      </article>
+
+      <article class="case-finding">
+        <div class="case-finding__top"><span class="case-finding__n">Finding 3</span><span class="case-evidence case-evidence--overstated">Wording overstates</span></div>
+        <h3>Angiogenesis and macrophage signals tend not to coincide</h3>
+        <!-- rho -0.09, P < 1e-131: [M-F5] panel C, row 2 -->
+        <p class="case-finding__evidence"><span class="case-finding__metric"><small>rho</small>−0.09</span><span class="case-finding__metric-note">P &lt; 10<sup>−131</sup> · angiogenesis vs macrophage score</span></p>
+        <p class="case-finding__text">The figure table calls vascular regions and myeloid infiltration "mutually exclusive".</p>
+        <p class="case-finding__strength"><b>How strong:</b> a correlation of −0.09 means a slight tendency, not exclusion. We show the number so readers can judge.</p>
+        <p class="case-finding__src">Figure 5C</p>
+      </article>
+
+      <article class="case-finding">
+        <div class="case-finding__top"><span class="case-finding__n">Finding 4</span><span class="case-evidence case-evidence--computational">Ligand–receptor inference</span></div>
+        <h3>Recurrent <span class="case-gene">SPP1–CD44</span> and <span class="case-gene">SPP1–ITGAV</span> signalling across niches</h3>
+        <!-- LR pairs and niche names: [M-C1] paragraph 2; [M-F5] panel D -->
+        <p class="case-finding__evidence"><span class="case-finding__metric-note">5 interactions × 4 niche types. <span class="case-gene">FN1–ITGB1</span> has the highest strength in every niche; <span class="case-gene">SPP1–ITGAV</span>, <span class="case-gene">SPP1–CD44</span>, <span class="case-gene">COL4A1–ITGAV</span> and <span class="case-gene">TGFB1–TGFBR2</span> are lower.</span></p>
+        <p class="case-finding__text">Nominated as recurrent ECM and immune-regulatory interactions linking macrophages to tumour cells.</p>
+        <p class="case-finding__strength"><b>How strong:</b> inferred from co-expression of ligand and receptor genes. No test statistic is reported for this panel.</p>
+        <p class="case-finding__src">Figure 5D</p>
+      </article>
+
+      <article class="case-finding">
+        <div class="case-finding__top"><span class="case-finding__n">Finding 5</span><span class="case-evidence case-evidence--clinical">Clinical association</span></div>
+        <h3>The manuscript reports that high <span class="case-gene">CD68</span>, <span class="case-gene">CD44</span> and <span class="case-gene">ITGB1</span> go with lower survival in TCGA-KIRC</h3>
+        <!-- P values: [S-F4]; direction: [M-C1] "high expression of CD68, ITGB1, and CD44 was significantly associated with lower survival probability" -->
+        <p class="case-finding__evidence"><span class="case-finding__metric-note"><span class="case-gene">CD44</span> P = 0.00049 · <span class="case-gene">ITGB1</span> P = 0.0045 · <span class="case-gene">CD68</span> P = 0.008</span></p>
+        <p class="case-finding__text">Orthogonal bulk-tissue evidence for parts of the niche. <span class="case-gene">SPP1</span> itself showed no survival difference (P = 0.47). In Supplementary Figure 4 the <span class="case-gene">ITGB1</span> curves are arranged opposite to those of <span class="case-gene">CD44</span> and <span class="case-gene">CD68</span>, so its direction cannot be confirmed from the figure.</p>
+        <p class="case-finding__strength"><b>How strong:</b> single-gene median splits without reported adjustment for other clinical factors or for testing nine genes.</p>
+        <p class="case-finding__src">Supplementary Figure 4</p>
+      </article>
+      <article class="case-finding">
+        <div class="case-finding__top"><span class="case-finding__n">What did not hold up</span><span class="case-evidence">No association</span></div>
+        <h3>Four niche genes showed no survival difference, including <span class="case-gene">SPP1</span></h3>
+        <!-- P values: [S-F4]. "4 of 9" derived by counting P >= 0.05 in [S-F4]. -->
+        <p class="case-finding__evidence"><span class="case-finding__metric-note"><span class="case-gene">SPP1</span> P = 0.47 · <span class="case-gene">CA9</span> P = 0.61 · <span class="case-gene">TOX</span> P = 0.61 · <span class="case-gene">CD8A</span> P = 0.16</span></p>
+        <p class="case-finding__text">The ligand at the centre of the proposed niche, the hypoxia marker <span class="case-gene">CA9</span> and the T-cell markers did not separate survival in TCGA-KIRC.</p>
+        <p class="case-finding__strength"><b>Why it matters:</b> the clinical support is for parts of the niche, not the niche as a whole. We list nulls next to positives.</p>
+        <p class="case-finding__src">Supplementary Figure 4</p>
+      </article>
+    </div>
+
+    <figure class="figure figure--wide">
+      <img src="/assets/img/cases/ccrcc/fig5bcd-spatial.webp" width="2000" height="885" loading="lazy" decoding="async" alt="Panel B: four spatial transcriptomics maps of one ccRCC section showing gene-set scores for tumour, SPP1-positive tumour-associated macrophages, SPP1-CD44 and TGFB1-TGFBR2. Panel C: table of three spatial relationships: HIF targets and SPP1-positive TAMs rho +0.21, P below 1e-300; angiogenesis and macrophages rho -0.09, P below 1e-131; collagen barrier and CD8 T rho -0.09, P below 1e-127. Panel D: heatmap of five ligand-receptor pairs across four niches (vascular remodeling, immunosuppressive border, metabolic barrier, immune active); FN1-ITGB1 is strongest in all four.">
+      <figcaption><b>Figure 5B–D.</b> (B) Spatial gene-set scores on one ccRCC section; colour bars show <code>scanpy.tl.score_genes</code> strength. (C) The three spatial correlations behind findings 1–3, with the system's own interpretation in the right column. (D) Ligand–receptor strength across four niche types.<span class="figure__note">The "biological significance" column in panel C is OmiCairn's wording. With correlations of −0.09 to +0.21, read it as a direction of association, not as exclusion or co-localization in a strict sense.</span><span class="figure__credit">Figure from the OmiCairn manuscript (in preparation).</span></figcaption>
+    </figure>
+
+    <h3 id="nominated">What it nominated for testing</h3>
+    <aside class="callout callout--caution" aria-label="Not treatment recommendations">
+      <p class="callout__title">These are untested hypotheses, not treatment recommendations</p>
+      <p>OmiCairn proposed drug combinations that would target the nominated niches. None was tested in this case: no drug was given and no response was measured. The manuscript states that the resistance model and the combinations are priorities for downstream validation, "not ... established mechanisms or clinical recommendations". This is not medical advice.</p>
+    </aside>
+    <!-- Strategy names and agents: [S-F5]. System-assigned feasibility labels deliberately omitted. -->
+    <ol class="case-strategies" aria-label="Combination hypotheses nominated by OmiCairn">
+      <li><p class="case-strategies__name">HIF-2α + ICI + anti-SPP1</p><p class="case-strategies__agents">belzutifan + nivolumab + anti-OPN</p></li>
+      <li><p class="case-strategies__name">HIF-2α + ICI + adenosine block</p><p class="case-strategies__agents">belzutifan + pembrolizumab + ciforadenant</p></li>
+      <li><p class="case-strategies__name">Vascular + ECM + ICI</p><p class="case-strategies__agents">cabozantinib + bintrafusp alfa</p></li>
+      <li><p class="case-strategies__name">Multi-checkpoint + metabolic</p><p class="case-strategies__agents">nivolumab + relatlimab + CB-839</p></li>
+      <li><p class="case-strategies__name">TAM reprogramming + vascular + ICI</p><p class="case-strategies__agents">anti-TREM2 + lenvatinib + pembrolizumab</p></li>
+    </ol>
+    <p class="small muted">Restated from Supplementary Figure 5 of the OmiCairn manuscript. ICI: immune checkpoint inhibitor. The axes involved are HIF-2α, immune checkpoints, adenosine signalling, the SPP1–CD44 axis and ECM modulation.</p>
+  </div>
+</section>
+
+<!-- 4. How it was checked ================================================ -->
+<section class="section section--alt case-band" id="checks" aria-labelledby="checks-h">
+  <div class="container">
+    <div class="case-head">
+      <p class="case-head__num"><span>4</span> How it was checked</p>
+      <h2 id="checks-h">Two independent checks: patient survival and patient tissue</h2>
+      <p class="lede">The spatial findings came from transcriptomic data. Two checks looked at the same niche from other angles: survival in a large bulk cohort, and protein staining in tissue from treated patients.</p>
+    </div>
+
+    <div class="case-checks">
+      <div class="case-check" id="check-survival">
+        <h3>Survival association in TCGA-KIRC</h3>
+        <div class="case-check__split">
+          <div>
+            <p>For each of nine niche marker genes, patients were split at the median expression and survival was compared between the two groups. We list all nine, including those with no association.</p>
+            <!-- All P values: [S-F4]. "5 of 9 below 0.05": derived by counting P < 0.05 in [S-F4] (PAX8, CD68, CD44, COL1A1, ITGB1). -->
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Survival P values for nine genes in TCGA-KIRC">
+              <table class="data-table data-table--compact">
+                <caption>Kaplan–Meier comparison, high vs low expression (median split). 5 of 9 genes have P &lt; 0.05.</caption>
+                <thead><tr><th scope="col">Gene</th><th scope="col">Role in the niche</th><th scope="col" class="num">P value</th></tr></thead>
+                <tbody>
+                  <tr class="case-row--sig"><td><span class="case-sigdot" aria-hidden="true"></span><span class="case-gene">CD44</span></td><td>SPP1 receptor; tumour cells</td><td class="num">0.00049</td></tr>
+                  <tr class="case-row--sig"><td><span class="case-sigdot" aria-hidden="true"></span><span class="case-gene">COL1A1</span></td><td>Collagen / ECM barrier</td><td class="num">0.0012</td></tr>
+                  <tr class="case-row--sig"><td><span class="case-sigdot" aria-hidden="true"></span><span class="case-gene">ITGB1</span></td><td>Integrin receptor</td><td class="num">0.0045</td></tr>
+                  <tr class="case-row--sig"><td><span class="case-sigdot" aria-hidden="true"></span><span class="case-gene">CD68</span></td><td>Macrophages</td><td class="num">0.008</td></tr>
+                  <tr class="case-row--sig"><td><span class="case-sigdot" aria-hidden="true"></span><span class="case-gene">PAX8</span></td><td>Tumour epithelium</td><td class="num">0.033</td></tr>
+                  <tr><td><span class="case-sigdot case-sigdot--no" aria-hidden="true"></span><span class="case-gene">CD8A</span></td><td>CD8 T cells</td><td class="num">0.16</td></tr>
+                  <tr><td><span class="case-sigdot case-sigdot--no" aria-hidden="true"></span><span class="case-gene">SPP1</span></td><td>Macrophage ligand (osteopontin)</td><td class="num">0.47</td></tr>
+                  <tr><td><span class="case-sigdot case-sigdot--no" aria-hidden="true"></span><span class="case-gene">CA9</span></td><td>Hypoxia / HIF target</td><td class="num">0.61</td></tr>
+                  <tr><td><span class="case-sigdot case-sigdot--no" aria-hidden="true"></span><span class="case-gene">TOX</span></td><td>T-cell exhaustion</td><td class="num">0.61</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="small muted">Filled dot: P &lt; 0.05. The manuscript text states that high <span class="case-gene">CD68</span>, <span class="case-gene">CD44</span> and <span class="case-gene">ITGB1</span> expression goes with lower survival. The source figure does not label which curve is the high-expression group, and its <span class="case-gene">ITGB1</span> panel has the red and blue curves the other way round from <span class="case-gene">CD44</span> and <span class="case-gene">CD68</span>, so either the colours or the stated <span class="case-gene">ITGB1</span> direction is inconsistent. We give no direction for the other genes. Cohort size: n = 613 in the main text; the supplementary figure legend states n = 950. <!-- 613: [M-C1]; 950: [S-F4] legend. Discrepancy reported, not resolved. --></p>
+          </div>
+          <figure class="figure">
+            <img src="/assets/img/cases/ccrcc/figs4-tcga-kirc-survival.webp" width="1780" height="1815" loading="lazy" decoding="async" alt="Nine Kaplan-Meier survival plots for TCGA kidney clear cell carcinoma, one per gene, each comparing two expression groups. P values: PAX8 0.033, CD68 0.008, SPP1 0.47, CD44 0.00049, CA9 0.61, COL1A1 0.0012, CD8A 0.16, TOX 0.61, ITGB1 0.0045.">
+            <figcaption><b>Supplementary Figure 4.</b> Survival probability over time (days) for patients split at the median expression of each gene. Values are listed in the table.<span class="figure__credit">Figure from the OmiCairn manuscript (in preparation).</span></figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="case-check" id="check-mif">
+        <h3>Multiplex immunofluorescence on patient biopsies</h3>
+        <figure class="figure figure--wide case-check__fig">
+          <img src="/assets/img/cases/ccrcc/fig5ef-mif.webp" width="2000" height="708" loading="lazy" decoding="async" alt="Panel E: representative multiplex immunofluorescence images of a sensitive and a resistant ccRCC biopsy, channels CD44, PAX8, CD8, SPP1, CD68 and merge, 100 micrometre scale bar. Panel F: dot plot of marker-positive cell fractions in percent for sensitive and resistant samples; intratumoral CD8-positive fraction is lower in resistant samples, and SPP1-positive CD68-positive macrophage fractions (intratumoral and peritumoral) and CD44-positive PAX8-positive tumour cell fraction are higher; all comparisons marked P below 0.001.">
+          <figcaption><b>Figure 5E–F.</b> (E) Representative images: green CD44, cyan PAX8, white CD8, yellow SPP1, red CD68, blue DAPI. (F) Marker-positive cell fractions per sample; bars show the mean; *** P &lt; 0.001.<span class="figure__credit">Figure from the OmiCairn manuscript (in preparation).</span></figcaption>
+        </figure>
+        <div class="case-check__split">
+          <div>
+            <!-- Group sizes: [M-F5] legend panel F. Methods: [M-MIF]. Observations: [M-C1] paragraph 3. -->
+            <p>Biopsy sections from ccRCC tumours that were sensitive (n = 17) or resistant (n = 13) to treatment were stained for CD44, PAX8 (tumour epithelium), CD8, SPP1 and CD68 (macrophages), with DAPI for nuclei. This was laboratory work done by researchers, outside the automated workflow.</p>
+            <p>In resistant tissue, CD44, SPP1 and CD68 signals were stronger. CD8<sup>+</sup> cells were abundant but sat mainly in PAX8-low regions instead of inside PAX8<sup>+</sup> tumour nests, consistent with an immune-excluded architecture.</p>
+          </div>
+          <div>
+            <!-- Directions and *** P < 0.001: [M-C1] paragraph 3 and [M-F5] panel F. Test: [M-MIF]. -->
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Marker-positive cell fractions, resistant compared with sensitive">
+              <table class="data-table data-table--compact">
+                <caption>Resistant vs sensitive tumours. Wilcoxon test, Benjamini–Hochberg adjusted.</caption>
+                <thead><tr><th scope="col">Cell fraction</th><th scope="col">Resistant</th><th scope="col" class="num">P</th></tr></thead>
+                <tbody>
+                  <tr><td>Intratumoral CD8<sup>+</sup></td><td><span class="case-dir case-dir--down">Lower</span></td><td class="num">&lt; 0.001</td></tr>
+                  <tr><td>Intratumoral SPP1<sup>+</sup>CD68<sup>+</sup> / CD68<sup>+</sup></td><td><span class="case-dir case-dir--up">Higher</span></td><td class="num">&lt; 0.001</td></tr>
+                  <tr><td>Peritumoral SPP1<sup>+</sup>CD68<sup>+</sup> / CD68<sup>+</sup></td><td><span class="case-dir case-dir--up">Higher</span></td><td class="num">&lt; 0.001</td></tr>
+                  <tr><td>CD44<sup>+</sup>PAX8<sup>+</sup> / PAX8<sup>+</sup></td><td><span class="case-dir case-dir--up">Higher</span></td><td class="num">&lt; 0.001</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="small muted">What this supports: the plausibility of the nominated tissue architecture at the protein level. What it does not show: that the niche causes resistance, or how any patient would respond to a therapy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Limits ============================================================ -->
+<section class="section case-band" id="limits" aria-labelledby="limits-h">
+  <div class="container">
+    <div class="case-head">
+      <p class="case-head__num"><span>5</span> Limits</p>
+      <h2 id="limits-h">Limits and what this case does not claim</h2>
+      <p class="lede">The case shows that OmiCairn can turn an open question into a traceable set of testable hypotheses. It does not establish a mechanism.</p>
+    </div>
+    <ul class="case-limits">
+      <li><b>Association, not cause.</b><span>The spatial correlations, ligand–receptor inferences and survival splits are associations. The protein-level assessment "did not establish causality or therapeutic response" (manuscript).</span></li>
+      <li><b>Weak correlations.</b><span>All three spatial correlations are small in size (rho between −0.09 and +0.21). Very small P values here come from many measurements.</span></li>
+      <li><b>No treatment was tested.</b><span>The five combinations are nominated hypotheses. They are not clinical recommendations and must not be read as advice.</span></li>
+      <li><b>Simple survival analysis.</b><span>Median splits, one gene at a time, with no reported adjustment for stage, grade or multiple testing. <span class="case-gene">SPP1</span>, the centre of the proposed niche, showed no survival difference.</span></li>
+      <li><b>Small tissue cohort.</b><span>30 biopsies in two groups. The case description does not state which treatment or which response criteria defined the sensitive and resistant groups. The images in Figure 5E are selected representative examples.</span></li>
+      <li><b>Not a new discovery.</b><span><span class="case-gene">SPP1</span><sup>+</sup> macrophages co-localizing with <span class="case-gene">CD44</span><sup>+</sup> programmes have been reported before in several tumours. Recovering a known axis from an open prompt is a plausibility check of the workflow.</span></li>
+      <li><b>Not yet published.</b><span>This case comes from the OmiCairn manuscript, which is in preparation. Treat it as preliminary.</span></li>
+      <li><b>Reported counts differ.</b><span>The TCGA-KIRC cohort is n = 613 in the main text and n = 950 in the supplementary figure legend. We show both rather than choose one.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 6. Figures ======================================================== -->
+<section class="section section--alt case-band" id="figures" aria-labelledby="figures-h">
+  <div class="container">
+    <div class="case-head">
+      <p class="case-head__num"><span>6</span> Figures</p>
+      <h2 id="figures-h">Figure 5, complete</h2>
+      <p class="lede">Panels A to F are shown next to the sections above. The complete figure, with its caption, opens at full size.</p>
+    </div>
+    <figure class="figure case-figcard">
+      <a class="figure__zoom case-figcard__thumb" href="/assets/img/paper/fig5-case1-ccrcc.webp"><img src="/assets/img/cases/ccrcc/card-workflow.webp" width="800" height="450" loading="lazy" decoding="async" alt="Thumbnail of Figure 5 panel A; select it to open the complete Figure 5 at full size."></a>
+      <figcaption><b>Figure 5. OmiCairn nominates spatial metabolic–immune resistance niches and candidate combination strategies in ccRCC.</b> (A) Overview of the agentic workflow: from a natural-language task, OmiCairn integrates literature retrieval and datasets into a dependency-aware analysis tree for cell-state annotation, spatial niche mapping, ligand–receptor analysis, clinical association and therapeutic hypothesis generation. (B) Nominated and prioritized spatial metabolic–immune resistance hypotheses; colour bars show <code>scanpy.tl.score_genes</code> strength. (C) Statistical summary linking spatial resistance features with biological interpretation. (D) Ligand–receptor interactions across spatial resistance niches. (E) Representative multiplex immunofluorescence: green CD44, cyan PAX8, white CD8, yellow SPP1, red CD68, blue DAPI. (F) Marker-positive cell fractions in sensitive (n = 17) and resistant (n = 13) tumours; individual samples, bars at the mean; *** P &lt; 0.001. <a class="link-arrow" href="/assets/img/paper/fig5-case1-ccrcc.webp">Open the complete figure</a><span class="figure__note">The "candidate combinations" in panel A are hypotheses nominated for testing, not treatment recommendations.</span><span class="figure__credit">Figure from the OmiCairn manuscript (in preparation).</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 7. Data sources ====================================================== -->
+<section class="section case-band" id="sources" aria-labelledby="sources-h">
+  <div class="container">
+    <div class="case-head">
+      <p class="case-head__num"><span>7</span> Data sources</p>
+      <h2 id="sources-h">Where the data came from</h2>
+      <p class="lede">All computational inputs are public. The tissue study used patient biopsies under ethics approval with written informed consent; no patient-level data are shown here.</p>
+    </div>
+    <!-- Accessions and portals: [M-DA]; ethics: manuscript Ethics statement (institution and location deliberately omitted). -->
+    <dl class="deflist case-sources">
+      <div><dt>Single-cell RNA-seq</dt><dd><a class="link-external mono" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE207493">GEO GSE207493</a></dd></div>
+      <div><dt>Spatial transcriptomics</dt><dd><a class="link-external mono" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE175540">GEO GSE175540</a></dd></div>
+      <div><dt>Clinical validation cohort</dt><dd>GDC <a class="link-external mono" href="https://portal.gdc.cancer.gov/projects/TCGA-KIRC">TCGA-KIRC</a>, accessed via <a class="link-external" href="https://xenabrowser.net/">UCSC Xena</a></dd></div>
+      <div><dt>Patient biopsies</dt><dd>ccRCC renal tissue sections for multiplex immunofluorescence; approved by an institutional ethics committee, with written informed consent. Not publicly released.</dd></div>
+      <div><dt>Figures and text</dt><dd>OmiCairn manuscript (in preparation): Results, Case 1; Figure 5; Supplementary Figures 4 and 5; Methods; Data availability.</dd></div>
+    </dl>
+
+    <!--oc:include case-nav current=ccrcc-->
+  </div>
+</section>

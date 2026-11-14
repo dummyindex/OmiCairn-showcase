@@ -1,0 +1,440 @@
+<!--
+title: Case 3: Expert feedback in IDH-mutant astrocytoma
+description: Three rounds of increasing expert input raised OmiCairn's concordance with 17 findings of a reference astrocytoma study from 6/17 to 7/17 to 9/17, on the public CGGA subset CCell_4083. What changed each round, what was recovered, and what was not.
+section: cases
+breadcrumb: Cases=/cases/ > Case 3 · Astrocytoma
+layout: wide
+og_image: /assets/img/cases/astrocytoma/og-case3.png
+body_class: page-case-astro
+stylesheet: /assets/css/pages/cases.css, /assets/css/pages/cases-astro.css
+-->
+<!--
+Sources for every number on this page:
+  [M]  OmiCairn manuscript (in preparation), Results, "Case 3: Rounds of expert feedback increase
+       OmiCairn's concordance with a reference astrocytoma study", and the Figure 7 legend.
+  [F7] OmiCairn manuscript Figure 7 (panel A: modality counts and per-sample availability;
+       panel C: Venn 8 / 9 / 9; panel D: 6/17, 7/17, 9/17 and the per-round expert input;
+       panel E: evidence-boundary layers).
+  [S]  OmiCairn manuscript supplementary materials, Case 3 comparison of the three rounds with the
+       reference study (finding-by-finding tracking table, persistent gaps, root-cause analysis,
+       novel findings, external validation statistics).
+  [P]  OmiCairn manuscript supplementary materials, Case 3 task prompt.
+  [R]  Reference study: Tang et al., Cancer Cell 43(11):2136-2155.e14 (2025), doi:10.1016/j.ccell.2025.08.006.
+-->
+<div class="container">
+
+<header class="page-head astro-head">
+  <p class="kicker">Case 3 · IDH-mutant astrocytoma · Expert in the graph</p>
+  <h1>Three rounds of expert feedback raised concordance with a reference study from 6/17 to 9/17</h1>
+  <!-- [M] dataset wording and concordance numbers -->
+  <p class="lede">OmiCairn analysed the publicly available CGGA subset (DataSet ID CCell_4083) of the IDH-mutant astrocytoma cohort reported by Tang et al. Each round was compared with 17 findings of the original study, with evaluators from the reference study team. The OmiCairn system stayed the same; only the human input grew.</p>
+</header>
+
+<section class="astro-hero" aria-labelledby="hero-chart-title">
+  <h2 id="hero-chart-title" class="visually-hidden">Concordance by round</h2>
+  <!-- [M][F7] 6/17 = 35%, 7/17 = 41%, 9/17 = 53%; expert input per round from Figure 7D -->
+  <ol class="astro-dots" aria-label="Reference findings recovered per round, out of 17">
+    <li class="astro-dots__row">
+      <div class="astro-dots__head"><span class="astro-dots__round">Round 1</span><span class="astro-dots__who">OmiCairn, autonomous</span><span class="astro-dots__input">Expert input: none (task prompt only)</span></div>
+      <div class="astro-dots__track" aria-hidden="true"><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span></div>
+      <p class="astro-dots__value"><b class="num">6/17</b> <span class="num muted">35%</span></p>
+    </li>
+    <li class="astro-dots__row">
+      <div class="astro-dots__head"><span class="astro-dots__round">Round 2</span><span class="astro-dots__who">OmiCairn + reference comparison</span><span class="astro-dots__input">Expert input: comparison request + feedback on its depth</span></div>
+      <div class="astro-dots__track" aria-hidden="true"><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span></div>
+      <p class="astro-dots__value"><b class="num">7/17</b> <span class="num muted">41%</span></p>
+    </li>
+    <li class="astro-dots__row">
+      <div class="astro-dots__head"><span class="astro-dots__round">Round 3</span><span class="astro-dots__who">OmiCairn + expert direction</span><span class="astro-dots__input">Expert input: one hypothesis hint about the IME subtype</span></div>
+      <div class="astro-dots__track" aria-hidden="true"><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d is-on"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span><span class="astro-dots__d"></span></div>
+      <p class="astro-dots__value"><b class="num">9/17</b> <span class="num muted">53%</span></p>
+    </li>
+  </ol>
+  <p class="astro-dots__key small muted"><span class="astro-dots__k"><span class="astro-dots__d is-on" aria-hidden="true"></span>reference finding recovered, including partial or trend-level recoveries</span><span class="astro-dots__k"><span class="astro-dots__d" aria-hidden="true"></span>not recovered</span></p>
+
+  <aside class="callout callout--caution astro-hero__caution">
+    <p class="callout__title">What this gain measures</p>
+    <!-- [M] -->
+    <p>Expert input accumulated across rounds, so the rise from 6/17 to 9/17 measures how well OmiCairn turned feedback into targeted re-analysis. It is not an increase in autonomous capability. The Round 3 gains came mainly from analyses that followed an expert hint and used the published subtype labels: OmiCairn executed expert-directed tests correctly; it did not rediscover the immune-hot subtype on its own.</p>
+  </aside>
+</section>
+
+<nav class="astro-jump" aria-label="On this page">
+  <ul class="jump"><li><a href="#data">Data</a></li><li><a href="#prompt">Prompt</a></li><li><a href="#workflow">Workflow</a></li><li><a href="#rounds">Three rounds</a></li><li><a href="#findings">Findings</a></li><li><a href="#gaps">Not recovered</a></li><li><a href="#validation">External cohort</a></li><li><a href="#boundaries">Evidence boundaries</a></li><li><a href="#figure">Figure 7</a></li><li><a href="#sources">Sources</a></li></ul>
+</nav>
+
+<!-- ============================================================ DATA -->
+<section class="section--tight astro-sec" id="data" aria-labelledby="data-title">
+  <div class="astro-split">
+    <div class="prose">
+      <p class="case-head__num"><span>1</span> The data</p>
+      <h2 id="data-title">35 tumours, five omics layers, uneven coverage</h2>
+      <!-- [M][F7] modality list and counts -->
+      <p>The dataset is the publicly available CGGA subset (DataSet ID CCell_4083) of the cohort reported by Tang et al.: 35 IDH-mutant astrocytoma samples with EPIC DNA methylation, bulk RNA-seq, single-cell RNA-seq, phosphoproteomics and proteomics, plus clinical annotations. Not every sample has every layer. Single-cell RNA-seq covers 18 of the 35.</p>
+      <p>No subtype structure or biomarker model was imposed before the analysis.</p>
+      <dl class="deflist astro-facts">
+        <div><dt>Reference study</dt><dd>Tang et al., <i>Cancer Cell</i> 2025, “Protein-based classification reveals an immune-hot subtype in IDH mutant astrocytoma with worse prognosis” <a class="link-external" href="https://doi.org/10.1016/j.ccell.2025.08.006">doi</a></dd></div>
+        <div><dt>Evaluators</dt><dd>Members of the reference study team</dd></div>
+        <div><dt>Comparison set</dt><dd>A fixed set of 17 findings of the reference study</dd></div>
+        <div><dt>External cohort</dt><dd>CGGA_693 (RNA-level)</dd></div>
+      </dl>
+    </div>
+    <figure class="astro-cohort card" aria-labelledby="cohort-cap">
+      <p class="astro-cohort__title"><b>CGGA CCell_4083</b> <span class="muted">· 35 samples · filled = profiled</span></p>
+      <!-- [F7] panel A; per-sample pattern read from the figure, counts match its labels -->
+      <div class="astro-cohort__grid" role="list">
+<div class="astro-cohort__row" role="listitem"><span class="astro-cohort__label">EPIC DNA methylation</span><span class="astro-cohort__cells" aria-hidden="true"><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span></span><span class="astro-cohort__n num"><b>29</b><span class="muted">/35</span></span></div>
+<div class="astro-cohort__row" role="listitem"><span class="astro-cohort__label">Bulk RNA-seq</span><span class="astro-cohort__cells" aria-hidden="true"><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span></span><span class="astro-cohort__n num"><b>34</b><span class="muted">/35</span></span></div>
+<div class="astro-cohort__row" role="listitem"><span class="astro-cohort__label">Single-cell RNA-seq</span><span class="astro-cohort__cells" aria-hidden="true"><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span><span class="astro-cohort__cell is-empty"></span></span><span class="astro-cohort__n num"><b>18</b><span class="muted">/35</span></span></div>
+<div class="astro-cohort__row" role="listitem"><span class="astro-cohort__label">Phosphoproteomics</span><span class="astro-cohort__cells" aria-hidden="true"><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span></span><span class="astro-cohort__n num"><b>35</b><span class="muted">/35</span></span></div>
+<div class="astro-cohort__row" role="listitem"><span class="astro-cohort__label">Proteomics</span><span class="astro-cohort__cells" aria-hidden="true"><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span></span><span class="astro-cohort__n num"><b>35</b><span class="muted">/35</span></span></div>
+<div class="astro-cohort__row" role="listitem"><span class="astro-cohort__label">Clinical annotations</span><span class="astro-cohort__cells" aria-hidden="true"><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span><span class="astro-cohort__cell"></span></span><span class="astro-cohort__n num"><b>35</b><span class="muted">/35</span></span></div>
+      </div>
+      <figcaption id="cohort-cap" class="small muted">Samples (columns) by data type (rows), redrawn from Figure 7A of the OmiCairn manuscript. Methylation 29, bulk RNA-seq 34, single-cell RNA-seq 18, phosphoproteomics 35, proteomics 35, clinical annotations 35.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============================================================ PROMPT -->
+<section class="section--tight astro-sec" id="prompt" aria-labelledby="prompt-title">
+  <div class="astro-split astro-split--rev">
+    <div class="prose">
+      <p class="case-head__num"><span>2</span> The prompt</p>
+      <h2 id="prompt-title">An open-ended question, with rules against assuming the answer</h2>
+      <!-- [M] objective; [P] the quoted constraints -->
+      <p>OmiCairn was asked to act as both an executor and a critical reviewer, and to explore the molecular and cellular mechanisms behind tumour heterogeneity, progression, recurrence and treatment resistance. The task covered subtype discovery, the tumour microenvironment, clinical associations and biomarker prioritization. It did not name the reference study’s subtypes or biomarkers.</p>
+      <p>The prompt also asked for spatial and longitudinal analyses where such data existed. The public subset has neither, which matters for what could and could not be recovered.</p>
+    </div>
+    <blockquote class="astro-quote">
+      <p class="astro-quote__label">From the task prompt</p>
+      <p>“This project is data-driven. Do not assume any subtype, pathway, biomarker, or mechanism before analysis.”</p>
+      <p>“Treat associations as hypothesis-generating unless independently validated.”</p>
+      <p>“Report alternative explanations and negative findings.”</p>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============================================================ WORKFLOW -->
+<section class="section--tight astro-sec" id="workflow" aria-labelledby="workflow-title">
+  <div class="section__head">
+    <p class="case-head__num"><span>3</span> The workflow</p>
+    <h2 id="workflow-title">Nine connected modules, run by an executor and a critical reviewer</h2>
+    <!-- [F7] panel B module names and order -->
+    <p>OmiCairn organized the analysis itself. A reviewer step that recognises gaps against the reference sends the work back to hypothesis generation, which closes the loop between rounds.</p>
+  </div>
+  <ol class="astro-modules">
+    <li><span class="astro-modules__n num">1</span>Hypothesis generation</li>
+    <li><span class="astro-modules__n num">2</span>Dataset harmonization</li>
+    <li><span class="astro-modules__n num">3</span>Disease subtype discovery</li>
+    <li><span class="astro-modules__n num">4</span>Survival analysis</li>
+    <li><span class="astro-modules__n num">5</span>Molecular program scoring</li>
+    <li><span class="astro-modules__n num">6</span>Tumour microenvironment characterization</li>
+    <li><span class="astro-modules__n num">7</span>Biomarker ranking</li>
+    <li><span class="astro-modules__n num">8</span>Classifier construction</li>
+    <li><span class="astro-modules__n num">9</span>Evidence-linked report</li>
+  </ol>
+  <p class="astro-loop small"><span aria-hidden="true">↺</span> Expert review against the reference study → gap recognition → targeted re-analysis from module 1</p>
+
+  <!-- [M] all six numbers are totals across the three rounds as stated in the manuscript -->
+  <div class="stat-grid astro-stats">
+    <div class="stat"><p class="stat__value num">7</p><p class="stat__label">candidate hypotheses tested</p></div>
+    <div class="stat"><p class="stat__value num">66</p><p class="stat__label">function blocks</p></div>
+    <div class="stat"><p class="stat__value num">40</p><p class="stat__label">implementation or data-handling issues resolved automatically</p></div>
+    <div class="stat"><p class="stat__value num">103</p><p class="stat__label">figures</p></div>
+    <div class="stat"><p class="stat__value num">123</p><p class="stat__label">tables</p></div>
+    <div class="stat"><p class="stat__value num">110<span class="astro-unit"> min</span></p><p class="stat__label">average runtime per round</p></div>
+  </div>
+  <p class="small muted">Totals across the three rounds. Human input was the task specification, one comparison request with feedback on its depth, and one hypothesis hint; some manual debugging was still needed.</p>
+</section>
+
+<!-- ============================================================ ROUNDS -->
+<section class="section astro-sec astro-rounds-sec" id="rounds" aria-labelledby="rounds-title">
+  <div class="section__head">
+    <p class="case-head__num"><span>4</span> The three rounds</p>
+    <h2 id="rounds-title">What the expert said, and what OmiCairn did with it</h2>
+    <p>Each round reused the same OmiCairn system. What changed was the human input before the round started.</p>
+  </div>
+
+  <ol class="astro-rounds">
+    <!-- [M][F7] Round 1 -->
+    <li class="astro-round">
+      <header class="astro-round__head">
+        <p class="astro-round__n">Round 1</p>
+        <h3 class="astro-round__title">OmiCairn, autonomous</h3>
+        <p class="astro-round__score"><b class="num">6/17</b> <span class="num">35%</span></p>
+      </header>
+      <div class="astro-round__input">
+        <p class="astro-round__label">Expert input</p>
+        <p>None. Only the task prompt.</p>
+      </div>
+      <div class="astro-round__body">
+        <p class="astro-round__label">What OmiCairn did</p>
+        <ul>
+          <li>First multi-omics subtype discovery</li>
+          <li>The immune-hot IME subtype was not resolved; it stayed merged with the AFM subtype</li>
+        </ul>
+        <p class="astro-round__label">Recovered without any feedback</p>
+        <p>The adverse prognosis of the PPR subtype, and transfer of the subtypes across cohorts.</p>
+      </div>
+    </li>
+    <!-- [M][F7] Round 2 -->
+    <li class="astro-round">
+      <header class="astro-round__head">
+        <p class="astro-round__n">Round 2</p>
+        <h3 class="astro-round__title">OmiCairn + reference comparison</h3>
+        <p class="astro-round__score"><b class="num">7/17</b> <span class="num">41%</span> <span class="astro-delta">+1</span></p>
+      </header>
+      <div class="astro-round__input">
+        <p class="astro-round__label">Expert input</p>
+        <p>Compare your outputs with the original study. Then: the comparison lacks depth.</p>
+      </div>
+      <div class="astro-round__body">
+        <p class="astro-round__label">What OmiCairn did</p>
+        <ul>
+          <li>Rebuilt the workflow around explicit, falsifiable hypotheses</li>
+          <li>Added a quantitative validation framework</li>
+        </ul>
+        <p class="astro-round__label">Change</p>
+        <!-- [S] V2 status: GBP2 trend -->
+        <p>One more finding at partial level: a GBP2 trend toward the interferon program of IME.</p>
+      </div>
+    </li>
+    <!-- [M][F7] Round 3 -->
+    <li class="astro-round astro-round--last">
+      <header class="astro-round__head">
+        <p class="astro-round__n">Round 3</p>
+        <h3 class="astro-round__title">OmiCairn + expert direction</h3>
+        <p class="astro-round__score"><b class="num">9/17</b> <span class="num">53%</span> <span class="astro-delta">+2</span></p>
+      </header>
+      <div class="astro-round__input">
+        <p class="astro-round__label">Expert input</p>
+        <p>The question was resubmitted with a hint: a proteomics-defined IME subtype may contribute to recurrence.</p>
+      </div>
+      <div class="astro-round__body">
+        <p class="astro-round__label">What OmiCairn did</p>
+        <ul>
+          <li>Integrated the EPIC methylation data</li>
+          <li>Fused four omics layers for subtyping</li>
+          <li>Characterized IME using the published subtype labels</li>
+          <li>Validated subtype signatures in the external CGGA_693 cohort</li>
+        </ul>
+        <p class="astro-round__label">Change</p>
+        <!-- [S] V2 -> V3 status changes: plasma cells discordant -> trend; IME prognosis not significant -> recovered (CGGA_693); GBP1/IFN partial -> recovered; T-cell exhaustion trend -> recovered; cell-type patterns partial -> recovered -->
+        <p>Two more findings: the plasma-cell signal in IME (trend only) and the worse prognosis of IME (external cohort). Three others moved from partial or trend level to full recovery: the interferon program, T-cell exhaustion and cell-type composition.</p>
+      </div>
+    </li>
+  </ol>
+
+  <aside class="callout callout--note astro-def">
+    <p class="callout__title">How concordance was counted</p>
+    <!-- [M] definition -->
+    <p>Concordance is the share of a fixed set of 17 reference findings that OmiCairn recovered with matching direction, modality support and biological interpretation. Partial and trend-level recoveries count. A strict count of full recoveries alone would be lower in every round (3, 3 and 7 in the table below).</p>
+  </aside>
+</section>
+
+<!-- ============================================================ FINDINGS -->
+<section class="section--tight astro-sec" id="findings" aria-labelledby="findings-title">
+  <div class="section__head">
+    <p class="case-head__num"><span>5</span> Finding by finding</p>
+    <h2 id="findings-title">All 17 reference findings across the three rounds</h2>
+    <!-- [S] finding-by-finding tracking table. Derived: a round counts a finding when its status is
+         recovered, partial or trend; this reproduces 6 / 7 / 9. -->
+    <p>Status per round from the case’s supplementary comparison. Counting every recovered, partial or trend-level cell gives exactly 6, 7 and 9, the totals in Figure 7D.</p>
+  </div>
+  <ul class="legend astro-legend" aria-label="Legend">
+    <li class="legend__item"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span></span>Recovered</li>
+    <li class="legend__item"><span class="astro-mark astro-mark--part"><span class="astro-mark__icon" aria-hidden="true"></span></span>Partial</li>
+    <li class="legend__item"><span class="astro-mark astro-mark--trend"><span class="astro-mark__icon" aria-hidden="true"></span></span>Trend only</li>
+    <li class="legend__item"><span class="astro-mark astro-mark--disc"><span class="astro-mark__icon" aria-hidden="true"></span></span>Discordant</li>
+    <li class="legend__item"><span class="astro-mark astro-mark--none"><span class="astro-mark__icon" aria-hidden="true"></span></span>Not recovered</li>
+  </ul>
+  <div class="table-wrap astro-matrix-wrap" tabindex="0" role="region" aria-label="Status of the 17 reference findings in each round">
+    <table class="data-table astro-matrix">
+      <caption>Reference findings (rows) by feedback round (columns)</caption>
+      <thead><tr><th scope="col">Reference finding</th><th scope="col">Round 1</th><th scope="col">Round 2</th><th scope="col">Round 3</th><th scope="col">Note</th></tr></thead>
+      <tbody>
+<tr><th scope="row"><span class="astro-fnum num">1</span>Four protein-based subtypes (AFM, NEU, PPR, IME)</th><td data-label="Round 1"><span class="astro-mark astro-mark--part"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Partial</span></span></td><td data-label="Round 2"><span class="astro-mark astro-mark--part"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Partial</span></span></td><td data-label="Round 3"><span class="astro-mark astro-mark--part"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Partial</span></span></td><td class="astro-note">Rounds 1–2 found three clusters with IME merged into AFM. By Round 3, AFM, NEU and PPR were supported; IME was only partly recovered by de novo clustering. (The supplementary tracking table counts Round 3 as confirmed; this page follows the more cautious manuscript text.)</td></tr>
+<tr><th scope="row"><span class="astro-fnum num">2</span>PPR subtype has the worst prognosis</th><td data-label="Round 1"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Recovered</span></span></td><td data-label="Round 2"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Recovered</span></span></td><td data-label="Round 3"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Recovered</span></span></td><td class="astro-note">Recovered without any feedback in Round 1.</td></tr>
+<tr><th scope="row"><span class="astro-fnum num">3</span>A GBP1 / interferon program marks IME</th><td data-label="Round 1"><span class="astro-mark astro-mark--none"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Not recovered</span></span></td><td data-label="Round 2"><span class="astro-mark astro-mark--part"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Partial</span></span></td><td data-label="Round 3"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Recovered</span></span></td><td class="astro-note">Round 2: GBP2 trend only. Round 3: tested with the published subtype labels.</td></tr>
+<tr><th scope="row"><span class="astro-fnum num">4</span>T-cell exhaustion markers are enriched in IME</th><td data-label="Round 1"><span class="astro-mark astro-mark--trend"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Trend</span></span></td><td data-label="Round 2"><span class="astro-mark astro-mark--trend"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Trend</span></span></td><td data-label="Round 3"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Recovered</span></span></td><td class="astro-note">Trend-level until Round 3, which used the published subtype labels.</td></tr>
+<tr><th scope="row"><span class="astro-fnum num">5</span>Plasma cells / IGKC are highest in IME</th><td data-label="Round 1"><span class="astro-mark astro-mark--disc"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Discordant</span></span></td><td data-label="Round 2"><span class="astro-mark astro-mark--disc"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Discordant</span></span></td><td data-label="Round 3"><span class="astro-mark astro-mark--trend"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Trend</span></span></td><td class="astro-note">Rounds 1–2 placed the signal in AFM (IME was merged into AFM). Round 3, with published labels: trend only, not significant with 4 IME samples.</td></tr>
+<tr><th scope="row"><span class="astro-fnum num">6</span>IME carries a worse prognosis</th><td data-label="Round 1"><span class="astro-mark astro-mark--none"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Not recovered</span></span></td><td data-label="Round 2"><span class="astro-mark astro-mark--none"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Not recovered</span></span></td><td data-label="Round 3"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Recovered</span></span></td><td class="astro-note">Not testable in Round 1 (IME merged); not significant in Round 2 (4 IME samples). Round 3: recovered in the external CGGA_693 cohort.</td></tr>
+<tr><th scope="row"><span class="astro-fnum num">7</span>Cell-type composition patterns</th><td data-label="Round 1"><span class="astro-mark astro-mark--part"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Partial</span></span></td><td data-label="Round 2"><span class="astro-mark astro-mark--part"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Partial</span></span></td><td data-label="Round 3"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Recovered</span></span></td><td class="astro-note">From bulk deconvolution; the single-cell data could not be used.</td></tr>
+<tr><th scope="row"><span class="astro-fnum num">8</span>Pathway programs per subtype</th><td data-label="Round 1"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Recovered</span></span></td><td data-label="Round 2"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Recovered</span></span></td><td data-label="Round 3"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Recovered</span></span></td><td class="astro-note"></td></tr>
+<tr><th scope="row"><span class="astro-fnum num">9</span>Subtypes transfer across cohorts</th><td data-label="Round 1"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Recovered</span></span></td><td data-label="Round 2"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Recovered</span></span></td><td data-label="Round 3"><span class="astro-mark astro-mark--full"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Recovered</span></span></td><td class="astro-note">Recovered without any feedback in Round 1.</td></tr>
+<tr class="astro-matrix__group"><th scope="rowgroup" colspan="5">Not recovered in any round (8)</th></tr>
+<tr class="is-gap"><th scope="row"><span class="astro-fnum num">10</span>Single-cell cell states (AC / OPC / MES / NPC)</th><td colspan="3" class="astro-gaprow"><span class="astro-gaprow__line" aria-hidden="true"></span><span class="astro-mark astro-mark--none"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Not recovered in any round</span></span></td><td class="astro-note">Data not available or not retrievable</td></tr>
+<tr class="is-gap"><th scope="row"><span class="astro-fnum num">11</span>CytoTRACE differentiation trajectory</th><td colspan="3" class="astro-gaprow"><span class="astro-gaprow__line" aria-hidden="true"></span><span class="astro-mark astro-mark--none"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Not recovered in any round</span></span></td><td class="astro-note">Data not available or not retrievable</td></tr>
+<tr class="is-gap"><th scope="row"><span class="astro-fnum num">12</span>Gemistocyte histology</th><td colspan="3" class="astro-gaprow"><span class="astro-gaprow__line" aria-hidden="true"></span><span class="astro-mark astro-mark--none"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Not recovered in any round</span></span></td><td class="astro-note">Data not available or not retrievable</td></tr>
+<tr class="is-gap"><th scope="row"><span class="astro-fnum num">13</span>Visium HD spatial organisation</th><td colspan="3" class="astro-gaprow"><span class="astro-gaprow__line" aria-hidden="true"></span><span class="astro-mark astro-mark--none"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Not recovered in any round</span></span></td><td class="astro-note">Data not available or not retrievable</td></tr>
+<tr class="is-gap"><th scope="row"><span class="astro-fnum num">14</span>Longitudinal evolution across matched primary and recurrent tumours</th><td colspan="3" class="astro-gaprow"><span class="astro-gaprow__line" aria-hidden="true"></span><span class="astro-mark astro-mark--none"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Not recovered in any round</span></span></td><td class="astro-note">Data not available or not retrievable</td></tr>
+<tr class="is-gap"><th scope="row"><span class="astro-fnum num">15</span>Protein-level validation in an independent proteomics cohort</th><td colspan="3" class="astro-gaprow"><span class="astro-gaprow__line" aria-hidden="true"></span><span class="astro-mark astro-mark--none"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Not recovered in any round</span></span></td><td class="astro-note">Data not available or not retrievable</td></tr>
+<tr class="is-gap"><th scope="row"><span class="astro-fnum num">16</span>MOFA latent factors</th><td colspan="3" class="astro-gaprow"><span class="astro-gaprow__line" aria-hidden="true"></span><span class="astro-mark astro-mark--none"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Not recovered in any round</span></span></td><td class="astro-note">Different method chosen</td></tr>
+<tr class="is-gap"><th scope="row"><span class="astro-fnum num">17</span>The reference study’s tree-based multi-modal classifier</th><td colspan="3" class="astro-gaprow"><span class="astro-gaprow__line" aria-hidden="true"></span><span class="astro-mark astro-mark--none"><span class="astro-mark__icon" aria-hidden="true"></span><span class="astro-mark__text">Not recovered in any round</span></span></td><td class="astro-note">Different method chosen</td></tr>
+      </tbody>
+      <tfoot><tr><th scope="row">Counted as concordant</th><td class="num" data-label="Round 1">6/17</td><td class="num" data-label="Round 2">7/17</td><td class="num" data-label="Round 3">9/17</td><td class="astro-empty"></td></tr></tfoot>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ OVERLAP + GAPS -->
+<section class="section--tight astro-sec" id="gaps" aria-labelledby="gaps-title">
+  <div class="section__head">
+    <p class="case-head__num"><span>6</span> Final overlap after Round 3</p>
+    <h2 id="gaps-title">9 shared, 8 not recovered, 9 found only by OmiCairn</h2>
+  </div>
+
+  <div class="astro-venn-wrap">
+    <!-- [F7] panel C: 8 reference-only, 9 shared, 9 agent-only. Derived: reference total 17 = 8 + 9; OmiCairn total 18 = 9 + 9. -->
+    <figure class="astro-venn">
+      <svg viewBox="0 0 560 300" role="img" aria-labelledby="venn-t venn-d">
+        <title id="venn-t">Overlap between the reference study and OmiCairn after Round 3</title>
+        <desc id="venn-d">Reference study: 17 findings, of which 9 were also found by OmiCairn and 8 were not. OmiCairn: 18 findings, 9 shared with the reference and 9 not reported by it.</desc>
+        <defs><clipPath id="astro-clip-ref"><circle cx="215" cy="160" r="118"/></clipPath></defs>
+        <circle class="astro-venn__ref" cx="215" cy="160" r="118"/>
+        <circle class="astro-venn__agent" cx="345" cy="160" r="118"/>
+        <circle class="astro-venn__both" cx="345" cy="160" r="118" clip-path="url(#astro-clip-ref)"/>
+        <circle class="astro-venn__line" cx="215" cy="160" r="118"/>
+        <text class="astro-venn__num" x="160" y="174" text-anchor="middle">8</text>
+        <text class="astro-venn__num astro-venn__num--both" x="280" y="174" text-anchor="middle">9</text>
+        <text class="astro-venn__num" x="400" y="174" text-anchor="middle">9</text>
+        <text class="astro-venn__lab" x="160" y="26" text-anchor="middle">Reference study (17)</text>
+        <text class="astro-venn__lab" x="400" y="26" text-anchor="middle">OmiCairn, Round 3 (18)</text>
+        <text class="astro-venn__sub" x="160" y="200" text-anchor="middle">not recovered</text>
+        <text class="astro-venn__sub astro-venn__sub--both" x="280" y="200" text-anchor="middle">shared</text>
+        <text class="astro-venn__sub" x="400" y="200" text-anchor="middle">OmiCairn only</text>
+      </svg>
+      <figcaption class="small muted">Redrawn from Figure 7C of the OmiCairn manuscript. Areas are not to scale.</figcaption>
+    </figure>
+    <div class="astro-venn-lists">
+      <div>
+        <h3 class="astro-list-h"><span class="astro-key astro-key--both" aria-hidden="true"></span>Shared (9)</h3>
+        <ol class="astro-list">
+<li>Four protein-based subtypes (AFM, NEU, PPR, IME)</li>
+<li>PPR subtype has the worst prognosis</li>
+<li>A GBP1 / interferon program marks IME</li>
+<li>T-cell exhaustion markers are enriched in IME</li>
+<li>Plasma cells / IGKC are highest in IME</li>
+<li>IME carries a worse prognosis</li>
+<li>Cell-type composition patterns</li>
+<li>Pathway programs per subtype</li>
+<li>Subtypes transfer across cohorts</li>
+        </ol>
+      </div>
+      <div>
+        <h3 class="astro-list-h"><span class="astro-key astro-key--agent" aria-hidden="true"></span>Found only by OmiCairn (9)</h3>
+        <!-- [S] novel findings list -->
+        <ol class="astro-list">
+<li>Kinase activity inferred from the phosphoproteomics</li>
+<li>A leave-one-omic-out stability analysis of the subtypes</li>
+<li>Modest RNA–protein concordance across genes</li>
+<li>Published RNA transcriptional subtypes did not stratify survival in this cohort (a negative result)</li>
+<li>A set of seven competing hypotheses with pre-stated support and refutation criteria</li>
+<li>A five-axis biomarker and target ranking</li>
+<li>Four-omic fusion with EPIC methylation (modest improvement)</li>
+<li>A bulk gemistocytic marker score associated with overall survival</li>
+<li>External validation of a four-subtype signature in CGGA_693</li>
+        </ol>
+        <p class="small muted">Not reported by the reference study and not independently validated. Treat as hypotheses.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="astro-gaps">
+    <h3>What OmiCairn could not recover, and why</h3>
+    <!-- [M] "Most of the eight unrecovered reference findings depended on data that were unavailable or
+         could not be retrieved, such as spatial, longitudinal and single-cell data, or on different
+         methodological choices."  [S] per-finding reasons (6 data, 2 method) -->
+    <p class="prose">According to the manuscript, most of the eight unrecovered findings depended on data that were unavailable or could not be retrieved, or on different methodological choices. The per-finding reasons below come from the case’s supplementary comparison.</p>
+    <div class="astro-gaps__grid">
+      <div class="card astro-gap">
+        <p class="astro-gap__count"><b class="num">6</b> depended on data</p>
+        <ul>
+<li><strong>Single-cell cell states (AC / OPC / MES / NPC).</strong> Needs the single-cell data. Single-cell RNA-seq exists for 18 of the 35 samples, but the download failed in every round (incomplete or corrupted file).</li>
+<li><strong>CytoTRACE differentiation trajectory.</strong> Same single-cell retrieval failure.</li>
+<li><strong>Gemistocyte histology.</strong> Needs whole-slide images and spatial data, which were not used. A bulk marker score was computed instead (see below).</li>
+<li><strong>Visium HD spatial organisation.</strong> Spatial transcriptomics is not part of the public CCell_4083 subset.</li>
+<li><strong>Longitudinal evolution across matched primary and recurrent tumours.</strong> The public subset has one time point per patient.</li>
+<li><strong>Protein-level validation in an independent proteomics cohort.</strong> No independent proteomics cohort was publicly available; OmiCairn validated at the RNA level in CGGA_693 instead.</li>
+        </ul>
+      </div>
+      <div class="card astro-gap">
+        <p class="astro-gap__count"><b class="num">2</b> reflect a different method</p>
+        <ul>
+<li><strong>MOFA latent factors.</strong> OmiCairn integrated the omics layers with a similarity-network approach instead.</li>
+<li><strong>The reference study’s tree-based multi-modal classifier.</strong> OmiCairn built a signature-based classifier instead.</li>
+        </ul>
+        <p class="small muted">A different method is a choice, not a missing data type. Whether the reference study’s methods would give the same answer on this subset was not tested.</p>
+      </div>
+    </div>
+    <aside class="callout callout--caution">
+      <p class="callout__title">Single-cell data existed but were not analysed</p>
+      <!-- [F7] scRNA n = 18; [S] download failed in every round -->
+      <p>The single-cell layer is part of the dataset (18 of 35 samples). It was missing from the analysis because the download failed, not because the data do not exist. Three unrecovered findings depend fully or partly on it. Whether they would be recovered with the data in hand is untested.</p>
+    </aside>
+    <h3>Where OmiCairn and the reference disagreed</h3>
+    <!-- [S] discordant / nuanced findings -->
+    <p class="prose">In Rounds 1 and 2 the plasma-cell signal appeared highest in the AFM subtype rather than IME; the supplementary comparison attributes this to IME not yet being separated from AFM. With the published labels in Round 3 it moved to IME as a non-significant trend. Round 3 also produced a bulk gemistocytic marker score that was highest in PPR rather than IME. The reference study linked gemistocytes to IME using histology and single-cell data, which OmiCairn could not use, so the two observations rest on different evidence.</p>
+  </div>
+</section>
+
+<!-- ============================================================ VALIDATION -->
+<section class="section--tight astro-sec" id="validation" aria-labelledby="val-title">
+  <div class="astro-split">
+    <div class="prose">
+      <p class="case-head__num"><span>7</span> External cohort</p>
+      <h2 id="val-title">Subtype signatures tested in CGGA_693</h2>
+      <!-- [M] Round 3 validated subtype signatures in CGGA_693. [S] n = 237, HRs, p-values -->
+      <p>In Round 3, OmiCairn applied a four-subtype expression signature to the independent CGGA_693 cohort. Tumours assigned to PPR and to IME both had worse survival there.</p>
+      <p>This validation is at the RNA level. The reference study validated its protein-based classification in an independent proteomics cohort, which was not publicly available, so the two validations are not equivalent.</p>
+    </div>
+    <dl class="deflist astro-val">
+      <div><dt>Cohort</dt><dd>CGGA_693, <span class="num">n = 237</span> with the signature applied</dd></div>
+      <div><dt>IME</dt><dd class="num">HR 1.96 (95% CI 1.29–2.97), p = 0.0015</dd></div>
+      <div><dt>PPR</dt><dd class="num">HR 2.38, p &lt; 0.0001</dd></div>
+      <div><dt>Four classes</dt><dd class="num">log-rank p &lt; 0.0001</dd></div>
+      <div><dt>Level</dt><dd>Associative. No functional or prospective validation.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============================================================ BOUNDARIES -->
+<section class="section--tight astro-sec" id="boundaries" aria-labelledby="bound-title">
+  <div class="section__head">
+    <p class="case-head__num"><span>8</span> Evidence boundaries</p>
+    <h2 id="bound-title">OmiCairn sorted its own claims by strength of support</h2>
+    <!-- [M][F7] panel E -->
+    <p>Findings aligned with the reference were kept apart from three weaker layers. All findings are associative, not causal.</p>
+  </div>
+  <ol class="astro-layers">
+    <li><p class="astro-layers__t">Prior hypothesis-driven findings</p><p>Hypotheses for future investigation.</p></li>
+    <li><p class="astro-layers__t">Data-limited gaps</p><p>Questions left unresolved by limited data or resolution.</p></li>
+    <li><p class="astro-layers__t">Requires experimental validation</p><p>Findings that need functional or prospective validation.</p></li>
+  </ol>
+</section>
+
+<!-- ============================================================ FIGURE -->
+<section class="section--tight astro-sec" id="figure" aria-labelledby="fig-title">
+  <div class="case-sec-head"><p class="case-head__num"><span>9</span> Figure</p>
+  <h2 id="fig-title">Figure 7</h2></div>
+  <figure class="figure figure--wide astro-fig">
+    <a class="figure__zoom" href="/assets/img/paper/fig7-case3-astrocytoma.webp"><img src="/assets/img/paper/fig7-case3-astrocytoma.webp" alt="Figure 7 of the OmiCairn manuscript in five panels. A: sample-by-data-type availability grid for the 35-sample CGGA CCell_4083 cohort (methylation 29, bulk RNA-seq 34, single-cell RNA-seq 18, phosphoproteomics 35, proteomics 35, clinical 35). B: the nine workflow modules arranged in a loop, run by an executor and a critical reviewer. C: expert review against the original study, with a Venn diagram of 8 reference-only, 9 shared and 9 agent-only findings. D: concordance bars for Round 1 (6/17, 35%), Round 2 (7/17, 41%) and Round 3 (9/17, 53%) with boxes for the expert input and analysis focus of each round. E: three evidence-boundary layers." loading="lazy" decoding="async" width="1600" height="1680"></a>
+    <figcaption><b>Rounds of expert feedback increase OmiCairn’s concordance with the original study in IDH-mutant astrocytoma.</b> (A) The 35-sample cohort; filled cells are profiled samples. (B) Nine connected workflow modules. (C) Evaluation against the original study by evaluators from the reference study team; convergent findings are reference findings recovered in Round 3. (D) Concordance across three rounds run with the same system and increasing expert input; IME-directed analyses in Round 3 used the published subtype labels. (E) Evidence-boundary layers. Select the image to open it at full size.<span class="figure__credit">Figure from the OmiCairn manuscript (in preparation).</span></figcaption>
+  </figure>
+</section>
+
+<!-- ============================================================ SOURCES -->
+<section class="section--tight astro-sec" id="sources" aria-labelledby="src-title">
+  <div class="case-sec-head"><p class="case-head__num"><span>10</span> Sources</p>
+  <h2 id="src-title">Data and sources</h2></div>
+  <dl class="deflist">
+    <div><dt>Dataset</dt><dd>Publicly available CGGA subset, DataSet ID CCell_4083 (35 samples), of the cohort reported by Tang et al.</dd></div>
+    <div><dt>External cohort</dt><dd>CGGA_693</dd></div>
+    <div><dt>Reference study</dt><dd>Tang J. et al. Protein-based classification reveals an immune-hot subtype in IDH mutant astrocytoma with worse prognosis. <i>Cancer Cell</i> 43(11), 2136–2155.e14 (2025). <a class="link-external" href="https://doi.org/10.1016/j.ccell.2025.08.006">doi:10.1016/j.ccell.2025.08.006</a></dd></div>
+    <div><dt>This case</dt><dd>The OmiCairn manuscript (in preparation): Results, Case 3, and Figure 7. Per-finding statuses, reasons for gaps, OmiCairn-only findings and external-cohort statistics come from the case’s supplementary materials.</dd></div>
+    <div><dt>Status</dt><dd>Hypothesis-generating. The evaluation was done with members of the reference study team.</dd></div>
+  </dl>
+  <!--oc:include case-nav current=astrocytoma-->
+</section>
+
+</div>

@@ -1,0 +1,15 @@
+# Build output
+site/
+# Python
+__pycache__/
+*.pyc
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local-only: private policy terms and the data-preparation scripts (data is pre-generated)
+tools/policy_terms.local
+tools/scrub.py
+tools/prepare_data.py

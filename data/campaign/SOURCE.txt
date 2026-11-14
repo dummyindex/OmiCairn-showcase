@@ -1,0 +1,5 @@
+Sanitized copy of OmiCairn-neurodegeneration-campaign data (CC BY 4.0).
+Changes: the column naming the run-internal source file of each quote was dropped;
+references to run-internal files and
+stage directories in text fields were replaced by neutral wording (tools/scrub.py).
+Research questions come from each topic's RESEARCH.md in the OmiCairn repository.

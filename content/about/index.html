@@ -1,0 +1,168 @@
+<!--
+title: About
+description: Code and data repositories, how to cite OmiCairn, the licenses of this site, how to read its hypothesis-generating outputs, and how to send feedback.
+section: about
+breadcrumb: About
+stylesheet: /assets/css/pages/how.css
+-->
+<!--
+Sources for this page:
+- Repository table (names, contents, licenses): the "OmiCairn repositories" table shared by the READMEs of
+  OmiCairn, OmiCairn-engineering, OmiCairn-early and OmiCairn-neurodegeneration-campaign.
+- Citation: placeholder BibTeX as published in the campaign release README ("How to cite"), author block
+  "The OmiCairn Authors".
+- Site licenses: LICENSE of this repository (code MIT; content CC BY 4.0).
+- Disclaimer and release processing: brief, campaign release README ("Caveats").
+- Numbers: 57 runs, 179 hypotheses, 23 runs with a final report: assets/data/campaign.json `verified`.
+  18 PDF reports + 5 Markdown reports: assets/reports/ and generators/run_reports.py (23 total).
+-->
+<div class="container">
+<header class="page-head">
+  <p class="kicker">About</p>
+  <h1>About this site</h1>
+  <p class="lede">This site presents what OmiCairn produced: a 57-run neurodegeneration research campaign and the three case studies of the OmiCairn manuscript. This page lists where the code and data live, how to cite them, the licenses, and what the results can and cannot be used for.</p>
+  <nav aria-label="On this page">
+    <ul class="jump how-jump">
+      <li><a href="#repositories">Repositories</a></li>
+      <li><a href="#data">Data on this site</a></li>
+      <li><a href="#cite">How to cite</a></li>
+      <li><a href="#licenses">Licenses</a></li>
+      <li><a href="#disclaimer">How to read the outputs</a></li>
+      <li><a href="#feedback">Feedback</a></li>
+    </ul>
+  </nav>
+</header>
+</div>
+
+<section class="section section--tight how-section" id="repositories" aria-labelledby="repos-h">
+<div class="container">
+  <div class="section__head">
+    <h2 id="repos-h">Repositories</h2>
+    <p>Four repositories were released with the OmiCairn manuscript.</p>
+  </div>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="OmiCairn repositories">
+    <table class="data-table about-repos">
+      <thead><tr><th scope="col">Repository</th><th scope="col">Contents</th><th scope="col">License</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a class="repo-name link-external" href="https://github.com/dummyindex/OmiCairn">OmiCairn</a><span class="repo-kind">Academic code release</span></td>
+          <td>Single-machine implementation of the OmiCairn research pipeline, with the benchmark and case-study materials.</td>
+          <td><span class="about-lic">MIT</span></td>
+        </tr>
+        <tr>
+          <td><a class="repo-name link-external" href="https://github.com/dummyindex/OmiCairn-engineering">OmiCairn-engineering</a><span class="repo-kind">Engineering release</span></td>
+          <td>Source code of the OmiCairn web platform: web interface, backend, computation worker and agent runner.</td>
+          <td><span class="about-lic">MIT</span></td>
+        </tr>
+        <tr>
+          <td><a class="repo-name link-external" href="https://github.com/dummyindex/OmiCairn-early">OmiCairn-early</a><span class="repo-kind">Early-stage research release</span></td>
+          <td>The earliest research prototype of OmiCairn: analysis trees of containerized function blocks.</td>
+          <td><span class="about-lic">MIT</span></td>
+        </tr>
+        <tr>
+          <td><a class="repo-name link-external" href="https://github.com/dummyindex/OmiCairn-neurodegeneration-campaign">OmiCairn-neurodegeneration-campaign</a><span class="repo-kind">Research outputs</span></td>
+          <td>Hypothesis-level outcomes and final reports of the 57-run neurodegeneration research campaign.</td>
+          <td><span class="about-lic">CC BY 4.0</span></td>
+        </tr>
+        <tr>
+          <td><a class="repo-name link-external" href="https://github.com/dummyindex/OmiCairn-showcase">OmiCairn-showcase</a><span class="repo-kind">This website</span></td>
+          <td>Source of this showcase site: content, build script and the prepared campaign data it displays.</td>
+          <td><span class="about-lic">MIT (code), CC BY 4.0 (content)</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted">The research pipeline is described on <a href="/how-it-works/">How it works</a>.</p>
+</div>
+</section>
+
+<section class="section section--tight how-section" id="data" aria-labelledby="data-h">
+<div class="container">
+  <div class="section__head">
+    <h2 id="data-h">Data on this site</h2>
+    <p>The campaign pages are built from the campaign release. You can download the same data in machine-readable form.</p>
+  </div>
+  <dl class="deflist">
+    <div><dt>Hypotheses</dt><dd>All 179 hypotheses with verdict, evidence quote and adjudication note: <a href="/assets/data/hypotheses.json" download>hypotheses.json</a> or the sanitized <a href="/assets/data/hypotheses.csv" download>hypotheses.csv</a>. Browse them in the <a href="/campaign/hypotheses/">hypothesis explorer</a>.</dd></div>
+    <div><dt>Runs</dt><dd>All 57 runs with their status, hypothesis counts and research question: <a href="/assets/data/runs.json" download>runs.json</a>, or the sanitized <a href="/assets/data/runs.csv" download>runs.csv</a>.</dd></div>
+    <div><dt>Campaign summary</dt><dd>The headline numbers and how each was computed: <a href="/assets/data/campaign.json" download>campaign.json</a>.</dd></div>
+    <div><dt>Reports</dt><dd>The final report of each of the 23 runs that produced one, linked from each run’s page under <a href="/campaign/">Campaign</a>: 18 as PDF and 5 rendered from Markdown.</dd></div>
+    <div><dt>Case studies</dt><dd>Text and figures from the OmiCairn manuscript (in preparation). Figures are marked as such.</dd></div>
+  </dl>
+  <h3>What was changed for this site</h3>
+  <p class="prose">Run identifiers were renumbered (<code>&lt;topic&gt;-rN</code>) and run dates and times were removed. In hypothesis text, names of run-internal files and stage folders were replaced with plain descriptions, and three report bodies say “this report” for the system’s own output. No numbers, statistics, verdicts or hypotheses were changed. The report PDFs are published exactly as released. Some of them call themselves a “paper”, call the system’s internal multi-agent review “peer review”, or cite internal stage folders by number; those folders are not shipped.</p>
+  <p class="prose small muted">This site makes no requests to other servers, sets no cookies and has no analytics. The only thing it stores is your color theme, in your own browser.</p>
+</div>
+</section>
+
+<section class="section section--tight how-section" id="cite" aria-labelledby="cite-h">
+<div class="container">
+  <div class="section__head">
+    <h2 id="cite-h">How to cite</h2>
+    <p>Please cite the OmiCairn manuscript, which is in preparation. The entry below is a placeholder and will be updated on publication.</p>
+  </div>
+  <div class="cite-block prose">
+<pre id="about-cite"><code>@unpublished{omicairn2026,
+  title  = {OmiCairn: an accountable self-learning platform for hypothesis-driven biomedical multi-omics analysis},
+  author = {{The OmiCairn Authors}},
+  year   = {2026},
+  note   = {Manuscript in preparation. Neurodegeneration campaign release: https://github.com/dummyindex/OmiCairn-neurodegeneration-campaign}
+}</code></pre>
+    <div class="about-cite-actions">
+      <button class="button button--small" type="button" data-oc-copy="#about-cite">Copy BibTeX</button>
+      <span class="small muted">If you use the campaign data, please also link the campaign repository.</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section section--tight how-section" id="licenses" aria-labelledby="licenses-h">
+<div class="container">
+  <div class="section__head">
+    <h2 id="licenses-h">Licenses</h2>
+  </div>
+  <dl class="deflist">
+    <div><dt>Site code <span class="about-lic">MIT</span></dt><dd>The build tools, generators, CSS, JavaScript and page templates of this site.</dd></div>
+    <div><dt>Site content <span class="about-lic">CC BY 4.0</span></dt><dd>Page text, data files, reports and images, including figures from the OmiCairn manuscript. <a class="link-external" href="https://creativecommons.org/licenses/by/4.0/">License text</a></dd></div>
+    <div><dt>Campaign data and reports <span class="about-lic">CC BY 4.0</span></dt><dd>Derived from the <a href="https://github.com/dummyindex/OmiCairn-neurodegeneration-campaign">OmiCairn-neurodegeneration-campaign</a> release.</dd></div>
+    <div><dt>Third-party datasets</dt><dd>The runs used public datasets and resources. They keep their own licenses and terms of use, and they are not redistributed here. Each report lists the exact accessions it used.</dd></div>
+  </dl>
+</div>
+</section>
+
+<section class="section section--tight how-section" id="disclaimer" aria-labelledby="disclaimer-h">
+<div class="container">
+  <div class="about-disclaimer prose">
+    <p class="kicker">About the outputs</p>
+    <h2 id="disclaimer-h">How to read the outputs</h2>
+    <ul class="how-list">
+      <li><strong>Generated by an autonomous system.</strong> The campaign reports and verdicts were produced end to end by OmiCairn, without manual edits to their scientific content.</li>
+      <li><strong>Internal review.</strong> The review inside each run is a multi-agent review by reviewer agents and a claim-review agent, which are part of the system. Passing it shows that a run went through the pipeline, not that its conclusions are valid.</li>
+      <li><strong>Hypotheses, not recommendations.</strong> Treatment combinations named in the case studies are hypotheses nominated for testing.</li>
+      <li><strong>Known imperfections are left in place.</strong> Many reports contain unresolved inconsistencies, such as titles stronger than the results or counts that differ between sections. They were recorded but not corrected, because correcting them would mean rewriting the system’s output. Read each report next to its verdicts and adjudication notes.</li>
+      <li><strong>Third-party data keep their own terms.</strong> Datasets used by the runs remain under the licenses and terms of their providers. No patient-level information is shown on this site.</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<section class="section how-section" id="feedback" aria-labelledby="feedback-h">
+<div class="container">
+  <div class="section__head">
+    <h2 id="feedback-h">Feedback</h2>
+    <p>We take corrections through GitHub issues only. Please do not include patient data or other personal information in an issue.</p>
+  </div>
+  <div class="about-feedback">
+    <div class="card">
+      <h3 class="card__title">About this site</h3>
+      <p>Broken links, display problems, or a number on a page that does not match its source.</p>
+      <a class="link-external" href="https://github.com/dummyindex/OmiCairn/issues">Open an issue on the OmiCairn repository</a>
+    </div>
+    <div class="card">
+      <h3 class="card__title">About a verdict or report</h3>
+      <p>A hypothesis verdict, adjudication note or campaign report you think is wrong. Please give the run ID and hypothesis ID, for example <code>parkinson-gut-brain-axis-r4/H1</code>.</p>
+      <a class="link-external" href="https://github.com/dummyindex/OmiCairn-neurodegeneration-campaign/issues">Open an issue on the campaign repository</a>
+    </div>
+  </div>
+</div>
+</section>

@@ -1,0 +1,216 @@
+/* Case 3 (IDH-mutant astrocytoma) page styles. Tokens only; no hard-coded colors
+   except white/ink on known fills mirroring site.css conventions. */
+
+.page-case-astro .astro-head h1 { max-width: 24ch; }
+.page-case-astro .astro-sec { scroll-margin-top: var(--space-5); }
+.page-case-astro .astro-sec + .astro-sec { border-top: 1px solid var(--rule); }
+
+/* ---------- Hero: 17-dot progression ---------- */
+.astro-hero { padding-block: var(--space-6) var(--space-5); }
+.astro-dots { list-style: none; margin: 0 0 var(--space-3); padding: 0; display: grid; gap: var(--space-4); }
+.astro-dots__row { margin: 0; display: grid; grid-template-columns: minmax(0, 17rem) minmax(0, 1fr) 7.5rem; gap: var(--space-5); align-items: center; padding-bottom: var(--space-4); border-bottom: 1px solid var(--rule); }
+.astro-dots__row:last-child { border-bottom: 0; padding-bottom: 0; }
+.astro-dots__head { display: flex; flex-direction: column; gap: .1rem; min-width: 0; }
+.astro-dots__round { font-size: .75rem; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); }
+.astro-dots__who { font-weight: 650; line-height: 1.3; }
+.astro-dots__input { font-size: .8125rem; color: var(--ink-3); line-height: 1.4; }
+.astro-dots__track { display: grid; grid-template-columns: repeat(17, minmax(0, 1fr)); gap: clamp(3px, .6vw, 7px); max-width: 640px; }
+.astro-dots__d { display: inline-block; aspect-ratio: 1; width: 100%; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--rule-strong); background: transparent; }
+.astro-dots__d.is-on { background: var(--oc-supported); box-shadow: none; }   /* recovered = support colour, as on campaign pages */
+.astro-dots__value { margin: 0; text-align: right; line-height: 1.1; }
+.astro-dots__value b { display: block; font-family: var(--font-serif); font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.6rem); font-weight: 600; letter-spacing: -.02em; }
+.astro-dots__value .muted { font-size: .9375rem; }
+.astro-dots__key { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .5rem; margin: var(--space-3) 0 var(--space-5); }
+.astro-dots__key .astro-dots__d { width: .8rem; height: .8rem; }
+.astro-dots__key .astro-dots__d + * { margin-right: .6rem; }
+.astro-hero__caution { max-width: 78ch; }
+@media (max-width: 760px) {
+  .astro-dots__row { grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-2) var(--space-4); }
+  .astro-dots__track { grid-column: 1 / -1; grid-row: 2; }
+  .astro-dots__value { grid-column: 2; grid-row: 1; }
+}
+
+/* ---------- On-this-page nav ---------- */
+.astro-jump { padding: var(--space-3) 0 var(--space-5); border-top: 1px solid var(--rule); }
+.astro-jump .jump { margin: 0; }
+
+/* ---------- Two-column split ---------- */
+.astro-split { display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 980px) {
+  .astro-split { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: var(--space-7); }
+}
+.astro-split h2 { margin-top: 0; }
+.astro-facts { margin-top: var(--space-5); font-size: .9375rem; }
+@media (min-width: 640px) { .astro-facts > div, .astro-val > div { grid-template-columns: 9.5rem minmax(0, 1fr); } }
+
+/* ---------- Cohort grid (Fig 7A redrawn) ---------- */
+.astro-cohort { margin: 0; padding: var(--space-5); }
+.astro-cohort__title { margin: 0 0 var(--space-4); font-size: .9375rem; }
+.astro-cohort__grid { display: grid; gap: .55rem; margin-bottom: var(--space-4); }
+.astro-cohort__row { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr) 3.4rem; gap: var(--space-3); align-items: center; }
+.astro-cohort__label { font-size: .8125rem; color: var(--ink-2); line-height: 1.25; }
+.astro-cohort__cells { display: grid; grid-template-columns: repeat(35, minmax(0, 1fr)); gap: 2px; }
+.astro-cohort__cell { height: 1.05rem; border-radius: 2px; background: var(--accent); }
+.astro-cohort__cell.is-empty { background: transparent; box-shadow: inset 0 0 0 1px var(--rule-strong); }
+.astro-cohort__n { font-size: .875rem; text-align: right; white-space: nowrap; }
+.astro-cohort__n b { font-size: 1rem; }
+.astro-cohort figcaption { margin: 0; }
+@media (max-width: 560px) {
+  .astro-cohort { padding: var(--space-4); }
+  .astro-cohort__row { grid-template-columns: minmax(0, 1fr) auto; gap: .2rem var(--space-3); }
+  .astro-cohort__cells { grid-column: 1 / -1; grid-row: 2; gap: 1px; }
+  .astro-cohort__cell { height: .8rem; border-radius: 1px; }
+}
+
+/* ---------- Prompt quote ---------- */
+@media (min-width: 980px) { .astro-split--rev { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } }
+.astro-quote { margin: 0; border-left: 3px solid var(--accent); background: var(--bg-elev); border-radius: 0 var(--radius) var(--radius) 0; padding: var(--space-5); color: var(--ink); box-shadow: var(--shadow-1); }
+.astro-quote p { font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.45; }
+.astro-quote p:last-child { margin-bottom: 0; }
+.astro-quote .astro-quote__label { font-family: var(--font-sans); font-size: .75rem; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); }
+
+/* ---------- Workflow modules ---------- */
+.astro-modules { list-style: none; margin: 0 0 var(--space-3); padding: 0; display: grid; gap: .5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); counter-reset: none; }
+.astro-modules li { margin: 0; display: flex; align-items: center; gap: .65rem; padding: .65rem .85rem; background: var(--bg-elev); border: 1px solid var(--rule); border-radius: var(--radius); font-size: .9375rem; font-weight: 600; line-height: 1.3; }
+.astro-modules__n { display: inline-grid; place-items: center; flex: none; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--accent-soft); color: var(--accent-ink); font-size: .8125rem; font-weight: 700; }
+.astro-loop { color: var(--ink-2); margin: 0 0 var(--space-6); }
+.astro-loop span { color: var(--accent); font-weight: 700; margin-right: .3rem; }
+.astro-stats { grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); margin-bottom: var(--space-3); }
+.astro-stats .stat__value { font-size: clamp(1.7rem, 1.4rem + 1vw, 2.2rem); }
+.astro-stats .stat__label { font-weight: 550; color: var(--ink-2); font-size: .875rem; }
+.astro-unit { font-size: .55em; font-family: var(--font-sans); font-weight: 600; letter-spacing: 0; color: var(--ink-2); }
+
+/* ---------- Rounds ---------- */
+.astro-rounds-sec { background: var(--bg-tint); margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); border-bottom: 1px solid var(--rule); }
+.astro-rounds { list-style: none; margin: 0 0 var(--space-5); padding: 0; display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); counter-reset: none; }
+.astro-round { margin: 0; display: flex; flex-direction: column; background: var(--bg-elev); border: 1px solid var(--rule); border-radius: var(--radius-l); overflow: hidden; box-shadow: var(--shadow-1); }
+.astro-round--last { border-color: var(--accent-line); }
+.astro-round__head { padding: var(--space-4) var(--space-5) var(--space-3); display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 0 var(--space-3); }
+.astro-round__n { grid-column: 1; margin: 0; font-size: .75rem; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); }
+.astro-round__title { grid-column: 1; margin: .15rem 0 0; font-family: var(--font-serif); font-size: 1.25rem; font-weight: 600; line-height: 1.2; }
+.astro-round__score { grid-column: 2; grid-row: 1 / span 2; margin: 0; text-align: right; line-height: 1.05; }
+.astro-round__score b { display: block; font-family: var(--font-serif); font-size: 1.9rem; font-weight: 600; letter-spacing: -.02em; }
+.astro-round__score .num:not(b) { font-size: .875rem; color: var(--ink-3); }
+.astro-delta { display: inline-block; margin-left: .25rem; padding: 0 .4rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink) !important; font-size: .75rem !important; font-weight: 700; }
+.astro-round__input { background: var(--accent-soft); border-block: 1px solid var(--accent-line); padding: var(--space-3) var(--space-5); }
+.astro-round__input p:last-child { margin: 0; font-weight: 600; line-height: 1.45; }
+.astro-round__body { padding: var(--space-3) var(--space-5) var(--space-5); font-size: .9375rem; color: var(--ink-2); }
+.astro-round__body ul { margin-bottom: var(--space-4); padding-left: 1.1em; }
+.astro-round__body > :last-child { margin-bottom: 0; }
+.astro-round__label { margin: 0 0 .3rem; font-size: .7rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); }
+.astro-round__input .astro-round__label { color: var(--accent-ink); }
+.astro-def { max-width: 78ch; }
+
+/* ---------- Finding matrix ---------- */
+.astro-legend { margin-top: 0; }
+.astro-legend .astro-mark { margin-right: .1rem; }
+.astro-matrix { min-width: 760px; }
+.astro-matrix tbody th { font-weight: 600; color: var(--ink); min-width: 15rem; }
+.astro-matrix td { white-space: nowrap; }
+.astro-matrix td.astro-note { white-space: normal; font-size: .8125rem; color: var(--ink-2); min-width: 16rem; max-width: 30rem; }
+.astro-fnum { display: inline-block; min-width: 1.6rem; color: var(--ink-3); font-weight: 600; font-size: .8125rem; }
+.astro-matrix__group th { background: var(--bg-sunken); font-size: .75rem; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-2); font-weight: 650; }
+.astro-matrix tr.is-gap th { color: var(--ink-2); font-weight: 550; }
+.astro-matrix tfoot th, .astro-matrix tfoot td { background: var(--bg-tint); }
+.astro-matrix tfoot td.num { text-align: left; font-family: var(--font-serif); font-size: 1.1rem; }
+
+.astro-mark { display: inline-flex; align-items: center; gap: .4rem; font-size: .8125rem; color: var(--ink-2); }
+.astro-mark__icon { width: .95rem; height: .95rem; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1.5px var(--oc-supported); }
+.astro-mark--full .astro-mark__icon { background: var(--oc-supported); }
+.astro-mark--full .astro-mark__text { color: var(--ink); font-weight: 600; }
+.astro-mark--part .astro-mark__icon { background: linear-gradient(90deg, var(--oc-partial) 0 50%, transparent 50% 100%); }
+.astro-mark--trend .astro-mark__icon { background: radial-gradient(circle, var(--oc-partial) 0 28%, transparent 30%); }
+.astro-mark--none .astro-mark__icon { box-shadow: inset 0 0 0 1.5px var(--rule-strong); }
+.astro-mark--none .astro-mark__text { color: var(--ink-3); }
+.astro-mark--disc .astro-mark__icon { border-radius: 2px; transform: rotate(45deg) scale(.82); box-shadow: inset 0 0 0 1.5px var(--caution); background: var(--caution-soft); }
+.astro-mark--disc .astro-mark__text { color: var(--caution); font-weight: 600; }
+
+/* ---------- Venn + lists ---------- */
+.astro-venn-wrap { display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr); align-items: start; margin-bottom: var(--space-7); }
+@media (min-width: 980px) { .astro-venn-wrap { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); } }
+.astro-venn { margin: 0; }
+.astro-venn svg { width: 100%; max-width: 560px; height: auto; }
+.astro-venn__ref { fill: var(--bg-sunken); stroke: var(--rule-strong); stroke-width: 1.5; }
+.astro-venn__agent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.astro-venn__both { fill: var(--oc-supported-bg); stroke: var(--oc-supported); stroke-width: 2; }
+.astro-venn__line { fill: none; stroke: var(--rule-strong); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.astro-venn__num { font-family: var(--font-serif); font-size: 46px; font-weight: 600; fill: var(--ink); }
+.astro-venn__num--both, .astro-venn__sub--both { fill: var(--oc-supported-ink); }
+.astro-venn__lab { font: 600 15px var(--font-sans); fill: var(--ink); }
+.astro-venn__sub { font: 500 13px var(--font-sans); fill: var(--ink-2); }
+.astro-venn-lists { display: grid; gap: var(--space-5); grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.astro-list-h { font-family: var(--font-sans); font-size: 1rem; margin: 0 0 var(--space-3); display: flex; align-items: center; gap: .5rem; }
+.astro-key { width: .85rem; height: .85rem; border-radius: 50%; flex: none; }
+.astro-key--both { background: var(--oc-supported-bg); box-shadow: inset 0 0 0 1.5px var(--oc-supported); }
+.astro-key--agent { background: var(--accent-soft); box-shadow: inset 0 0 0 1.5px var(--accent); }
+.astro-list { font-size: .9375rem; color: var(--ink-2); padding-left: 1.4em; }
+.astro-list li::marker { color: var(--ink-3); font-variant-numeric: tabular-nums; font-size: .85em; }
+
+/* ---------- Gaps ---------- */
+.astro-gaps h3 { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 600; }
+.astro-gaps__grid { display: grid; gap: var(--space-4); grid-template-columns: minmax(0, 1fr); margin-bottom: var(--space-5); }
+@media (min-width: 900px) { .astro-gaps__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } }
+.astro-gap ul { padding-left: 1.1em; font-size: .9375rem; color: var(--ink-2); }
+.astro-gap li strong { color: var(--ink); font-weight: 600; }
+.astro-gap__count { margin: 0 0 var(--space-3); font-weight: 650; }
+.astro-gap__count b { font-family: var(--font-serif); font-size: 1.6rem; margin-right: .25rem; }
+.astro-gaps .callout { max-width: 78ch; }
+
+/* ---------- Evidence layers ---------- */
+.astro-layers { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); counter-reset: none; }
+.astro-layers li { margin: 0; padding: var(--space-4) var(--space-5); border: 1px solid var(--rule); border-top: 3px solid var(--accent); border-radius: var(--radius); background: var(--bg-elev); }
+.astro-layers li:nth-child(2) { border-top-color: var(--ink-3); }
+.astro-layers li:nth-child(3) { border-top-color: var(--caution); }
+.astro-layers p { margin: 0; color: var(--ink-2); font-size: .9375rem; }
+.astro-layers .astro-layers__t { color: var(--ink); font-weight: 650; font-size: 1rem; margin-bottom: .3rem; }
+
+/* ---------- Figure + footer links ---------- */
+.astro-fig { margin-top: 0; }
+.astro-fig img { max-width: 1100px; }
+.astro-fig figcaption { max-width: 90ch; }
+.page-case-astro .case-nextprev { margin-top: var(--space-5); }
+
+/* ---------- Cases landing: comparison table ---------- */
+.cases-compare { min-width: 760px; }
+.cases-compare tbody th { width: 9rem; color: var(--ink-2); font-weight: 650; font-size: .875rem; }
+.cases-compare td { font-size: .9rem; width: 30%; }
+
+/* ---------- Fixes after visual review ---------- */
+.astro-matrix tbody th { position: relative; padding-left: 2.9rem; }
+.astro-fnum { position: absolute; left: var(--space-4); top: .68rem; min-width: 0; }
+.astro-matrix__group th { padding-left: var(--space-4); }
+.astro-gaprow { position: relative; }
+.astro-gaprow__line { position: absolute; left: 2.2rem; right: var(--space-4); top: 1.3rem; border-top: 1px dashed var(--rule-strong); }
+.astro-gaprow .astro-mark { position: relative; background: var(--bg-elev); padding-right: .6rem; }
+.data-table tbody tr:hover .astro-gaprow .astro-mark { background: var(--bg-tint); }
+.astro-rounds-sec { margin-inline: 0; padding-inline: 0; border-bottom: 0; box-shadow: 0 0 0 100vmax var(--bg-tint); clip-path: inset(0 -100vmax); }
+.astro-rounds-sec + .astro-sec { border-top: 0; }
+.astro-venn text.astro-venn__sub--both, .astro-venn text.astro-venn__num--both { fill: var(--oc-supported-ink); font-weight: 600; }
+.astro-dots__key { gap: .4rem 1.1rem; }
+.astro-dots__k { display: inline-flex; align-items: center; gap: .45rem; }
+.astro-dots__key .astro-dots__d + * { margin-right: 0; }
+.astro-dots__k .astro-dots__d { flex: none; }
+
+/* Finding matrix as stacked cards on narrow screens */
+@media (max-width: 680px) {
+  .astro-matrix-wrap { overflow: visible; }
+  .astro-matrix { min-width: 0; }
+  .astro-matrix caption { display: block; }
+  .astro-matrix thead { display: none; }
+  .astro-matrix, .astro-matrix tbody, .astro-matrix tfoot { display: block; }
+  .astro-matrix tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .35rem .5rem; padding: .7rem var(--space-4) .8rem; border-bottom: 1px solid var(--rule); }
+  .astro-matrix tbody tr:hover > * { background: transparent; }
+  .astro-matrix tr > * { display: block; padding: 0; border: 0; }
+  .astro-matrix tbody th { grid-column: 1 / -1; min-width: 0; padding-left: 1.9rem; }
+  .astro-fnum { left: 0; top: .05rem; }
+  .astro-matrix td[data-label]::before { content: attr(data-label); display: block; font-size: .68rem; font-weight: 650; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); margin-bottom: .1rem; }
+  .astro-matrix td { white-space: normal; }
+  .astro-matrix td.astro-note { grid-column: 1 / -1; min-width: 0; max-width: none; }
+  .astro-matrix td.astro-note:empty, .astro-matrix td.astro-empty { display: none; }
+  .astro-matrix .astro-gaprow { grid-column: 1 / -1; }
+  .astro-gaprow__line { display: none; }
+  .astro-matrix__group { display: block !important; background: var(--bg-sunken); }
+  .astro-matrix__group th { padding-left: 0 !important; background: transparent; }
+  .astro-matrix tfoot tr { background: var(--bg-tint); }
+  .astro-matrix tfoot th { grid-column: 1 / -1; }
+}

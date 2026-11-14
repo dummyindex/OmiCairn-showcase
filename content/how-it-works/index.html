@@ -1,0 +1,395 @@
+<!--
+title: How it works
+description: How OmiCairn plans, runs and checks an analysis: an analysis tree that repairs and reviews itself, eight verification-gated phases with three layers of checking, pre-registered decision rules, and experience replay with expert confirmation.
+section: how-it-works
+breadcrumb: How it works
+layout: wide
+stylesheet: /assets/css/pages/how.css
+-->
+<!--
+Sources for this page (all read-only):
+- System description: OmiCairn manuscript (in preparation), Methods, "Formal specification of the agentic system"
+  (node level, run level, experience replay; Algorithms M1-M4). Numeric bounds and promotion/duplicate thresholds are
+  deliberately not shown.
+- Campaign numbers: assets/data/campaign.json `verified` (2,766 sentences audited; 240 claim-integrity issues;
+  19 of 32 executing runs re-executed; 17 completed the pipeline; 41 genuine runs) and the manuscript Results,
+  "Campaign-scale evaluation" (149 corrected automatically, 91 flagged; 68 over-claims, 15 filler, 8 unsupported;
+  21 runs reached sentence-level auditing; 34 review-gate rejections recovered).
+- Experience store size ("approximately 439 items, starting from an empty store"): manuscript Results,
+  "Experience replay turns execution and review feedback into policy updates".
+- External reviewers scoring seven campaign reports lower than the internal reviewer: campaign release README, "Caveats".
+- Case 3 concordance 6/17 -> 7/17 -> 9/17: brief (verified against manuscript Results, Case 3).
+Diagrams are hand-authored inline SVG; generator kept outside the repo.
+-->
+<div class="container">
+<header class="page-head">
+  <p class="kicker">How it works</p>
+  <h1>How OmiCairn works</h1>
+  <p class="lede">OmiCairn plans an analysis, runs the code, and then checks its own work at three layers before it reports anything. When a check fails, the run goes back and redoes the step. Every check leaves a record, so each claim can be traced to the code that produced it.</p>
+  <nav aria-label="On this page">
+    <ul class="jump how-jump">
+      <li><a href="#levels">Two levels</a></li>
+      <li><a href="#tree">Analysis tree</a></li>
+      <li><a href="#phases">Eight phases</a></li>
+      <li><a href="#checks">Three layers of checking</a></li>
+      <li><a href="#prereg">Pre-registration</a></li>
+      <li><a href="#experts">Experts in the loop</a></li>
+      <li><a href="#replay">Experience replay</a></li>
+      <li><a href="#limits">What this does not guarantee</a></li>
+    </ul>
+  </nav>
+</header>
+</div>
+
+<!-- 1. Two levels -->
+<section class="section how-section" id="levels" aria-labelledby="levels-h">
+<div class="container">
+  <div class="section__head">
+    <p class="kicker">Overview</p>
+    <h2 id="levels-h">Two levels, one memory</h2>
+    <p>OmiCairn works at two nested levels. Both use the same model backbone, the same containerized execution and the same experience store. Inside a task, repair, review and verification loops correct the work. Across tasks, experience replay carries lessons forward.</p>
+  </div>
+  <div class="how-grid3">
+    <div class="card how-level">
+      <p class="kicker">Node level</p>
+      <h3 class="card__title">An analysis tree</h3>
+      <p>One analysis request becomes a tree of small, executable steps. Each step is planned, run in a container, repaired if it fails and reviewed before anything is built on it.</p>
+      <p class="how-level__foot">Used for the <a href="/cases/">case studies</a> and the benchmark.</p>
+    </div>
+    <div class="card how-level">
+      <p class="kicker">Run level</p>
+      <h3 class="card__title">A verification-gated research run</h3>
+      <p>A hypothesis-driven run moves through eight phases. Four produce work and four check it. A run continues only when the current phase passes its gate.</p>
+      <p class="how-level__foot">Used for the <a href="/campaign/">neurodegeneration campaign</a>.</p>
+    </div>
+    <div class="card how-level">
+      <p class="kicker">Across tasks</p>
+      <h3 class="card__title">Experience replay</h3>
+      <p>Fixes, review findings, pitfalls and expert directives are stored as experience items. Confirmed items are shown to later agents as advice. The model itself never changes.</p>
+      <p class="how-level__foot"><a href="#replay">How items are promoted</a></p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 2. Node level -->
+<section class="section section--alt how-section" id="tree" aria-labelledby="tree-h">
+<div class="container">
+  <div class="section__head">
+    <p class="kicker">Node level</p>
+    <h2 id="tree-h">An analysis tree that repairs and reviews itself</h2>
+    <p>Each analysis is stored as a tree. The root registers the input data without changing it. Every other node is one analytical step that reads the outputs of its parent. The tree records the code, parameters, logs, inputs, outputs and review decisions of every step, including the attempts that failed.</p>
+  </div>
+  <figure class="how-fig">
+    <div class="how-pair">
+      <div class="how-fig__frame scroll-x" tabindex="0" role="region" aria-label="Diagram; scroll sideways on narrow screens"><svg class="how-dia how-dia--tree" viewBox="0 0 440 452" role="img" aria-labelledby="tr-t tr-d"><title id="tr-t">An analysis tree with one superseded step</title><desc id="tr-d">Input data feed quality control, then clustering. Cell-type annotation failed review in a blocking way. It is kept for provenance and marked superseded, and a new sibling attempt that carries the reviewer feedback is created under the same parent. Only the passing attempt can feed the next step, differential expression.</desc><defs><marker id="tr-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-ink" d="M0,0 L10,5 L0,10 z"/></marker><marker id="tr-ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-back" d="M0,0 L10,5 L0,10 z"/></marker></defs><text class="t-head" x="220.0" y="16" text-anchor="middle">A. The analysis tree</text><rect class="box box--root" x="132" y="30" width="176" height="52" rx="8"/><text class="t-title" x="220.0" y="53.0" text-anchor="middle">Input data</text><text class="t-sub" x="220.0" y="68.0" text-anchor="middle">root · registered, not changed</text><rect class="box " x="132" y="112" width="176" height="52" rx="8"/><text class="t-title" x="220.0" y="135.0" text-anchor="middle">Quality control</text><text class="t-sub" x="220.0" y="150.0" text-anchor="middle">completed · review passed</text><rect class="box " x="132" y="194" width="176" height="52" rx="8"/><text class="t-title" x="220.0" y="217.0" text-anchor="middle">Clustering</text><text class="t-sub" x="220.0" y="232.0" text-anchor="middle">completed · review passed</text><rect class="box box--ghost" x="8" y="290" width="176" height="66" rx="8"/><text class="t-title" x="96.0" y="312.5" text-anchor="middle">Annotation, attempt 1</text><text class="t-sub" x="96.0" y="327.5" text-anchor="middle">blocking review failure</text><text class="t-sub" x="96.0" y="342.5" text-anchor="middle">kept, marked superseded</text><rect class="box " x="256" y="290" width="176" height="66" rx="8"/><text class="t-title" x="344.0" y="312.5" text-anchor="middle">Annotation, attempt 2</text><text class="t-sub" x="344.0" y="327.5" text-anchor="middle">task + reviewer feedback</text><text class="t-sub" x="344.0" y="342.5" text-anchor="middle">review passed</text><rect class="box " x="256" y="386" width="176" height="52" rx="8"/><text class="t-title" x="344.0" y="409.0" text-anchor="middle">Differential expression</text><text class="t-sub" x="344.0" y="424.0" text-anchor="middle">reads attempt 2 only</text><path class="edge" d="M220.0,82 L220.0,110" marker-end="url(#tr-ah)"/><path class="edge" d="M220.0,164 L220.0,192" marker-end="url(#tr-ah)"/><path class="edge" d="M220.0,246 L220.0,264"/><path class="edge" d="M220.0,264 L96.0,264 L96.0,288" marker-end="url(#tr-ah)"/><path class="edge" d="M220.0,264 L344.0,264 L344.0,288" marker-end="url(#tr-ah)"/><path class="edge edge--back" d="M184,323 L254,323" marker-end="url(#tr-ahb)"/><text class="t-edge" x="220.0" y="316" text-anchor="middle">re-attempt</text><path class="edge" d="M344.0,356 L344.0,384" marker-end="url(#tr-ah)"/><text class="t-note" x="96.0" y="378" text-anchor="middle">nothing is built on it</text></svg></div><p class="scroll-hint" aria-hidden="true">Scroll sideways to see the full diagram →</p>
+      <div class="how-fig__frame scroll-x" tabindex="0" role="region" aria-label="Diagram; scroll sideways on narrow screens"><svg class="how-dia how-dia--node" viewBox="0 0 440 452" role="img" aria-labelledby="nd-t nd-d"><title id="nd-t">What happens to one step of the analysis</title><desc id="nd-d">A function block is executed in an isolated container. If it fails, the BugFixer agent repairs it and it is executed again, a bounded number of times. Code that ran is then reviewed: code computes evidence from the outputs and logs, and the Reviewer agent judges whether the analysis is adequate. A pass lets the step parent the next one. A blocking failure creates a new sibling attempt with the feedback appended, also a bounded number of times; after that the Orchestrator may plan another route.</desc><defs><marker id="nd-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-ink" d="M0,0 L10,5 L0,10 z"/></marker><marker id="nd-ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-back" d="M0,0 L10,5 L0,10 z"/></marker></defs><text class="t-head" x="220.0" y="16" text-anchor="middle">B. One step, inside its node</text><rect class="box " x="20" y="30" width="210" height="58" rx="8"/><text class="t-title" x="125.0" y="48.5" text-anchor="middle">Function block</text><text class="t-sub" x="125.0" y="63.5" text-anchor="middle">reused from the library</text><text class="t-sub" x="125.0" y="78.5" text-anchor="middle">or newly written</text><rect class="box " x="20" y="120" width="210" height="58" rx="8"/><text class="t-title" x="125.0" y="138.5" text-anchor="middle">Execute</text><text class="t-sub" x="125.0" y="153.5" text-anchor="middle">isolated container,</text><text class="t-sub" x="125.0" y="168.5" text-anchor="middle">CPU, memory, time limits</text><rect class="box box--check" x="20" y="222" width="210" height="72" rx="8"/><text class="t-title" x="125.0" y="240.0" text-anchor="middle">Review</text><text class="t-sub" x="125.0" y="255.0" text-anchor="middle">code: evidence from outputs, logs</text><text class="t-sub" x="125.0" y="270.0" text-anchor="middle">Reviewer agent: is it adequate?</text><text class="t-sub" x="125.0" y="285.0" text-anchor="middle">cheating · placeholder · leakage</text><rect class="box box--root" x="20" y="350" width="210" height="58" rx="8"/><text class="t-title" x="125.0" y="376.0" text-anchor="middle">Step completed</text><text class="t-sub" x="125.0" y="391.0" text-anchor="middle">may parent the next step</text><path class="edge" d="M125.0,88 L125.0,118" marker-end="url(#nd-ah)"/><path class="edge" d="M125.0,178 L125.0,220" marker-end="url(#nd-ah)"/><text class="t-edge t-edge--ink" x="133.0" y="204" text-anchor="start">ran without error</text><path class="edge" d="M125.0,294 L125.0,348" marker-end="url(#nd-ah)"/><text class="t-edge t-edge--ink" x="133.0" y="316" text-anchor="start">passed, or a minor concern</text><text class="t-note" x="133.0" y="331" text-anchor="start">noted for the Orchestrator</text><rect class="box box--agent" x="298" y="120" width="124" height="58" rx="8"/><text class="t-title" x="360.0" y="138.5" text-anchor="middle">BugFixer</text><text class="t-sub" x="360.0" y="153.5" text-anchor="middle">reads logs, edits,</text><text class="t-sub" x="360.0" y="168.5" text-anchor="middle">installs, retries</text><path class="edge edge--back" d="M230,135 L296,135" marker-end="url(#nd-ahb)"/><text class="t-edge" x="264.0" y="130" text-anchor="middle">error</text><path class="edge edge--back" d="M298,166 L232,166" marker-end="url(#nd-ahb)"/><text class="t-edge" x="264.0" y="160" text-anchor="middle">run again</text><rect class="box box--agent" x="298" y="226" width="124" height="64" rx="8"/><text class="t-title" x="360.0" y="247.5" text-anchor="middle">New attempt</text><text class="t-sub" x="360.0" y="262.5" text-anchor="middle">sibling node:</text><text class="t-sub" x="360.0" y="277.5" text-anchor="middle">task + feedback</text><path class="edge edge--back" d="M230,258 L296,258" marker-end="url(#nd-ahb)"/><text class="t-edge" x="264.0" y="251" text-anchor="middle">blocking</text><path class="edge edge--back" d="M422,258 L436,258 L436,59 L232,59" marker-end="url(#nd-ahb)"/><text class="t-edge" x="310" y="52" text-anchor="start">fresh code</text><text class="t-note" x="360.0" y="310" text-anchor="middle">limit reached:</text><text class="t-note" x="360.0" y="325" text-anchor="middle">Orchestrator may</text><text class="t-note" x="360.0" y="340" text-anchor="middle">plan another route</text></svg></div><p class="scroll-hint" aria-hidden="true">Scroll sideways to see the full diagram →</p>
+    </div>
+    <ul class="how-key" aria-label="Diagram key">
+      <li><span class="how-key__sw how-key__sw--check"></span>review</li>
+      <li><span class="how-key__sw how-key__sw--ghost"></span>superseded, kept for provenance</li>
+      <li><span class="how-key__line"></span>repair or re-attempt</li>
+    </ul>
+    <figcaption><strong>Running code is not the same as a correct analysis.</strong> A step first has to run without error; the BugFixer agent repairs failures a limited number of times. A step that ran is then reviewed. If the review fails in a way that means the outputs do not reflect the intended analysis, the step is attempted again as a new sibling node that carries the reviewer’s feedback. The failed attempt stays in the tree, and nothing is built on it.</figcaption>
+  </figure>
+
+  <div class="how-split mt-6">
+    <div class="prose">
+      <h3 class="mt-0">What a step is</h3>
+      <p>Each step is a <strong>function block</strong>: Python, R or shell code with a manifest of its inputs, outputs and parameters and a list of software requirements. All blocks share one entry point, so any block can be run, rerun or swapped the same way. The FunctionCreator agent first looks for a validated block in the library and adapts it; only if none fits does it write a new one. A separate check reads the code before it runs.</p>
+      <h3>What review looks at</h3>
+      <p>Code first collects evidence from the step: how many output files and figures it produced, how large they are, how many warnings the logs contain, whether the logs show real computation on the input, and whether outputs contain placeholder markers such as “mock”, “dummy” or “example data”. The Reviewer agent then judges the step against its task. It names concerns by type:</p>
+      <ul class="how-list">
+        <li><strong>Cheating</strong>: results not derived from the input data, such as hard-coded or simulated values reported as findings.</li>
+        <li><strong>Placeholder</strong>: stub outputs.</li>
+        <li><strong>ML-practice violation</strong>: improper data splitting, information leakage or missing validation.</li>
+        <li><strong>Implementation mismatch</strong>: the code does not do what the step says.</li>
+      </ul>
+      <p>A request to redo the step, or a critical concern of one of these types, blocks the step. Smaller concerns are passed to the Orchestrator without stopping the analysis.</p>
+      <h3>Changing a step</h3>
+      <p>If a user edits a step, changes its parameters or asks for a rerun, only that step and the steps that depend on it are recomputed. All other outputs and all earlier execution records are kept.</p>
+    </div>
+    <div>
+      <h3 class="mt-0">The agents</h3>
+      <dl class="deflist">
+        <div><dt>MainAgent</dt><dd>A deterministic controller. It runs the session, creates re-attempts and calls the other agents. It uses the model only to interpret the request.</dd></div>
+        <div><dt>Orchestrator</dt><dd>Decides whether the request is satisfied and, if not, plans the next steps from the tree, the failures so far and curated domain knowledge.</dd></div>
+        <div><dt>FunctionCreator</dt><dd>Reuses a validated function block or writes a new one for each planned step.</dd></div>
+        <div><dt>BugFixer</dt><dd>Repairs a failing step in a bounded session: it reads logs and files, edits code, installs packages and runs diagnostics.</dd></div>
+        <div><dt>Reviewer</dt><dd>Judges whether a step that ran is an adequate analysis, using the evidence code collected.</dd></div>
+        <div><dt>WebAgent</dt><dd>Retrieves software documentation, code repositories, biological databases and, when enabled, scientific literature.</dd></div>
+      </dl>
+      <p class="small muted">Every agent must return output in a fixed schema. Attempts, repairs, branches and the size of the tree are all bounded, so a session always ends.</p>
+    </div>
+  </div>
+
+  <figure class="figure figure--wide mt-6">
+    <img src="/assets/img/paper/fig1-overview.webp" alt="Overview of OmiCairn’s agents. User inputs (a biomedical question, research objective and uploaded data) go to the Orchestrator agent, which plans function blocks. A loop runs from Planning to Execution to Review and back to Planning for rework. The FunctionCreator generates and registers function blocks in a library (normalization, spatial mapping, marker detection, survival analysis). The Web agent retrieves documentation, literature and annotations. The Reviewer checks results against the user’s intent. The BugFixer repairs execution errors and reruns steps. A human expert inspects the workflow and guides re-analysis; final outputs are a reproducible, evidence-linked report." loading="lazy" decoding="async" width="2000" height="907">
+    <figcaption>Figure 1 of the OmiCairn manuscript: the Orchestrator plans, the FunctionCreator builds missing function blocks, the Web agent retrieves source-tracked information, the Reviewer checks outputs and the BugFixer repairs errors. A human expert can inspect the workflow and guide re-analysis at any point.<span class="figure__credit">Figure from the OmiCairn manuscript (in preparation).</span></figcaption>
+  </figure>
+</div>
+</section>
+
+<!-- 3. Run level -->
+<section class="section how-section" id="phases" aria-labelledby="phases-h">
+<div class="container">
+  <div class="section__head">
+    <p class="kicker">Run level</p>
+    <h2 id="phases-h">Eight phases, four of which check</h2>
+    <p>A research run starts from a written question. It moves through eight phases in order. Every phase except CROSS-CHECK is carried out by a model-based agent; CROSS-CHECK is plain code. When a checking phase finds a problem, it sends the run back to the phase that can fix it.</p>
+  </div>
+  <div class="how-split how-split--fig-left">
+    <div>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="The eight phases of a research run">
+        <table class="data-table data-table--compact how-phases">
+          <caption>What each phase does and where it may send the run</caption>
+          <thead><tr><th scope="col">Phase</th><th scope="col">What it does</th><th scope="col">May send the run to</th></tr></thead>
+          <tbody>
+            <tr><td><span class="how-phase">SCOPE</span><br><span class="how-by">agent</span></td><td>Turns the brief into a question, collects the literature and finds candidate datasets. Checks whether the data can answer the question.</td><td class="how-routes">PLAN; SCOPE again if data are missing</td></tr>
+            <tr><td><span class="how-phase">PLAN</span><br><span class="how-by">agent</span></td><td>States the hypotheses, a decision rule for each, and the analysis plan. Freezes them as a pre-registration.</td><td class="how-routes">EXECUTE; PLAN again if underpowered; SCOPE if data are missing</td></tr>
+            <tr><td><span class="how-phase">EXECUTE</span><br><span class="how-by">agent, sandbox</span></td><td>Writes and runs the analysis code. Records estimates, confidence intervals, <i>P</i> values and comparisons in a structured results file, with figures and notes.</td><td class="how-routes">CROSS-CHECK</td></tr>
+            <tr><td><span class="how-phase how-phase--check">CROSS-CHECK</span><br><span class="how-by">code only</span></td><td>Deterministic gates on the results. <a href="#layer-1">Layer 1</a>.</td><td class="how-routes">REPORT; EXECUTE on any error</td></tr>
+            <tr><td><span class="how-phase">REPORT</span><br><span class="how-by">agent</span></td><td>Writes a structured research report in which each statement points to its evidence.</td><td class="how-routes">CLAIM-AUDIT</td></tr>
+            <tr><td><span class="how-phase how-phase--check">CLAIM-AUDIT</span><br><span class="how-by">claim-review agent</span></td><td>Checks the report sentence by sentence. <a href="#layer-2">Layer 2</a>.</td><td class="how-routes">REVIEW; REPORT</td></tr>
+            <tr><td><span class="how-phase how-phase--check">REVIEW</span><br><span class="how-by">reviewer agent</span></td><td>Judges the work as a whole. <a href="#layer-3">Layer 3</a>.</td><td class="how-routes">PANEL-REVIEW; REPORT, EXECUTE, PLAN or SCOPE; halt</td></tr>
+            <tr><td><span class="how-phase how-phase--check">PANEL-REVIEW</span><br><span class="how-by">three reviewer agents</span></td><td>Three independent reviewers must all accept. <a href="#layer-3">Layer 3</a>.</td><td class="how-routes">done; REPORT, EXECUTE or PLAN</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="prose">
+        <h3>Going back is part of the design</h3>
+        <p>Each phase may only make the decisions allowed for it; any other decision is rejected and the phase runs again. Every route back is counted. Each phase can run only a limited number of times, and a run can only go back a limited number of times. A run that would exceed either limit halts instead of looping.</p>
+        <p>Each pass through a phase writes to a new directory that is never overwritten. Later phases can read earlier work but cannot change it; an edited report is saved as a new file. This is what makes a run auditable after the fact.</p>
+        <p>Runs can also stop for reasons outside this logic, such as an infrastructure failure or an exhausted usage quota. In the campaign, <a href="/campaign/">17 of 41 genuine runs</a> reached multi-agent review. <!-- campaign.json verified.completed_pipeline / genuine_runs --> Halted runs and their hypotheses are published too.</p>
+        <p class="small muted">A run can also be started in ideation mode, in which it only proposes research directions and ends before SCOPE.</p>
+      </div>
+    </div>
+    <figure class="how-fig how-split__sticky">
+      <div class="how-fig__frame scroll-x" tabindex="0" role="region" aria-label="Diagram; scroll sideways on narrow screens"><svg class="how-dia how-dia--pipeline" viewBox="0 0 480 698" role="img" aria-labelledby="pl-t pl-d"><title id="pl-t">The eight phases of a research run and the routes back</title><desc id="pl-d">SCOPE, PLAN, EXECUTE, CROSS-CHECK, REPORT, CLAIM-AUDIT, REVIEW and PANEL-REVIEW run in order. CROSS-CHECK, CLAIM-AUDIT, REVIEW and PANEL-REVIEW check work. CROSS-CHECK can send the run back to EXECUTE; CLAIM-AUDIT back to REPORT; REVIEW back to REPORT, EXECUTE, PLAN or SCOPE, or halt it; PANEL-REVIEW back to REPORT, EXECUTE or PLAN. PLAN can return to SCOPE when data are missing. The run ends when all three panel reviewers accept.</desc><defs><marker id="pl-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-ink" d="M0,0 L10,5 L0,10 z"/></marker><marker id="pl-ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-back" d="M0,0 L10,5 L0,10 z"/></marker></defs><text class="t-head" x="170.0" y="18" text-anchor="middle">Phases in order</text><text class="t-head" x="306" y="18" text-anchor="start">Routes back</text><rect class="box " x="52" y="34" width="236" height="54" rx="8"/><text class="t-title" x="170.0" y="58.0" text-anchor="middle">SCOPE</text><text class="t-sub" x="170.0" y="73.0" text-anchor="middle">question, literature, datasets</text><rect class="box " x="52" y="108" width="236" height="54" rx="8"/><text class="t-title" x="170.0" y="132.0" text-anchor="middle">PLAN</text><text class="t-sub" x="170.0" y="147.0" text-anchor="middle">pre-registered hypotheses + rules</text><rect class="box " x="52" y="182" width="236" height="54" rx="8"/><text class="t-title" x="170.0" y="206.0" text-anchor="middle">EXECUTE</text><text class="t-sub" x="170.0" y="221.0" text-anchor="middle">analysis code in a sandbox</text><rect class="box box--check" x="52" y="256" width="236" height="54" rx="8"/><text class="t-title" x="170.0" y="280.0" text-anchor="middle">CROSS-CHECK</text><text class="t-sub" x="170.0" y="295.0" text-anchor="middle">layer 1 · code only, no LLM</text><rect class="box " x="52" y="330" width="236" height="54" rx="8"/><text class="t-title" x="170.0" y="354.0" text-anchor="middle">REPORT</text><text class="t-sub" x="170.0" y="369.0" text-anchor="middle">every statement points to evidence</text><rect class="box box--check" x="52" y="404" width="236" height="54" rx="8"/><text class="t-title" x="170.0" y="428.0" text-anchor="middle">CLAIM-AUDIT</text><text class="t-sub" x="170.0" y="443.0" text-anchor="middle">layer 2 · claim-review agent</text><rect class="box box--check" x="52" y="478" width="236" height="54" rx="8"/><text class="t-title" x="170.0" y="502.0" text-anchor="middle">REVIEW</text><text class="t-sub" x="170.0" y="517.0" text-anchor="middle">layer 3 · reviewer agent</text><rect class="box box--check" x="52" y="552" width="236" height="54" rx="8"/><text class="t-title" x="170.0" y="576.0" text-anchor="middle">PANEL-REVIEW</text><text class="t-sub" x="170.0" y="591.0" text-anchor="middle">layer 3 · three reviewer agents</text><path class="edge" d="M170.0,88 L170.0,106" marker-end="url(#pl-ah)"/><path class="edge" d="M170.0,162 L170.0,180" marker-end="url(#pl-ah)"/><path class="edge" d="M170.0,236 L170.0,254" marker-end="url(#pl-ah)"/><path class="edge" d="M170.0,310 L170.0,328" marker-end="url(#pl-ah)"/><path class="edge" d="M170.0,384 L170.0,402" marker-end="url(#pl-ah)"/><path class="edge" d="M170.0,458 L170.0,476" marker-end="url(#pl-ah)"/><path class="edge" d="M170.0,532 L170.0,550" marker-end="url(#pl-ah)"/><path class="edge" d="M170.0,606 L170.0,638" marker-end="url(#pl-ah)"/><text class="t-edge t-edge--ink" x="178.0" y="627" text-anchor="start">all three accept</text><rect class="box box--end" x="90" y="640" width="160" height="34" rx="17"/><text class="t-title" x="170.0" y="661.5" text-anchor="middle">Report delivered</text><path class="edge edge--back" d="M308,589 L308,347 L290,347" marker-end="url(#pl-ahb)"/><text class="t-edge" x="374" y="351" text-anchor="start">retry report</text><path class="edge edge--back" d="M326,589 L326,199 L290,199" marker-end="url(#pl-ahb)"/><text class="t-edge" x="374" y="203" text-anchor="start">retry execute</text><path class="edge edge--back" d="M344,589 L344,125 L290,125" marker-end="url(#pl-ahb)"/><text class="t-edge" x="374" y="129" text-anchor="start">back to plan</text><path class="edge edge--back" d="M362,515 L362,51 L290,51" marker-end="url(#pl-ahb)"/><text class="t-edge" x="374" y="55" text-anchor="start">back to scope</text><path class="edge edge--back" d="M288,293 L326,293"/><circle class="dot dot--back" cx="326" cy="293" r="3"/><path class="edge edge--back" d="M288,441 L308,441"/><circle class="dot dot--back" cx="308" cy="441" r="3"/><path class="edge edge--back" d="M288,515 L362,515"/><circle class="dot dot--back" cx="308" cy="515" r="3"/><circle class="dot dot--back" cx="326" cy="515" r="3"/><circle class="dot dot--back" cx="344" cy="515" r="3"/><circle class="dot dot--back" cx="362" cy="515" r="3"/><path class="edge edge--back" d="M288,589 L344,589"/><circle class="dot dot--back" cx="308" cy="589" r="3"/><circle class="dot dot--back" cx="326" cy="589" r="3"/><circle class="dot dot--back" cx="344" cy="589" r="3"/><text class="t-edge t-edge--ink" x="374" y="519" text-anchor="start">or halt</text><path class="edge edge--back" d="M52,135.0 L30,135.0 L30,61.0 L50,61.0" marker-end="url(#pl-ahb)"/><text class="t-edge" x="22" y="98.0" text-anchor="middle" transform="rotate(-90 22 98.0)">needs data</text></svg></div><p class="scroll-hint" aria-hidden="true">Scroll sideways to see the full diagram →</p>
+      <ul class="how-key" aria-label="Diagram key">
+        <li><span class="how-key__sw"></span>produces work</li>
+        <li><span class="how-key__sw how-key__sw--check"></span>checks work</li>
+        <li><span class="how-key__line"></span>route back</li>
+      </ul>
+      <figcaption><strong>Every checking phase can send the run back.</strong> Each vertical line is a route back to one phase; a dot marks a phase that can use it. REVIEW can reach every earlier phase that produces work, or halt the run.</figcaption>
+    </figure>
+  </div>
+</div>
+</section>
+
+<!-- 4. Three layers -->
+<section class="section section--alt how-section" id="checks" aria-labelledby="checks-h">
+<div class="container">
+  <div class="section__head">
+    <p class="kicker">Accountability</p>
+    <h2 id="checks-h">Three layers of checking</h2>
+    <p>The layers look at different things. Code checks that the numbers are internally valid. A claim-review agent checks that every sentence of the report is backed by those numbers. Reviewer agents judge whether the analysis answers the question. A failure at any layer sends the run back.</p>
+  </div>
+  <div class="how-layers">
+    <article class="how-layer" id="layer-1" aria-labelledby="layer-1-h">
+      <p class="how-layer__n">Layer 1 · CROSS-CHECK</p>
+      <h3 id="layer-1-h">Deterministic gates</h3>
+      <p class="how-layer__who">Run by code alone, without a language model.</p>
+      <ul>
+        <li>Every confidence interval is finite and ordered, and every estimate lies inside its interval.</li>
+        <li>Bounded metrics, such as AUC, correlations and <i>P</i> values, lie in their allowed ranges.</li>
+        <li>A comparison with a baseline on the same samples reports the paired difference and its interval.</li>
+        <li>Intervals quoted in the notes are identical to those in the results file.</li>
+        <li>The headline comparison was produced by the code that ran in this stage, not recovered from a failed stage or typed in by hand, and is not degenerate.</li>
+        <li>No hypothesis is called supported unless its decision rule was met.</li>
+        <li>The pre-registration has not changed since PLAN.</li>
+      </ul>
+      <p>Further gates only warn: whether the minimum detectable effect is reported, whether declared figures exist, whether software lock files are present, and whether multiple comparisons are corrected.</p>
+      <p class="how-layer__then"><strong>Any error</strong> sends the run back to EXECUTE.</p>
+    </article>
+    <article class="how-layer" id="layer-2" aria-labelledby="layer-2-h">
+      <p class="how-layer__n">Layer 2 · CLAIM-AUDIT</p>
+      <h3 id="layer-2-h">Claim-review agent</h3>
+      <p class="how-layer__who">Reads the report one sentence at a time.</p>
+      <p>Each sentence is classified (quantitative, qualitative or methodological claim, narrative, definition, prediction or filler) and labelled supported, partially supported, unsupported, over-claimed, under-claimed, filler or style. Claims need evidence of the right kind:</p>
+      <ul>
+        <li>A number must cite an entry in the results file, and the stored value, rounded as quoted, must match.</li>
+        <li>A qualitative claim must cite a publication from the run’s literature set.</li>
+        <li>A methodological claim must cite a file or a field of the pre-registration.</li>
+      </ul>
+      <p>The agent then edits the report using existing results only: filler is removed, over-claims are softened, under-claims strengthened. A sentence it cannot fix stays in the report and is flagged for human revision. Code then verifies the audit ledger, and every reference must resolve in Crossref or PubMed.</p>
+      <p class="how-layer__then"><strong>Unsupported or excess over-claimed sentences</strong> send the report back to REPORT.</p>
+    </article>
+    <article class="how-layer" id="layer-3" aria-labelledby="layer-3-h">
+      <p class="how-layer__n">Layer 3 · REVIEW and PANEL-REVIEW</p>
+      <h3 id="layer-3-h">Reviewer agents</h3>
+      <p class="how-layer__who">Separate from the agents that did the analysis.</p>
+      <p>An internal reviewer agent receives the audited report, the results, the audit ledger and the cross-check warnings. It scores eleven dimensions: novelty, methodological rigor, statistical validity, domain depth, figure quality, clarity, references, honest limitations, reproducibility, anti-fabrication and comprehensiveness. Each over-claim left after the audit costs anti-fabrication points.</p>
+      <p>Its decision names the cause: weak analysis goes back to EXECUTE, weak presentation to REPORT, a flawed design to PLAN, a question that contradicts the data to SCOPE. A run that cannot be saved halts.</p>
+      <p>A panel of three reviewer agents follows: a domain expert, a methodologist or statistician, and a reproducibility advocate. They do not see each other’s assessments.</p>
+      <p class="how-layer__then"><strong>The run ends as done only if all three accept.</strong> These are agents inside the system, not human peer reviewers. On the campaign pages, “completed the pipeline” means reached this review, not accepted by it.</p>
+    </article>
+  </div>
+
+  <div class="mt-6">
+    <h3 id="checks-campaign">What the checks did in the campaign</h3>
+    <p class="muted small">Across the 57-run neurodegeneration campaign. Source: campaign release and the OmiCairn manuscript.</p>
+    <div class="stat-grid how-evidence">
+      <!-- campaign.json verified.claim_review_sentences_audited = 2766; manuscript: 21 runs reached sentence-level auditing -->
+      <div class="stat stat--accent"><p class="stat__value num">2,766</p><p class="stat__label">report sentences audited by the claim-review agent</p><p class="stat__note">in the 21 runs that reached sentence-level auditing</p></div>
+      <!-- campaign.json verified.claim_integrity_issues = 240; manuscript: 149 corrected automatically, 91 flagged -->
+      <div class="stat"><p class="stat__value num">240</p><p class="stat__label">claim-integrity issues detected</p><p class="stat__note">149 corrected automatically, 91 flagged for human revision</p><div class="how-split-bar" role="img" aria-label="149 of 240 corrected automatically, 91 flagged for human revision"><span class="how-split-bar__a" style="width:62.08%"></span><span class="how-split-bar__b" style="width:37.92%"></span></div></div>
+      <!-- manuscript: of 91 flagged, 68 over-claims, 15 filler, 8 unsupported -->
+      <div class="stat"><p class="stat__value num">68</p><p class="stat__label">of the 91 flagged issues were over-claims</p><p class="stat__note">15 were filler sentences and 8 unsupported statements</p></div>
+      <!-- campaign.json verified.runs_reexecuted_after_checks = 19 of executed_analyses = 32 -->
+      <div class="stat"><p class="stat__value num">19 <span class="muted">of 32</span></p><p class="stat__label">executing runs re-ran analyses</p><p class="stat__note">in response to cross-check errors or review findings</p></div>
+      <!-- manuscript Results: recovered from 34 review-gate rejections through targeted rework -->
+      <div class="stat"><p class="stat__value num">34</p><p class="stat__label">review-gate rejections followed by targeted rework</p><p class="stat__note">routes back from REVIEW to an earlier phase</p></div>
+    </div>
+    <p class="small muted">Flagged sentences remain in the delivered reports; no human edits were made during the runs. Reaching review shows that a run passed through the pipeline, not that its conclusions are valid.</p>
+  </div>
+</div>
+</section>
+
+<!-- 5. Pre-registration -->
+<section class="section how-section" id="prereg" aria-labelledby="prereg-h">
+<div class="container">
+  <div class="section__head">
+    <p class="kicker">Pre-registration</p>
+    <h2 id="prereg-h">The rule is fixed before the analysis runs</h2>
+    <p>In PLAN, every hypothesis gets a decision rule. The rule is stored with a cryptographic hash. EXECUTE and CROSS-CHECK recompute the hash; any change is reported as pre-registration drift and blocks the run. A hypothesis can be called supported only if its rule is met.</p>
+  </div>
+  <div class="how-rule">
+    <p class="how-rule__head">Anatomy of a decision rule</p>
+    <div class="how-rule__body">
+      <div class="how-rule__part"><p class="how-rule__k">Metric</p><p class="how-rule__v">What is estimated, for example a donor-level AUC or an effect size.</p></div>
+      <div class="how-rule__part"><p class="how-rule__k">Direction</p><p class="how-rule__v">At least, more than, at most or less than.</p></div>
+      <div class="how-rule__part"><p class="how-rule__k">Threshold</p><p class="how-rule__v">The value the estimate must reach, written down in PLAN.</p></div>
+      <div class="how-rule__part"><p class="how-rule__k">Null value <span class="muted">(optional)</span></p><p class="how-rule__v">A value, such as chance level, that the 95% confidence interval must exclude.</p></div>
+    </div>
+    <p class="how-rule__foot">The rule is met only if the estimate passes the threshold in the stated direction <em>and</em>, when a null value is given, the interval excludes it.</p>
+  </div>
+
+  <div class="how-split mt-6">
+    <div class="prose">
+      <h3 class="mt-0">Which comparisons matter</h3>
+      <p>The pre-registration also names one <strong>headline</strong> comparison, the <strong>load-bearing</strong> comparisons on which a verdict depends, and the <strong>discriminating</strong> comparisons that separate competing explanations. CROSS-CHECK fails the run if any of them is missing.</p>
+      <h3>Verdicts need an evidence path</h3>
+      <p>Each run keeps a knowledge graph of hypotheses, findings, datasets and publications. A hypothesis can be marked supported, partially supported or refuted only through a finding whose evidence path points to a non-empty file that a pipeline stage produced.</p>
+      <h3>Can the data answer the question?</h3>
+      <p>At the end of SCOPE, and again at the end of PLAN, the agent rates the match between question and data as feasible, underpowered or needing data. Missing data send the run back to SCOPE to revise the question or the sources; an underpowered design sends PLAN back to change the design, for example to pooled cohorts.</p>
+    </div>
+    <div>
+      <h3 class="mt-0">How verdicts appear on this site</h3>
+      <!-- definitions: tools/outcomes.py DEFINITION -->
+      <p>Every hypothesis of the campaign carries one of these outcomes. The first five count as evaluated.</p>
+      <dl class="deflist">
+        <div><dt><span class="badge badge--supported">Supported</span></dt><dd>The pre-registered decision rule was met.</dd></div>
+        <div><dt><span class="badge badge--partial">Partially supported</span></dt><dd>Some parts of the decision rule were met, but not all.</dd></div>
+        <div><dt><span class="badge badge--not_supported">Not supported</span></dt><dd>The test ran and the decision rule was not met.</dd></div>
+        <div><dt><span class="badge badge--inconclusive">Inconclusive</span></dt><dd>The test ran but was underpowered, ambiguous or confounded, so the data cannot settle it.</dd></div>
+        <div><dt><span class="badge badge--not_testable">Not testable (data)</span></dt><dd>Not tested, or tested only through a proxy, because suitable data were unavailable or unsuitable.</dd></div>
+        <div><dt><span class="badge badge--not_run">Not tested (run did not execute)</span></dt><dd>Never tested: the run halted, failed technically or ran out of time or compute, or the hypothesis was proposed but never run.</dd></div>
+      </dl>
+      <p><a class="link-arrow" href="/campaign/hypotheses/">Browse all hypotheses and their evidence</a></p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- 6. Experts -->
+<section class="section section--alt how-section" id="experts" aria-labelledby="experts-h">
+<div class="container">
+  <div class="how-split">
+    <div class="prose">
+      <p class="kicker">Expert in the loop</p>
+      <h2 id="experts-h" class="mt-0">Humans stay in the loop</h2>
+      <p>OmiCairn is built to be steered by computational biologists, not to replace them. Experts act at four points:</p>
+      <ul class="how-list">
+        <li><strong>Notes.</strong> An expert can attach a note to a phase. The agents must treat it as authoritative.</li>
+        <li><strong>Steering.</strong> An expert can reopen a specific phase. A reopened phase counts toward the same limits as any other route back.</li>
+        <li><strong>Flagged sentences.</strong> Sentences the claim-review agent cannot fix are left in the report and flagged for human revision.</li>
+        <li><strong>Experience.</strong> An expert confirms, edits or rejects experience items that are not promoted automatically, and expert directives are stored as experience for later runs.</li>
+      </ul>
+    </div>
+    <aside class="card">
+      <p class="kicker">Case 3 · IDH-mutant astrocytoma</p>
+      <h3 class="card__title">Expert feedback rounds raised concordance with a reference study</h3>
+      <!-- brief: 6/17 -> 7/17 -> 9/17 over three rounds of increasing human input -->
+      <p>Over three rounds of increasing expert input, agreement with 17 findings of a reference study rose from <strong class="num">6/17</strong> to <strong class="num">7/17</strong> to <strong class="num">9/17</strong>.</p>
+      <p class="small muted">Data: the publicly available CGGA subset (DataSet ID CCell_4083).</p>
+      <p class="mb-0"><a class="link-arrow" href="/cases/astrocytoma/">Read the case study</a></p>
+    </aside>
+  </div>
+</div>
+</section>
+
+<!-- 7. Experience replay -->
+<section class="section how-section" id="replay" aria-labelledby="replay-h">
+<div class="container">
+  <div class="section__head">
+    <p class="kicker">Across tasks</p>
+    <h2 id="replay-h">Experience replay: learning without changing the model</h2>
+    <p>Every task leaves feedback behind: errors and the repairs that fixed them, review concerns and the revisions that cleared them, audit failures, reviewer comments and expert notes. OmiCairn keeps this feedback as structured experience and shows it to later agents. What an agent is shown changes; the model, its instructions, the review criteria and the gate thresholds do not.</p>
+  </div>
+  <div class="how-split how-split--fig-left">
+    <div class="prose">
+      <h3 class="mt-0">Collection</h3>
+      <p>After each task or run, a reflection agent reads the record and proposes candidate items. Each item stores the situation that triggered it, the reusable content, the agents and phases it applies to, links to its source, and how it was verified. A candidate that repeats an existing item is merged into it, and the item’s count of independent observations goes up.</p>
+      <h3>Confidence-gated promotion</h3>
+      <p>Confidence is highest for items confirmed by an observed outcome and seen repeatedly, for example a fix after which the code ran, or a revision after which a step passed review. It is lowest for items that rest only on an agent’s interpretation.</p>
+      <ul class="how-list">
+        <li>Expert directives become active directly.</li>
+        <li>Outcome-verified items with enough confidence that do not conflict with an active item become active automatically.</li>
+        <li>Everything else waits for a human computational biologist, who accepts, edits or rejects it. Until then it is never shown to an agent.</li>
+      </ul>
+      <p>Rejected items are kept with the reason, so the same proposal is not raised again. When an expert activates an item that conflicts with an older one, the older item is retired.</p>
+      <h3>Replay</h3>
+      <p>When an agent acts, it is shown the active items that apply to its role and phase, ranked by similarity to its current situation: debugging fixes to the BugFixer, function blocks to the FunctionCreator, pitfalls and practices to the planning, coding and phase agents. Each item is shown with its class and confidence, as advice rather than a rule. Every replay is logged, so a later output can be traced to the experience that shaped it.</p>
+      <!-- manuscript Results: "Starting from an empty store, OmiCairn accumulated approximately 439 items over the work reported here" -->
+      <p><strong>Starting from an empty store, OmiCairn accumulated about 439 items</strong> over the work reported in the manuscript, spanning reusable analysis skills, experiences and policies. How much the full store, and expert confirmation, improve later work has not yet been measured.</p>
+    </div>
+    <figure class="how-fig how-split__sticky">
+      <div class="how-fig__frame scroll-x" tabindex="0" role="region" aria-label="Diagram; scroll sideways on narrow screens"><svg class="how-dia how-dia--replay" viewBox="0 0 480 584" role="img" aria-labelledby="rp-t rp-d"><title id="rp-t">The experience replay loop</title><desc id="rp-d">After each task or run, a reflection agent reads the trajectory and proposes candidate experience items, merging any that repeat an existing item. Each item gets a confidence. Expert directives become active directly. Items verified by an observed outcome, with high confidence and no conflict, become active automatically. Everything else waits for a human computational biologist, who accepts, edits or rejects it. Rejected items are kept with the reason. Active items are replayed, ranked by similarity of context, to the agents they concern in later tasks. Model weights, instructions, review criteria and gate thresholds never change.</desc><defs><marker id="rp-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-ink" d="M0,0 L10,5 L0,10 z"/></marker><marker id="rp-ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-back" d="M0,0 L10,5 L0,10 z"/></marker></defs><rect class="box " x="60" y="14" width="270" height="62" rx="8"/><text class="t-title" x="195.0" y="34.5" text-anchor="middle">Task or run</text><text class="t-sub" x="195.0" y="49.5" text-anchor="middle">errors and fixes, review verdicts,</text><text class="t-sub" x="195.0" y="64.5" text-anchor="middle">audit ledgers, expert notes</text><rect class="box box--agent" x="60" y="104" width="270" height="62" rx="8"/><text class="t-title" x="195.0" y="124.5" text-anchor="middle">Reflection agent</text><text class="t-sub" x="195.0" y="139.5" text-anchor="middle">proposes candidate items;</text><text class="t-sub" x="195.0" y="154.5" text-anchor="middle">a repeat is merged, count + 1</text><rect class="box " x="60" y="194" width="270" height="48" rx="8"/><text class="t-title" x="195.0" y="215.0" text-anchor="middle">Confidence</text><text class="t-sub" x="195.0" y="230.0" text-anchor="middle">judged against a fixed rubric</text><path class="edge" d="M195.0,76 L195.0,102" marker-end="url(#rp-ah)"/><path class="edge" d="M195.0,166 L195.0,192" marker-end="url(#rp-ah)"/><text class="t-head" x="60" y="266" text-anchor="start">Promotion</text><rect class="box box--human" x="60" y="304" width="130" height="78" rx="8"/><text class="t-title" x="125.0" y="326.5" text-anchor="middle">Expert directive</text><text class="t-sub t-sub--sm" x="125.0" y="340.5" text-anchor="middle">stated by a</text><text class="t-sub t-sub--sm" x="125.0" y="354.5" text-anchor="middle">computational</text><text class="t-sub t-sub--sm" x="125.0" y="368.5" text-anchor="middle">biologist</text><path class="edge" d="M195.0,242 L195.0,274 L125.0,274 L125.0,302" marker-end="url(#rp-ah)"/><rect class="box " x="200" y="304" width="130" height="78" rx="8"/><text class="t-title" x="265.0" y="326.5" text-anchor="middle">Outcome-verified</text><text class="t-sub t-sub--sm" x="265.0" y="340.5" text-anchor="middle">high confidence,</text><text class="t-sub t-sub--sm" x="265.0" y="354.5" text-anchor="middle">no conflict with</text><text class="t-sub t-sub--sm" x="265.0" y="368.5" text-anchor="middle">active items</text><path class="edge" d="M195.0,242 L195.0,274 L265.0,274 L265.0,302" marker-end="url(#rp-ah)"/><rect class="box box--human" x="340" y="304" width="130" height="78" rx="8"/><text class="t-title" x="405.0" y="326.5" text-anchor="middle">Everything else</text><text class="t-sub t-sub--sm" x="405.0" y="340.5" text-anchor="middle">an expert accepts,</text><text class="t-sub t-sub--sm" x="405.0" y="354.5" text-anchor="middle">edits or rejects it;</text><text class="t-sub t-sub--sm" x="405.0" y="368.5" text-anchor="middle">not replayed until then</text><path class="edge" d="M195.0,242 L195.0,274 L405.0,274 L405.0,302" marker-end="url(#rp-ah)"/><rect class="box box--check" x="60" y="414" width="270" height="54" rx="8"/><text class="t-title" x="195.0" y="438.0" text-anchor="middle">Active store</text><text class="t-sub" x="195.0" y="453.0" text-anchor="middle">started empty; about 439 items</text><rect class="box box--ghost" x="340" y="414" width="130" height="54" rx="8"/><text class="t-title" x="405.0" y="438.0" text-anchor="middle">Rejected</text><text class="t-sub" x="405.0" y="453.0" text-anchor="middle">kept with the reason</text><path class="edge" d="M125,382 L125,412" marker-end="url(#rp-ah)"/><text class="t-edge t-edge--ink" x="133" y="401" text-anchor="start">active</text><path class="edge" d="M265,382 L265,412" marker-end="url(#rp-ah)"/><text class="t-edge t-edge--ink" x="259" y="401" text-anchor="end">automatic</text><path class="edge" d="M364,382 L364,400 L296,400 L296,412" marker-end="url(#rp-ah)"/><text class="t-edge t-edge--ink" x="370" y="399" text-anchor="start">accept</text><path class="edge" d="M432,382 L432,412" marker-end="url(#rp-ah)"/><text class="t-edge t-edge--ink" x="438" y="399" text-anchor="start">reject</text><path class="edge" d="M195.0,468 L195.0,506" marker-end="url(#rp-ah)"/><rect class="box box--agent" x="60" y="508" width="270" height="62" rx="8"/><text class="t-title" x="195.0" y="528.5" text-anchor="middle">Replay</text><text class="t-sub" x="195.0" y="543.5" text-anchor="middle">closest matches by context, shown</text><text class="t-sub" x="195.0" y="558.5" text-anchor="middle">with class and confidence as advice</text><rect class="box box--ghost" x="340" y="508" width="130" height="62" rx="8"/><text class="t-title" x="405.0" y="529.5" text-anchor="middle">Never changed</text><text class="t-sub t-sub--sm" x="405.0" y="543.5" text-anchor="middle">weights, instructions,</text><text class="t-sub t-sub--sm" x="405.0" y="557.5" text-anchor="middle">criteria, thresholds</text><path class="edge edge--back" d="M60,539 L30,539 L30,45 L58,45" marker-end="url(#rp-ahb)"/><text class="t-edge" x="21" y="292.0" text-anchor="middle" transform="rotate(-90 21 292.0)">to the agents in scope, in later tasks</text><rect class="box box--note" x="340" y="14" width="130" height="228" rx="8"/><text class="t-title" x="352" y="38" text-anchor="start">Six item classes</text><text class="t-sub" x="352" y="66" text-anchor="start">function blocks</text><text class="t-sub" x="352" y="93" text-anchor="start">debugging fixes</text><text class="t-sub" x="352" y="120" text-anchor="start">analysis feedback</text><text class="t-sub" x="352" y="147" text-anchor="start">pitfalls</text><text class="t-sub" x="352" y="174" text-anchor="start">best practices</text><text class="t-sub" x="352" y="201" text-anchor="start">expert directives</text></svg></div><p class="scroll-hint" aria-hidden="true">Scroll sideways to see the full diagram →</p>
+      <ul class="how-key" aria-label="Diagram key">
+        <li><span class="how-key__sw how-key__sw--human"></span>human decision</li>
+        <li><span class="how-key__sw how-key__sw--check"></span>replayed to agents</li>
+        <li><span class="how-key__line"></span>next task</li>
+      </ul>
+      <figcaption><strong>Experience is promoted only when an outcome or an expert backs it.</strong> Items an agent merely believes are held for a human computational biologist. Only active items are ever replayed.</figcaption>
+    </figure>
+  </div>
+</div>
+</section>
+
+<!-- 8. Limits -->
+<section class="section section--alt how-section" id="limits" aria-labelledby="limits-h">
+<div class="container">
+  <div class="how-split">
+    <div class="prose">
+      <p class="kicker">Limits</p>
+      <h2 id="limits-h" class="mt-0">What these checks do not guarantee</h2>
+      <ul class="how-list">
+        <li><strong>Consistency is not truth.</strong> The checks verify that numbers, sentences and verdicts trace back to code that ran on the stated data. They cannot show that the biology is right.</li>
+        <li><strong>Reviewer agents are part of the system.</strong> Their review is not human peer review. In the manuscript, two external domain reviewers scored seven campaign reports lower than the internal reviewer did.</li>
+        <li><strong>Completing the pipeline is not validation.</strong> A run that reached review passed through every phase; it was not thereby shown to be correct.</li>
+        <li><strong>Many tests were weak.</strong> Many executed analyses were underpowered, used fallback tissues or surrogate methods, or could not reach the intended data. The adjudication note of each hypothesis says so.</li>
+        <li><strong>Flagged problems were left in place.</strong> Sentences flagged for human revision remain in the delivered reports.</li>
+      </ul>
+    </div>
+    <div class="stack">
+      <a class="card how-level how-cardlink" href="/campaign/">
+        <p class="kicker">See it in practice</p>
+        <h3 class="card__title">The campaign</h3>
+        <!-- campaign.json verified.runs_launched, hypotheses_evaluated -->
+        <p>57 runs, 136 hypotheses evaluated, every null and untestable result published.</p>
+      </a>
+      <a class="card how-level how-cardlink" href="/campaign/hypotheses/">
+        <p class="kicker">Check the verdicts</p>
+        <h3 class="card__title">Hypothesis explorer</h3>
+        <p>Each hypothesis with its verdict, the evidence quote and an adjudication note.</p>
+      </a>
+      <a class="card how-level how-cardlink" href="https://github.com/dummyindex/OmiCairn">
+        <p class="kicker">Read the code</p>
+        <h3 class="card__title link-external">OmiCairn on GitHub</h3>
+        <p>The academic code release, MIT license.</p>
+      </a>
+    </div>
+  </div>
+</div>
+</section>

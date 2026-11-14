@@ -1,0 +1,45 @@
+<!--
+title: Case studies
+description: Three case studies from the OmiCairn manuscript: hypothesis nomination for ccRCC treatment resistance, the effect of prompt specificity in fibrosis, and expert feedback rounds in IDH-mutant astrocytoma.
+section: cases
+breadcrumb: Cases
+layout: wide
+stylesheet: /assets/css/pages/cases.css, /assets/css/pages/cases-astro.css
+-->
+<!--
+Sources: OmiCairn manuscript (in preparation), Results, Cases 1-3, and Figures 5-7.
+  Case 1: single-cell n = 19, spatial n = 24, TCGA KIRC n = 613; multiplex immunofluorescence as an
+          orthogonal protein-level assessment; strategies are nominated for testing.
+  Case 2: fuzzy prompt about 575,000 cells, 3 organs; comprehensive prompt required competing hypotheses (the run tested five),
+          5 organs, 2 million cells, 44,000 spatial spots; Figure 6C: 8 shared of 32 distinct findings (25%).
+          The prompts disagreed on the macrophage program and the three-cell niche (Figure 6B and D).
+  Case 3: CGGA CCell_4083, 35 samples; concordance 6/17, 7/17, 9/17.
+-->
+<div class="container">
+<header class="page-head">
+  <p class="kicker">Case studies</p>
+  <h1>Three case studies</h1>
+  <p class="lede">The campaign shows OmiCairn at scale. These three cases from the OmiCairn manuscript show it up close, each in a different setting: an open-ended question, the same question asked two ways, and an expert reviewing successive rounds. All results are hypothesis-generating.</p>
+</header>
+
+<div class="section--tight">
+<!--oc:include case-cards h=2 cls=cases-grid-->
+</div>
+
+<section class="section--tight" aria-labelledby="compare-title">
+  <h2 id="compare-title">The cases side by side</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Comparison of the three case studies">
+    <table class="data-table cases-compare">
+      <thead><tr><th scope="col"></th><th scope="col">Case 1 · ccRCC</th><th scope="col">Case 2 · Fibrosis</th><th scope="col">Case 3 · Astrocytoma</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Setting</th><td>Open-ended hypothesis nomination</td><td>The same question as a fuzzy and as a comprehensive prompt</td><td>Expert review against a reference study, over three rounds</td></tr>
+        <tr><th scope="row">Data</th><td>Single-cell (<span class="num">n = 19</span>), spatial (<span class="num">n = 24</span>) and TCGA KIRC (<span class="num">n = 613</span>)</td><td>Fuzzy: about 575,000 cells, 3 organs. Comprehensive: 2 million cells and 44,000 spatial spots, 5 organs</td><td>Public CGGA subset CCell_4083: 35 samples, five omics layers</td></tr>
+        <tr><th scope="row">Human input</th><td>One open-ended prompt</td><td>Two prompts; the comprehensive one required competing hypotheses (the run tested five) and spatial validation</td><td>Task prompt, a comparison request with feedback, one hypothesis hint</td></tr>
+        <tr><th scope="row">Key result</th><td>Resistance niches and follow-up strategies nominated for testing</td><td>8 of 32 distinct findings shared; the prompts disagreed on the macrophage program and the niche</td><td>Concordance 6/17 → 7/17 → 9/17; 8 reference findings not recovered</td></tr>
+        <tr><th scope="row">Check outside OmiCairn</th><td>Multiplex immunofluorescence as a protein-level assessment</td><td>Comparison of the two prompts’ findings</td><td>Evaluators from the reference study team</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted">From the Results section and Figures 5–7 of the OmiCairn manuscript (in preparation).</p>
+</section>
+</div>

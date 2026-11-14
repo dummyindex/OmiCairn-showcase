@@ -1,0 +1,102 @@
+<!--
+title: The neurodegeneration campaign
+description: 57 autonomous OmiCairn research runs on open Parkinson's, Alzheimer's and cross-disease data: how far each run got, the verdict on every hypothesis, and the final reports.
+section: campaign
+breadcrumb: Campaign
+layout: wide
+-->
+<!--
+  Numbers: every <span data-oc-n="..."> is filled from assets/data/campaign.json by
+  generators/campaign.py (the literal value here is only a readable fallback), and every
+  <!-oc-slot:...-> marker is replaced by a generated block. Sources are cited in comments
+  inside the generated blocks. "derived.*" values are sums/shares of campaign.json outcomes.
+-->
+<link rel="stylesheet" href="/assets/css/pages/campaign.css">
+
+<div class="container">
+  <header class="page-head cmp-head">
+    <p class="kicker">Neurodegeneration research campaign</p>
+    <h1><span data-oc-n="verified.runs_launched">57</span> runs, <span data-oc-n="verified.hypotheses_evaluated">136</span> hypotheses evaluated, <span data-oc-n="outcomes.supported">15</span> supported</h1>
+    <p class="lede">OmiCairn launched <span data-oc-n="verified.runs_launched">57</span> research runs on open Parkinson's disease, Alzheimer's disease and cross-disease data: single-cell, spatial, genetic and proteomic. Each run that reached planning (<span data-oc-n="verified.reached_planning">33</span> of <span data-oc-n="verified.runs_launched">57</span>) pre-registered its hypotheses with decision rules before running analyses, without manual edits between stages. Most hypotheses were not supported or could not be tested. Every outcome is published here, with its evidence, so that others do not repeat the same analyses.</p>
+    <div class="hero__actions cmp-head__actions">
+      <a class="button button--primary" href="/campaign/hypotheses/">Explore all <span data-oc-n="verified.hypotheses_nominated">179</span> hypotheses</a>
+      <a class="button" href="#runs">Browse the <span data-oc-n="verified.runs_launched">57</span> runs</a>
+      <a class="button button--ghost link-external" href="https://github.com/dummyindex/OmiCairn-neurodegeneration-campaign">Campaign data (CC BY 4.0)</a>
+    </div>
+  </header>
+
+  <section class="section cmp-section" id="outcomes" aria-labelledby="outcomes-h">
+    <div class="section__head">
+      <p class="kicker">Hypothesis outcomes</p>
+      <h2 id="outcomes-h">Most hypotheses were not supported</h2>
+      <p>The <span data-oc-n="verified.completed_a_test">27</span> runs that completed at least one test evaluated <span data-oc-n="verified.hypotheses_evaluated">136</span> hypotheses against their pre-registered decision rules. <span data-oc-n="outcomes.supported">15</span> (<span data-oc-n="derived.supported_pct">11%</span>) met the rule. <span data-oc-n="derived.not_supported_or_untestable">83</span> (<span data-oc-n="derived.not_supported_or_untestable_pct">61%</span>) were not supported or could not be tested with the available data. Even if every partially supported and inconclusive hypothesis counted as support, the total would be at most <span data-oc-n="derived.upper_bound_support">53</span> of <span data-oc-n="verified.hypotheses_evaluated">136</span> (<span data-oc-n="derived.upper_bound_support_pct">39%</span>).</p>
+    </div>
+    <!--oc-slot:outcomes-->
+    <p class="small muted cmp-note">"Evaluated" includes the <span data-oc-n="outcomes.not_testable">38</span> hypotheses that could not be tested for lack of suitable data. Another <span data-oc-n="verified.hypotheses_not_run">43</span> hypotheses belong to runs that never executed them; they are listed in the <a href="/campaign/hypotheses/">hypothesis explorer</a> as "not tested (run did not execute)" and are not counted here.</p>
+
+    <div class="cmp-split">
+      <div>
+        <h3 id="by-disease">By disease</h3>
+        <p class="cmp-intro">Parkinson's disease runs make up most of the campaign. Bar length is the share of each disease's evaluated hypotheses; the number on the right is the count.</p>
+        <!--oc-slot:by-disease-->
+      </div>
+      <div>
+        <aside class="callout callout--note cmp-how">
+          <p class="callout__title">How verdicts were assigned</p>
+          <p>AI adjudication agents, not human experts, assigned every verdict. For each hypothesis an agent read the run's latest outputs and applied the run's own pre-registered decision rule. Each verdict is backed by a verbatim quote from the run outputs, machine-checked against its source.</p>
+          <p>The adjudication was deliberately strict. Proxy or surrogate analyses do not count as tests, and where the data did not meet the rule the verdict follows the data, even when the run's own report claimed support. Each run page shows the quote and the adjudicator's note.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="section section--alt cmp-section" id="funnel" aria-labelledby="funnel-h">
+  <div class="container">
+    <div class="section__head">
+      <p class="kicker">Attrition</p>
+      <h2 id="funnel-h">How far the runs got</h2>
+      <p>Every launch is counted, including dry-run tests and false starts. Of the <span data-oc-n="verified.runs_launched">57</span> launches, <span data-oc-n="verified.completed_pipeline">17</span> went through the whole pipeline. No run stopped before planning because data were unavailable; data limits show up later, inside executed runs, as hypotheses that could not be tested.</p>
+    </div>
+    <div class="cmp-split cmp-split--funnel">
+      <div>
+        <h3 class="visually-hidden">Campaign funnel</h3>
+        <!--oc-slot:funnel-->
+      </div>
+      <div>
+        <h3 id="stages">Five stages, one per run</h3>
+        <p class="cmp-intro">Each run is placed at the furthest point it reached. The stage is derived from the released run table and the list of runs that reached review.</p>
+        <!--oc-slot:stages-->
+        <details class="disclosure">
+          <summary>Census class, the older label on each run</summary>
+          <div class="disclosure__body">
+            <p>Each run also carries a census class (Success, Partial or Early stop) from an earlier, process-level census of the campaign. The classes do not map one-to-one onto the stages. How they line up:</p>
+            <!--oc-slot:census-->
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <h3 class="cmp-h3-gap">Checks inside the runs</h3>
+    <p class="cmp-intro">Every claim in a report should trace back to executed code. A run goes from pre-registered decision rules to executed analyses, then through a deterministic cross-check, a claim-review agent and reviewer agents. Across the campaign:</p>
+    <!--oc-slot:checks-->
+    <aside class="callout callout--caution cmp-caution">
+      <p class="callout__title">Reaching review is not a quality verdict</p>
+      <p>"Completed the pipeline" means a run reached the multi-agent review stage. The reviewer agents are part of OmiCairn. When two external domain reviewers scored seven campaign reports with the same rubric, they scored them consistently lower than the internal reviewer agents did. Expert review is still needed to judge scientific validity.</p>
+    </aside>
+  </div>
+</section>
+
+<div class="container">
+  <section class="section cmp-section" id="runs" aria-labelledby="runs-h">
+    <div class="section__head">
+      <p class="kicker">Runs</p>
+      <h2 id="runs-h">All <span data-oc-n="verified.runs_launched">57</span> runs</h2>
+      <p>Each card opens the run's page: its research question, status, every hypothesis with its verdict and evidence, and the final report if there is one. The <span data-oc-n="verified.final_reports">23</span> runs with a final report come first. Run ids name the topic and the attempt: <span class="mono">-r2</span> is the second launch of that topic.</p>
+    </div>
+    <!--oc-slot:filters-->
+    <!--oc-slot:grid-->
+  </section>
+</div>
+
+<script src="/assets/js/pages/campaign.js"></script>

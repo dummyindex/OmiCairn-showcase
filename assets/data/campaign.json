@@ -1,0 +1,140 @@
+{
+ "verified": {
+  "runs_launched": 57,
+  "dry_run_or_superseded": 16,
+  "genuine_runs": 41,
+  "ideation_only_runs": 4,
+  "stopped_at_scoping": 4,
+  "reached_planning": 33,
+  "executed_analyses": 32,
+  "completed_a_test": 27,
+  "completed_pipeline": 17,
+  "final_reports": 23,
+  "hypotheses_nominated": 179,
+  "hypotheses_preregistered": 160,
+  "hypotheses_on_the_fly": 19,
+  "hypotheses_evaluated": 136,
+  "hypotheses_not_run": 43,
+  "claim_review_sentences_audited": 2766,
+  "claim_integrity_issues": 240,
+  "runs_reexecuted_after_checks": 19,
+  "benchmark_tasks_completed": 36,
+  "benchmark_tasks_total": 40
+ },
+ "outcomes": {
+  "supported": 15,
+  "partial": 7,
+  "not_supported": 45,
+  "inconclusive": 31,
+  "not_testable": 38,
+  "not_run": 43
+ },
+ "by_disease": {
+  "PD": {
+   "label": "Parkinson's disease",
+   "runs": 49,
+   "runs_with_tests": 22,
+   "counts": {
+    "supported": 14,
+    "partial": 4,
+    "not_supported": 33,
+    "inconclusive": 28,
+    "not_testable": 30,
+    "not_run": 35
+   },
+   "evaluated": 109
+  },
+  "AD": {
+   "label": "Alzheimer's disease",
+   "runs": 7,
+   "runs_with_tests": 4,
+   "counts": {
+    "supported": 1,
+    "partial": 0,
+    "not_supported": 10,
+    "inconclusive": 2,
+    "not_testable": 8,
+    "not_run": 8
+   },
+   "evaluated": 21
+  },
+  "CROSS": {
+   "label": "Cross-disease",
+   "runs": 1,
+   "runs_with_tests": 1,
+   "counts": {
+    "supported": 0,
+    "partial": 3,
+    "not_supported": 2,
+    "inconclusive": 1,
+    "not_testable": 0,
+    "not_run": 0
+   },
+   "evaluated": 6
+  }
+ },
+ "by_origin": {
+  "plan": {
+   "label": "Pre-registered",
+   "counts": {
+    "supported": 14,
+    "partial": 7,
+    "not_supported": 44,
+    "inconclusive": 29,
+    "not_testable": 31,
+    "not_run": 35
+   }
+  },
+  "on_the_fly": {
+   "label": "Proposed on the fly",
+   "counts": {
+    "supported": 1,
+    "partial": 0,
+    "not_supported": 1,
+    "inconclusive": 2,
+    "not_testable": 7,
+    "not_run": 8
+   }
+  }
+ },
+ "runs_with_supported": 11,
+ "labels": {
+  "outcome": {
+   "supported": "Supported",
+   "partial": "Partially supported",
+   "not_supported": "Not supported",
+   "inconclusive": "Inconclusive",
+   "not_testable": "Not testable (data)",
+   "not_run": "Not tested (run did not execute)"
+  },
+  "disease": {
+   "PD": "Parkinson's disease",
+   "AD": "Alzheimer's disease",
+   "CROSS": "Cross-disease"
+  },
+  "origin": {
+   "plan": "Pre-registered",
+   "on_the_fly": "Proposed on the fly"
+  },
+  "stop_reason": {
+   "INFRASTRUCTURE": "Stopped before planning (dry-run test, superseded launch, usage limit or process failure)",
+   "IDEATE_ONLY": "Ideation-only run (ended after proposing research directions, by design)"
+  },
+  "census_class": {
+   "SUCCESS": "Success",
+   "PARTIAL": "Partial",
+   "EARLY": "Early stop"
+  },
+  "final_status": {
+   "done": "Done",
+   "halted": "Halted",
+   "in_progress": "Stopped without a final status"
+  }
+ },
+ "how_computed": {
+  "outcomes": "Count of rows in data/campaign/hypotheses.csv per verdict.",
+  "by_disease": "Same count split by the disease column (PD, AD, CROSS).",
+  "runs_with_supported": "Runs with at least one hypothesis whose verdict is Supported.",
+  "verified": "Numbers verified against the campaign release and the OmiCairn manuscript; the ones derivable from the CSVs are recomputed by tools/prepare_data.py."
+ }
+}
